@@ -47,16 +47,46 @@
                 <li><a href="home.html">Home</a></li>
                 <li><a href="profile.html">Profile</a></li>
                 <li class="active"><a href="#">Admin</a></li>
-                <li><a href="#">Forms</a></li>
+                <li><a href="forms.html">Forms</a></li>
             </ul>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Admin</h1>
             <h3>Users</h3>
-            <table class="table table-stripped table-hover">
+            <table class="table table-striped table-hover table-bordered table-condensed">
                 <tr>
+                    <th bgcolor="gray"><span class="glyphicon glyphicon-triangle-bottom"> </span>Username </th>
+                    <th bgcolor="gray"><span class="glyphicon glyphicon-triangle-bottom"></span>Password</th>
+                    <th bgcolor="gray"><span class="glyphicon glyphicon-triangle-bottom"></span>Role</th>
+                    <th bgcolor="gray"><span class="glyphicon glyphicon-triangle-bottom"></span>Action</th>
+                </tr>
+                <tr>
+                    <td> <textarea placeholder="username"></textarea></td>
+                    <td> <textarea placeholder="password"></textarea></td>
+                    <td> <textarea placeholder="role1,role2"></textarea></td>
+                    <td><span class="glyphicon glyphicon-plus"><span class="glyphicon glyphicon-ok"></span></span></td>
+                </tr>
 
+                <tr>
+                    <td>alice</td>
+                    <td></td>
+                    <td>student</td>
+                    <td><span class="glyphicon glyphicon-remove"><span class="glyphicon glyphicon-pencil"></span></span></td>
+                </tr>
+
+                <tr>
+                    <td>bob</td>
+                    <td></td>
+                    <td> faculty|student</td>
+                    <td><span class="glyphicon glyphicon-remove"><span class="glyphicon glyphicon-pencil"></span></span></td>
+                </tr>
+
+                <tr>
+                    <td>charlie</td>
+                    <td></td>
+                    <td></td>
+                    <td><span class="glyphicon glyphicon-remove"><span class="glyphicon glyphicon-pencil"></span></span></td>
                 </tr>
 
 
