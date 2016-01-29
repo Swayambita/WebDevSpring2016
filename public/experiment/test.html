@@ -55,39 +55,48 @@
             <h1 class="page-header">Forms</h1>
 
             <ul class="nav nav-tabs">
-                <li><a data-toggle="tab" href="forms.html">Forms</a></li>
-                <li><a data-toggle="tab" href="form-fields.html">Fields</a></li>
+                <li class="active"><a data-toggle="tab" href="#test">Fields</a></li>
             </ul>
 
-            <div>
-                    <table class="table table-striped table-hover table-bordered table-condensed">
-                        <tr>
-                            <th bgcolor="gray"><span class="glyphicon glyphicon-triangle-bottom"> </span> Form Name</th>
-                            <th bgcolor="gray"><span class="glyphicon glyphicon-triangle-bottom"></span>Action</th>
-                        </tr>
-                        <tr>
-                            <td><input type="text" placeholder="name" class="form-control"></td>
-                            <td><span class="glyphicon glyphicon-plus"><span class="glyphicon glyphicon-ok"></span></span>    </td>
-                        </tr>
 
-                        <tr>
-                            <td>Registration Form</td>
-                            <td><span class="glyphicon glyphicon-remove"><span class="glyphicon glyphicon-pencil"></span></span></td>
-                        </tr>
+            <div class="form-vertical">
+                      <div class="form-group">
+                          <label for="fname" class="control-label">First Name</label>
+                          <br>
+                          <input id="fname" placeholder="First Name" type="text">
+                      </div>
 
-                        <tr>
-                            <td>Contact List</td>
-                            <td><span class="glyphicon glyphicon-remove"><span class="glyphicon glyphicon-pencil"></span></span></td>
-                        </tr>
+                    <div class="form-group">
+                        <label for="lname" class="control-label">Last Name</label>
+                        <br>
+                        <input id="lname" placeholder="Last Name" type="text">
+                    </div>
 
-                        <tr>
-                            <td>To Do List</td>
-                            <td><span class="glyphicon glyphicon-remove"><span class="glyphicon glyphicon-pencil"></span></span></td>
-                        </tr>
-                    </table>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <br>
+                        <input id="dob" type="date">
+                    </div>
 
-             </div>
-</div>
+                    <div class="form-group">
+                        <label class="control-label">Gender</label>
+
+                    <select>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    </div>
+
+                    <div>
+                        <label class="checkbox">
+                            <input type="checkbox"> Check me out
+                        </label>
+                    </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <!-- Bootstrap core JavaScript
