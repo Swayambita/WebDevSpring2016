@@ -15,6 +15,10 @@
 
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
+    <style>
+        .icon-edit {float: right;}
+
+    </style>
 
 </head>
 
@@ -55,8 +59,8 @@
             <h1 class="page-header">Forms</h1>
 
             <ul class="nav nav-tabs">
-                <li><a data-toggle="tab" href="forms.html">Forms</a></li>
-                <li><a data-toggle="tab" href=#>Fields</a></li>
+                <li role="presentation"><a data-toggle="tab" href="forms.html">Forms</a></li>
+                <li role="presentation" class="active"><a data-toggle="tab" href="#">Fields</a></li>
             </ul>
 
             <div class="form">
@@ -64,36 +68,64 @@
                     <label for="fname" class="control-label" >First Name</label>
                     <br>
                     <input id="fname" placeholder="First Name" type="text">
-                    <div class="pull-right">
-                        <span></span>
+                    <div class="icon-edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
                     </div>
+
                 </div>
 
                 <div class="form-group">
                     <label for="lname" class="control-label">Last Name</label>
                     <br>
                     <input id="lname" placeholder="Last Name" type="text">
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
                     <br>
                     <input id="dob" type="date">
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Gender</label>
-
+                    <br>
                     <select>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                           <option value="male">Male</option>
+                           <option value="female">Female</option>
                     </select>
 
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Role</label>
                     <br>
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </div>
                     <label class="checkbox">
                         <input type="checkbox"> Admin
                     </label>
@@ -103,11 +135,18 @@
                     <label class="checkbox">
                         <input type="checkbox"> User
                     </label>
+
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">License Agreement</label>
                     <br>
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </div>
                     <div class="radio">
                         <label><input type="radio" name="optradio">Yes</label>
                     </div>
@@ -119,6 +158,9 @@
                 <div class="form-group">
                    <label class="control-label">Add New Field</label>
                     <br>
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
                     <select>
                         <option value="Single Line Text">Single Line Text</option>
                         <option value="Date">Date</option>
