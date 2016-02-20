@@ -3,7 +3,6 @@
     angular.module("FormBuilderApp")
         .config(Configure);
 
-
     function Configure($routeProvider) {
         $routeProvider
             .when("/home", {
@@ -15,13 +14,12 @@
             })
 
             .when("/profile", {
-                templateUrl: "views/users/profile.view.html",
-                controller:"ProfileController"
+                templateUrl: "views/users/profile.view.html"
             })
 
             .when("/form", {
-                templateUrl: "views/forms/forms.view.html",
-                controller:"views/forms/controller.js"
+                templateUrl: "views/forms/forms.view.html"
+
             })
 
             .when("/fields", {
@@ -34,12 +32,15 @@
             })
 
             .when("/login", {
-                templateUrl: "views/users/login.view.html",
-                controller:"LoginController"
+                templateUrl: "views/users/login.view.html"
             })
 
             .when("/username", {
                 templateUrl: "views/users/profile.view.html"
+            })
+
+            .otherwise({
+                redirectTo: "/home"
             })
     }
 })();
