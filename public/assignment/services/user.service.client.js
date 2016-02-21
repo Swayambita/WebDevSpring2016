@@ -1,7 +1,8 @@
 (function(){
 
-    var module=angular.module("FormBuilderApp",[]);
-    module.factory("UserService",UserService);
+    angular
+        .module("FormBuilderApp")
+        .factory("UserService",UserService);
 
     function UserService(){
 
@@ -17,19 +18,24 @@
             {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
                 "username":"ed",     "password":"ed",      "roles": ["student"]                }
         ];
+        var api={
+            findUserByCredentials : findUserByCredentials
+            //createUser:createUser
+        };
+        return api;
 
-        function findUserByUsernameAndPassword(username,password,callback){
-
+        function findUserByCredentials(username,password){
+          // ****** need to include a callback argument!!!
               for (var user in current_users ){
-                if(user.username==username && user.password == password)
-                {return user;}
-                else
-                {return null;}
+
+                  if(user.username==username && user.password == password)
+                     return user;
+
+                  else
+                     return null;
               }
         }
-
     }
-
 })();
 
 

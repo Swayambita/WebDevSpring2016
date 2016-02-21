@@ -26,7 +26,7 @@
     }
 
     function renderResults(response){
-        console.log(response);
+        console.log("hello");
     }
 })();
 

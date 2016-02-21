@@ -1,15 +1,24 @@
 (function(){
     "use strict";
-    angular.module("FormBuilderApp",[])
+    angular
+        .module("FormBuilderApp")
         .controller("LoginController",LoginController);
 
-        function LoginController(){
-            // inject UserService
+    function LoginController($scope,$location,UserService){
+        $scope.$location = $location;
 
-            function login(){
-
-
+        function login(username,password)
+        {
+            alert("hello");
+            // need to include the callback parameter
+           var user_authen= UserService.findUserByCredentials(username,password);
+            if(user_authen!=null){
+                 console.log("yeaaaaa");
+            }
+            else{
+                console.log("naaaaa");
             }
         }
-
+    }
 })();
+

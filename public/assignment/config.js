@@ -13,12 +13,9 @@
                 templateUrl: "views/admin/admin.view.html"
             })
 
-            .when("/profile", {
-                templateUrl: "views/users/profile.view.html"
-            })
-
             .when("/form", {
-                templateUrl: "views/forms/forms.view.html"
+                templateUrl: "views/forms/forms.view.html",
+                controller:"FormController"
 
             })
 
@@ -27,12 +24,18 @@
             })
 
             .when("/register", {
-                templateUrl: "views/users/register.view.html",
-                controller:"RegisterController"
+                templateUrl: "views/users/register.view.html"
+              //  controller:"RegisterController"
             })
 
             .when("/login", {
-                templateUrl: "views/users/login.view.html"
+                templateUrl: "views/users/login.view.html",
+                 controller:"LoginController"
+            })
+
+            .when("/profile", {
+                templateUrl: "views/users/profile.view.html",
+                controller:"ProfileController"
             })
 
             .when("/username", {
