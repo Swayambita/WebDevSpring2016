@@ -4,9 +4,11 @@
         .module("FormBuilderApp")
         .factory("UserService",UserService);
 
-    function UserService(){
+    function UserService($rootScope){
 
-        var current_users = [
+        var model = {
+          users :[
+
             {        "_id":123, "firstName":"Alice",            "lastName":"Wonderland",
                 "username":"alice",  "password":"alice",   "roles": ["student"]                },
             {        "_id":234, "firstName":"Bob",              "lastName":"Hope",
@@ -17,24 +19,26 @@
                 "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
             {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
                 "username":"ed",     "password":"ed",      "roles": ["student"]                }
-        ];
-        var api={
-            findUserByCredentials : findUserByCredentials
+        ],
+            findUserByCredentials : findUserByCredentials,
             //createUser:createUser
         };
-        return api;
+        return model;
 
-        function findUserByCredentials(username,password){
-          // ****** need to include a callback argument!!!
-              for (var user in current_users ){
+        function findUserByCredentials(username,password,callback){
+              for (var u in model.users ){
 
-                  if(user.username==username && user.password == password)
-                     return user;
+                  if(username == model.users[u].username &&
+                      password == model.users[u].password)
+                     callback(model.users[u]) ;
 
                   else
-                     return null;
+                     callback(null);
               }
         }
+
+
+
     }
 })();
 
