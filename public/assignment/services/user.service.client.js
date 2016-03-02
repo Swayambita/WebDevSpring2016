@@ -21,9 +21,15 @@
                 "username":"ed",     "password":"ed",      "roles": ["student"]                }
         ],
             findUserByCredentials : findUserByCredentials,
-            //createUser:createUser
+            setCurrentUser : setCurrentUser,
+            updateUser : updateUser,
+            createUser:createUser
         };
         return model;
+
+        function setCurrentUser(user){
+            $rootScope.currentUser=user;
+        }
 
         function findUserByCredentials(username,password,callback){
               for (var u in model.users ){
@@ -31,12 +37,35 @@
                   if(username == model.users[u].username &&
                       password == model.users[u].password)
                      callback(model.users[u]) ;
-
                   else
                      callback(null);
               }
         }
 
+        function updateUser(id,user,callback){
+
+            for(var u in model.users) {
+                if (model.users[u]._id == id) {
+                    model.users[u] = user;
+                    callback(model.users[u]);
+                }
+                else{
+                    callback(null);
+                }
+            }
+        }
+
+        function createUser(user,callback){
+
+            var user ={
+             username: user.username,
+             password:user.password,
+             _id:(new Date).getTime(),
+             email:user.email
+         };
+            model.users.push(user);
+            callback(user);
+        }
 
 
     }

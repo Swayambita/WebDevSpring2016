@@ -24,8 +24,8 @@
             })
 
             .when("/register", {
-                templateUrl: "views/users/register.view.html"
-              //  controller:"RegisterController"
+                templateUrl: "views/users/register.view.html",
+                controller:"RegisterController"
             })
 
             .when("/login", {

@@ -6,12 +6,12 @@
             <h1 class="page-header">Forms</h1>
 
             <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="forms.view.html">Forms</a></li>
-                <li role="presentation"><a href="fields.view.html">Fields</a></li>
+                <li role="presentation" class="active"><a>Forms</a></li>
+                <li role="presentation"><a href="#/fields">Fields</a></li>
             </ul>
 
-            <div>
-                <table class="table table-striped table-hover table-bordered table-condensed">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-condensed">
                         <tr>
                             <th bgcolor="gray">
                                 <a href="#">
@@ -27,12 +27,12 @@
                             </th>
                         </tr>
                         <tr>
-                            <td><input type="text" placeholder="name" class="form-control" ng-model="name"></td>
+                            <td><input type="text" placeholder="name" class="form-control" ng-model="formname"></td>
                             <td class="text-nowrap">
-                                <button type="button" class="btn btn-primary add-right-pad" ng-click="addform()">
+                                <button type="button" class="btn btn-primary add-right-pad" ng-click="addform(formname)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
-                                <button type="button" class="btn btn-success" ng-click="updateform()">
+                                <button type="button" class="btn btn-success" ng-click="updateform(name)">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button></td>
                         </tr>

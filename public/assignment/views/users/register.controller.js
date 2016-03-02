@@ -1,25 +1,48 @@
 (function(){
-    "use strict";
+       "use strict";
         angular.module("FormBuilderApp")
         .controller("RegisterController",RegisterController);
 
-    function RegisterController($scope){
+    function RegisterController($scope,UserService,$rootScope,$location) {
 
-        var name=$scope.username;
-        var password=$scope.password;
+        $scope.register = register;
+        $scope.message=null;
 
-        // event handlers initialization
-        //$scope.register=register()
+        function register(user) {
 
-        //inject UserService()
+            if(user == null) {
+                $scope.message = "Please fill in the required details";
+                return;
+            }
 
-        // event handlers implementation
-        function register(){
+            if (user.username == null) {
+                $scope.message = "Please enter a valid username";
+                return;
+            }
 
-            //use UserService to create new user
+            if (user.password == null || user.password2 == null) {
+                $scope.message = "Please enter a password";
+                return;
+            }
+
+            if (user.password != user.password2) {
+                $scope.message = "Passwords do not match";
+                return;
+            }
+
+            if (user.email == null) {
+                $scope.message = "Enter an emailID";
+                return;
+            }
+
+            UserService.createUser(user, render);
+
+
+            function render(newuser) {
+                UserService.setCurrentUser(newuser);
+                $location.url("/profile");
+            }
         }
-
     }
-
 })();
 

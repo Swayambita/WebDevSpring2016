@@ -15,9 +15,8 @@
 
             function render(user){
                if(user){
-                   $rootScope.currentUser=user;
-                  // UserService.setCurrentUser(user);
-                   $scope.message="Username and password  match";
+               //    $rootScope.currentUser=user;
+                   UserService.setCurrentUser(user);
                    $location.url("/profile");
 
                }
