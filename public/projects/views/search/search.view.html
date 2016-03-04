@@ -5,45 +5,8 @@
     <div class="row">
         <div class="col-xs-6">
             <h2>Search</h2>
-            <input value="Coldplay" id="eventID" class="form-control" placeholder="Coldplay"/>
-            <button id="searchBtn" class="btn btn-primary btn-block">Search Event</button>
-            <h2>Search Results</h2>
-            Page: <span id="currentPage">1</span>
-            <button id="previousPage" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </button>
-            <button id="nextPage" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-            Results: <span id="totalResults"></span>
-            <table id="searchResults" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Poster</th>
-                    <th>Title</th>
-                    <th>Year</th>
-                    <th>IMDB ID</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-6">
-            <h2>Details</h2>
-
-            <h3>
-                <button id="favoriteBtn" class="btn btn-default">
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </button>
-                <span id="detailsTitle"></span>
-            </h3>
-            Director: <span id="detailsDirector"></span>
-            <br/>
-            <img id="detailsPoster"/>
-            <p id="detailsPlot"></p>
-            <h4>Actors</h4>
-            <ul id="detailsActors"></ul>
+            <input ng-model="event" id="eventID" class="form-control" placeholder="Music"/>
+            <a class="btn btn-primary" role="button" ng-click="searchEvent(event)">Search</a>
         </div>
     </div>
 </div>

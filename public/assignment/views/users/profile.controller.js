@@ -16,8 +16,6 @@
         $scope.lastName = currentUser.lastName;
         $scope.email = currentUser.email;
 
-
-
         function update(userName,password,firstName,lastName,email){
             var id=currentUser._id;
             var roles=currentUser.roles;
@@ -32,7 +30,6 @@
                 "email":email
             }
 
-
             UserService.updateUser(id,user,render);
 
             function render(user){
@@ -41,10 +38,7 @@
                  UserService.setCurrentUser(user);
                  $scope.message="Profile updated!";
              }
-
-
             }
         }
-
     }
 })();
