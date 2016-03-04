@@ -10,8 +10,57 @@
             {"_id": "020", "title": "CDs",      "userId": 234},
         ];
 
-        function createFormForUser(userId, form, callback){
+        var model = {
+            createFormForUser : createFormForUser,
+            findAllFormsForUser:findAllFormsForUser,
+            deleteFormById:deleteFormById,
+            updateFormById:updateFormById
 
+        }
+        return model;
+
+        function createFormForUser(userId, form, callback){
+          var newForm={
+           _id : (new Date).getTime(),
+              title:form,
+              userId:userId
+          };
+
+            forms.push(form);
+            callback(form);
+        }
+
+        function findAllFormsForUser(userId,callback){
+            var userForms = [];
+            for(var u in forms) {
+                if (forms[u].userId === userId) {
+                    userForms.push(forms[u]);
+                    console.log(userForms);
+                }
+            }
+            callback(userForms);
+        }
+
+        function deleteFormById(formId,callback){
+            for(var u in forms) {
+                if (forms[u]._id === formId) {
+                    forms.splice(u, 1);
+                    break;
+                }
+            }
+
+            callback(forms);
+        }
+
+        function updateFormById(formId, newForm, callback){
+            for(var u in forms) {
+                if (forms[u]._id === formId) {
+                    forms[u].title  = newForm.title;
+                    forms[u].userId = newForm.userId;
+                    break;
+                }
+            }
+            callback(forms[u]);
         }
     }
 })();

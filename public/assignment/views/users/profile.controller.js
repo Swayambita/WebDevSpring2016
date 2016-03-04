@@ -28,7 +28,8 @@
                 "password":password,
                 "firstName":firstName,
                 "lastName":lastName,
-                "roles":roles
+                "roles":roles,
+                "email":email
             }
 
 

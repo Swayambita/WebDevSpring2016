@@ -1,7 +1,6 @@
 <html>
 
 <body ng-controller="FormController">
-<div class="container-fluid">
     <div class="row">
             <h1 class="page-header">Forms</h1>
 
@@ -27,49 +26,26 @@
                             </th>
                         </tr>
                         <tr>
-                            <td><input type="text" placeholder="name" class="form-control" ng-model="formname"></td>
+                            <td><input type="text" placeholder="Form name" class="form-control" ng-model="formName"></td>
                             <td class="text-nowrap">
-                                <button type="button" class="btn btn-primary add-right-pad" ng-click="addform(formname)">
+                                <button type="button" class="btn btn-primary add-right-pad" ng-click="addForm(formName)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
-                                <button type="button" class="btn btn-success" ng-click="updateform(name)">
+                                <button type="button" class="btn btn-success" ng-click="updateForm(formName)">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button></td>
                         </tr>
 
-                        <!--<tr>
-                            <td><a href="fields.view.html">Registration Form</a></td>
-                            <td class="text-nowrap">
-                                <button type="button" class="btn btn-danger add-right-pad">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <button type="button" class="btn btn-info add-right-pad">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="fields.view.html">Contact List</a></td>
-                            <td class="text-nowrap">
-                                <button type="button" class="btn btn-danger add-right-pad">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <button type="button" class="btn btn-info add-right-pad">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button></td>
-                        </tr>
-
-                        <tr>
-                            <td><a href="fields.view.html">To Do List</a></td>
-                            <td><button type="button" class="btn btn-danger add-right-pad"><span class="glyphicon glyphicon-remove"></span></button>
-                                <button type="button" class="btn btn-info add-right-pad"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                        </tr>
-                        -->
+                       <tr ng-repeat="form in forms">
+                           <td><a>{{form.title}} </a></td>
+                           <td>
+                               <a ng-click="deleteForm($index)"><span class="glyphicon glyphicon-remove"></span></a>
+                               <a ng-click="selectForm($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                       </tr>
                 </table>
 
              </div>
         </div>
-</div>
 </body>
 
 </html>
