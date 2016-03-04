@@ -1,6 +1,6 @@
 (function(){
     "use strict";
-    angular.module("FormBuilderApp")
+    angular.module("EventBuilderApp")
         .controller("ProfileController",ProfileController);
 
     function ProfileController($scope,UserService,$rootScope){
@@ -39,7 +39,7 @@
 
              if(user){
                  UserService.setCurrentUser(user);
-                 $scope.message="Profile updated!";
+                 $scope.message("Profile updated!");
              }
 
 
