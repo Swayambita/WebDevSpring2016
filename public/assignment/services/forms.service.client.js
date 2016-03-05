@@ -20,9 +20,9 @@
         return model;
 
         function createFormForUser(userId, form, callback){
-          var newForm={
+          var form={
            _id : (new Date).getTime(),
-              title:form,
+              title:form.title,
               userId:userId
           };
 
@@ -33,9 +33,9 @@
         function findAllFormsForUser(userId,callback){
             var userForms = [];
             for(var u in forms) {
-                if (forms[u].userId === userId) {
+                if (forms[u].userId == userId) {
                     userForms.push(forms[u]);
-                    console.log(userForms);
+                   // console.log(userForms);
                 }
             }
             callback(userForms);
@@ -43,7 +43,7 @@
 
         function deleteFormById(formId,callback){
             for(var u in forms) {
-                if (forms[u]._id === formId) {
+                if (forms[u]._id == formId) {
                     forms.splice(u, 1);
                     break;
                 }
@@ -52,11 +52,11 @@
             callback(forms);
         }
 
-        function updateFormById(formId, newForm, callback){
+        function updateFormById(formId, form, callback){
             for(var u in forms) {
-                if (forms[u]._id === formId) {
-                    forms[u].title  = newForm.title;
-                    forms[u].userId = newForm.userId;
+                if (forms[u]._id == formId) {
+                    forms[u].title  = form.title;
+                    forms[u].userId = form.userId;
                     break;
                 }
             }

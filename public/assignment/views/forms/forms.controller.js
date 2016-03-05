@@ -9,7 +9,7 @@
         var currentUserForms = [];
         var currentUser;
 
-        if($rootScope.currentUser === null){
+        if($rootScope.currentUser == null){
             $location.url("/home");
         }
         else{
