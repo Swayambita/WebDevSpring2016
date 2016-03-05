@@ -11,8 +11,10 @@
             </button>
             <a class="navbar-brand" href="#/home">Form Maker</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+
+         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+
                 <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/register'}" data-toggle="collapse"
                     data-target=".navbar-collapse.in">
                     <a href="#/register" class="add-under-line"> Register</a></li>

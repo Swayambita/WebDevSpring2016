@@ -22,7 +22,9 @@
     <script src="views/header/header.controller.js"></script>
     <script src="views/main/main.controller.js"></script>
     <script src="views/users/register.controller.js"></script>
+    <script src="views/users/profile.controller.js"></script>
     <script src="views/users/login.controller.js"></script>
+    <script src="views/createEvent/createEvent.controller.js"></script>
     <script src="views/search/search.controller.js"></script>
     <script src="services/user.service.client.js"></script>
 
@@ -35,6 +37,9 @@
 
 <div class="container-fluid">
     <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar" ng-include="'views/sidebar/sidebar.view.html'">
+        </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
         </div>

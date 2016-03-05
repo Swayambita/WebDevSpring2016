@@ -31,7 +31,9 @@
                    "userId":null
                };
                FormService.createFormForUser(currentUser._id,newForm,renderAddForm);
-
+           }
+            else{
+               $scope.alertMessage = "Please add a form name";
            }
         }
 

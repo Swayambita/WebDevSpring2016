@@ -20,9 +20,19 @@
                 controller:"LoginController"
             })
 
+            .when("/profile", {
+                templateUrl: "views/users/profile.view.html",
+                controller:"ProfileController"
+            })
+
             .when("/search", {
                 templateUrl: "views/search/search.view.html",
-                controller:"LoginController"
+                controller:"SearchController"
+            })
+
+            .when("/createEvent", {
+                templateUrl: "views/createEvent/createEvent.view.html",
+                controller:"CreateEvent"
             })
 
             .otherwise({
