@@ -9,5 +9,28 @@
             <a class="btn btn-primary" role="button" ng-click="searchEvent(event)">Search</a>
         </div>
     </div>
+    <section ng-show="searchResult">
+        <h3>Search Results</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Event</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in searchResult.events">
+                    <td><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
+                    <td>
+                        <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
+                    <td>{{event.start.local}}</td>
+                    <td>{{event.end.local}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 </div>
 </body>

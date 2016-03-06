@@ -35,6 +35,11 @@
                 controller:"CreateEvent"
             })
 
+            .when("/details/:eventID",{
+                templateUrl:"views/details/details.view.html",
+                controller:"DetailsController"
+            })
+
             .otherwise({
                 redirectTo: "/home"
             })
