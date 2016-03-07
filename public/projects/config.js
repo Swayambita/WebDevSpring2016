@@ -30,6 +30,11 @@
                 controller:"SearchController"
             })
 
+            .when("/search/:eventId", {
+                templateUrl: "views/search/search.view.html",
+                controller:"SearchController"
+            })
+
             .when("/createEvent", {
                 templateUrl: "views/createEvent/createEvent.view.html",
                 controller:"CreateEvent"
@@ -38,6 +43,16 @@
             .when("/details/:eventID",{
                 templateUrl:"views/details/details.view.html",
                 controller:"DetailsController"
+            })
+
+            .when("/myEvents",{
+                templateUrl:"views/users/myEvents.view.html",
+                controller:"MyEvents"
+            })
+
+            .when("/admin",{
+                templateUrl:"views/admin/admin.view.html",
+                controller:"AdminController"
             })
 
             .otherwise({

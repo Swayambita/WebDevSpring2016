@@ -15,10 +15,8 @@
 
             function render(user){
                if(user){
-               //    $rootScope.currentUser=user;
                    UserService.setCurrentUser(user);
                    $location.url("/profile");
-
                }
                 else{
                    $scope.message="Username and password doesnot match";

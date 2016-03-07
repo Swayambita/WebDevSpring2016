@@ -7,10 +7,9 @@
     function CreateEvent($scope){
 
         $scope.message=null;
-        $scope.create=create;
+        $scope.createEvent=createEvent;
 
-        function create(event){
-
+        function createEvent(event){
 
 
         }
