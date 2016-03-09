@@ -9,7 +9,6 @@
 
         var currentUserEvents=[];
         var eventIndexSelected;
-     //   console.log($rootScope.currentUser.firstName);
 
         $scope.deleteEvent=deleteEvent;
         $scope.selectEvent=selectEvent;
@@ -40,23 +39,25 @@
 
         function selectEvent(index){
             eventIndexSelected = index;
-            $scope.eventSelected=currentUserEvents[index];
+            $scope.eventSelected=
+            {"_id": currentUserEvents[index]._id,
+                "eName": currentUserEvents[index].eName,
+                "sDate": currentUserEvents[index].sDate,
+                "eDate" :currentUserEvents[index].eDate,
+                "userId": currentUserEvents[index].userId
+            };
         }
 
         function updateEvent(eSelected){
-
-            if(eSelected.ename == null || eSelected.sDate == null || eSelected.eDate== null){
-                $scope.alertMessage="Enter details all the required fields";
+         //   if(eSelected.ename == null || eSelected.sDate == null || eSelected.eDate== null){
+            if(eSelected.eName == null){
+                $scope.alertMessage="Enter details of all the required fields";
             }
-
             else{
-                var newESelected = currentUserEvents[eventIndexSelected];
-                newESelected.eName = eSelected.eName;
-                newESelected.sDate= eSelected.sDate;
-                newESelected.eDate=eSelected.eDate;
-                FormService.updateEventById(newESelected._id, newESelected, renderEventsAfterAction);
+                currentUserEvents[eventIndexSelected].eName=eSelected.eName;
+                currentUserEvents[eventIndexSelected].sDate=eSelected.sDate;
+                currentUserEvents[eventIndexSelected].eDate=eSelected.eDate;
                 $scope.eventSelected = null;
-                console.log("done");
             }
         }
     }

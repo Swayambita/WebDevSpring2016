@@ -10,22 +10,25 @@
           users :[
 
             {        "_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                "username":"alice",  "password":"alice",   "roles": ["student"]                },
+                "username":"alice",  "password":"alice",   "roles": ["user"]                },
             {        "_id":234, "firstName":"Bob",              "lastName":"Hope",
                 "username":"bob",    "password":"bob",     "roles": ["admin"]                },
             {        "_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                "username":"charlie","password":"charlie", "roles": ["faculty"]                },
+                "username":"charlie","password":"charlie", "roles": ["user"]                },
             {        "_id":456, "firstName":"Dan",              "lastName":"Craig",
-                "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
+                "username":"dan",    "password":"dan",     "roles": ["user", "admin"]},
             {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
-                "username":"ed",     "password":"ed",      "roles": ["student"]                }
+                "username":"ed",     "password":"ed",      "roles": ["user"]                }
         ],
             findUserByCredentials : findUserByCredentials,
             setCurrentUser : setCurrentUser,
             updateUser : updateUser,
             createUser:createUser,
             deleteUserById : deleteUserById,
-            findAllUsers : findAllUsers
+            findAllUsers : findAllUsers,
+            getAllUser :getAllUser,
+            addNewUser:addNewUser
+
         };
         return model;
 
@@ -82,19 +85,22 @@
             callback(users);
         }
 
-        function findAllUsers(callback) {
-            callback(users);
+
+        function getAllUser(callback){
+            var allUsers=model.users;
+            callback(allUsers);
         }
 
-        function deleteUserById(userId, callback) {
-            for(var u in model.users) {
-                if (model.users[u]._id === userId) {
-                    model.users.splice(u, 1);
-                }
-            }
-            callback(model.users);
-        }
+        function addNewUser(newUser){
 
+            var newUser={
+                username : newUser.username,
+                password : newUser.password
+            };
+            console.log(newUser);
+            model.users.push(newUser);
+         //   callback(newUser);
+        }
 
     }
 })();
