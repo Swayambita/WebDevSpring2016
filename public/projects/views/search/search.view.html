@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-6">
             <h2>Search</h2>
-            <input ng-model="event" id="eventID" class="form-control" placeholder="Music"/>
+            <input ng-model="event" id="eventID" class="form-control" placeholder="Music/Business/Sport"/>
             <br>
             <a class="btn btn-primary" role="button" ng-click="searchEvent(event)">Search</a>
         </div>
@@ -23,14 +23,15 @@
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="event in searchResult.events">
-                    <td class="col-lg-4"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
-                    <td class="col-lg-4">
-                        <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
-                    <td class="col-lg-4">{{event.start.local}}</td>
-                    <td class="col-lg-4">{{event.end.local}}</td>
-                    <td></td>
-                </tr>
+           <tr ng-repeat="event in searchResult.events">
+                <td class="col-lg-4"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
+                <td class="col-lg-4">
+                    <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
+                <td class="col-lg-4">{{event.start.local}}</td>
+                <td class="col-lg-4">{{event.end.local}}</td>
+                <td></td>
+            </tr>
+
             </tbody>
         </table>
     </section>

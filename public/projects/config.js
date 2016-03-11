@@ -30,7 +30,7 @@
                 controller:"SearchController"
             })
 
-            .when("/search/:eventId", {
+            .when("/search/:someEvent", {
                 templateUrl: "views/search/search.view.html",
                 controller:"SearchController"
             })

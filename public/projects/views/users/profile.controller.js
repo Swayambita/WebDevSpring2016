@@ -39,7 +39,7 @@
 
              if(user){
                  UserService.setCurrentUser(user);
-                 $scope.message("Profile updated!");
+                 $scope.message="Profile updated!";
              }
 
 

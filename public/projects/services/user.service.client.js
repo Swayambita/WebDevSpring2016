@@ -97,9 +97,8 @@
                 username : newUser.username,
                 password : newUser.password
             };
-            console.log(newUser);
             model.users.push(newUser);
-         //   callback(newUser);
+            callback(newUser);
         }
 
     }
