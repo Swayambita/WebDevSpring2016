@@ -49,9 +49,7 @@
         vm.message= null;
         vm.update=update;
 
-        vm.user = {"firstName": currentUser.firstName , "lastName": currentUser.lastName,
-            "password" : currentUser.password,
-            "username": currentUser.username, "email": currentUser.email};
+        vm.user = currentUser;
 
         function init(){
 
@@ -65,7 +63,10 @@
                 .then(
                     function(response){
                         if(response){
+                            console.log("the resoponse is");
+                            console.log(response);
                             UserService.setCurrentUser(response.data);
+
                             vm.message="Profile Update";
                         }
                         else{

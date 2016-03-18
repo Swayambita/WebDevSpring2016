@@ -4,7 +4,7 @@
     <div class="row">
             <h1 class="page-header">Forms</h1>
 
-            <div ng-show="alertMessage" class="alert alert-danger" role="alert">{{alertMessage}}</div>
+            <div ng-show="model.alertMessage" class="alert alert-danger" role="alert">{{model.alertMessage}}</div>
 
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a>Forms</a></li>
@@ -28,21 +28,21 @@
                             </th>
                         </tr>
                         <tr>
-                            <td><input type="text" placeholder="Form name" class="form-control" ng-model="formName"></td>
+                            <td><input type="text" placeholder="Form name" class="form-control" ng-model="model.formName"></td>
                             <td class="text-nowrap">
-                                <button type="button" class="btn btn-primary add-right-pad" ng-click="addForm(formName)">
+                                <button type="button" class="btn btn-primary add-right-pad" ng-click="model.addForm(model.formName)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
-                                <button type="button" class="btn btn-success" ng-click="updateForm(formName)">
+                                <button type="button" class="btn btn-success" ng-click="model.updateForm(model.formName)">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button></td>
                         </tr>
 
-                       <tr ng-repeat="form in forms">
+                       <tr ng-repeat="form in model.forms">
                            <td><a>{{form.title}} </a></td>
                            <td>
-                               <a ng-click="deleteForm($index)"><span class="glyphicon glyphicon-remove"></span></a>
-                               <a ng-click="selectForm($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                               <a ng-click="model.deleteForm($index)"><span class="glyphicon glyphicon-remove"></span></a>
+                               <a ng-click="model.selectForm($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                        </tr>
                 </table>
 

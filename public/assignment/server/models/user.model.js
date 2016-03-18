@@ -7,19 +7,22 @@ module.exports= function(){
         findUserByUsername:findUserByUsername,
         createNewUser :createNewUser,
         updateUser:updateUser,
-        test:test
+        deleteUser:deleteUser,
+        getUserByUserName:getUserByUserName,
+        getUserById:getUserById
     }
         return api;
 
-    function findUserByCredentials(credentials) {
+    function findUserByCredentials(username,password) {
         for(var u in mock) {
-                      if( mock[u].username === credentials.username &&
-                                mock[u].password === credentials.password) {
+                      if( mock[u].username == username &&
+                                mock[u].password == password) {
                                return mock[u];
                             }
                    }
                 return null;
-}
+        }
+
     function findUserByUsername(userName){
         for(var u in mock){
             if(mock[u].username=== userName){
@@ -39,24 +42,49 @@ module.exports= function(){
         return null;
     }
 
-    function updateUser(updatedUserDetails){
+    function updateUser(id,updatedUserDetails) {
 
         //we need to check if userName is unique here
-        for(var u in mock){
-            if(mock[u]._id === updatedUserDetails._id){
-                mock[u].firstName= updatedUserDetails.firstName;
-                mock[u].lastName= updatedUserDetails.lastName;
-                mock[u].username= updatedUserDetails.username;
-                mock[u].password= updatedUserDetails.password;
-                mock[u].email= updatedUserDetails.email;
+        for (var u in mock) {
+            if (mock[u]._id == id) {
+                mock[u] = updatedUserDetails;
+                mock[u].email = updatedUserDetails.email;
                 return mock[u];
             }
         }
     }
 
-    function test(){
-        console.log("in test");
+        function deleteUser(id) {
+            for (var u in mock) {
+                if (mock[u]._id == id) {
+                    mock.splice(u, 1);
+                }
+            }
+        }
+
+    function getAllUsers(){
+        return mock;
     }
+
+    function getUserByUserName(username){
+        for (var u in mock) {
+            if (mock[u].username == username) {
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
+    function getUserById(id){
+        for (var u in mock) {
+            if (mock[u]._id == id) {
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
+
 }
 
 

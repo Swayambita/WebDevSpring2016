@@ -40,7 +40,7 @@
                 return;
             }
             UserService
-                .login({
+                .findUserByCredentials({
                     username: user.username,
                     password: user.password
                 })

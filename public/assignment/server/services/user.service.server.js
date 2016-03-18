@@ -1,14 +1,18 @@
 
 module.exports = function(app,userModel) {
-       app.post("/api/assignment/formMaker/login", login);
-       app.post("/api/assignment/formMaker/register", register);
-       app.post("/api/assignment/formMaker/updateUser/:id",updateUser);
+       app.get("/api/assignment/user/:username/:password", findUserByCredentails);
+       app.post("/api/assignment/register", register);
+       app.put("/api/assignment/updateUser/:id",updateUser);
+       app.delete("/api/assignment/deleteUser/:id",deleteUser);
+       app.get("/api/assignment/getAllUsers/",getAllUsers);
+       app.get("/api/assignment/getUserByUserName/:username",getUserByUserName);
+       app.get("/api/assignment/getUserById/:id",getUserById);
 
 
-    function login(req,res){
-
-        var credentials=req.body;
-        var user=userModel.findUserByCredentials(credentials);
+    function findUserByCredentails(req,res){
+        var username=req.params.username;
+        var password=req.params.password;
+        var user=userModel.findUserByCredentials(username,password);
         res.json(user);
     }
 
@@ -20,9 +24,30 @@ module.exports = function(app,userModel) {
     }
 
     function updateUser(req,res){
+        var id=req.params.id;
         var updatedUserDetails = req.body;
-        console.log("in server services");
-        var updatedUser=userModel.updateUser(updatedUserDetails);
+        var updatedUser=userModel.updateUser(id,updatedUserDetails);
         res.json(updatedUser);
+    }
+
+    function deleteUser(req,res){
+        var id=req.params.id;
+        userModel.deleteUser(id);
+    }
+
+    function getAllUsers(req,res){
+        userModel.getAllUsers(id);
+    }
+
+    function getUserByUserName(req,res){
+        var username=req.params.username;
+        var user = userModel.getUserByUserName(username);
+        res.json(user);
+    }
+
+    function getUserById(req,res){
+        var id=rq.params.id;
+        var user=userModel.getUserById(id);
+        return user;
     }
 }
