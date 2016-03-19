@@ -11,6 +11,7 @@
         vm.addField=addField;
         vm.removeField=removeField;
         vm.editField=editField;
+        vm.okayField=okayField;
 
         var formId=$routeParams.formId;
 
@@ -21,6 +22,8 @@
                 })
         }
         init();
+
+        var fieldMap = {};
 
         function addField(fieldType) {
             console.log("in the add function ");
@@ -66,15 +69,26 @@
                 });
         }
 
-
+        function removeField(field){ 
+            FieldService.deleteFieldFromForm(formId, field._id) 
+                .then(function (response) { 
+                    if (response.data) { 
+                        vm.existingFields = response.data; 
+                    } 
+                });
+         }
 
         function editField(field){
-
+            vm.selectedField=field;
         }
 
-
-
-
+        function okayField(field){
+            console.log("okayfunction",formId,field);
+           FieldService.updateField(formId,vm.selectedField._id,field)
+               .then(function(response){
+                   vm.existingFields=response.data;
+               });
+        }
 
     }
 })();
