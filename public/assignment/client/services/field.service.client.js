@@ -18,6 +18,7 @@
 
 
         function createFieldForForm(formId,field){
+            console.log("am in field service");
             return $http.post("/api/assignment/form/"+formId+"/field",field);
         }
 
@@ -26,15 +27,16 @@
         }
 
         function getFieldForForm(formId,fieldId){
-            return $http.get("/api/assignment/form/"+formId+"/field"+fieldId);
+            return $http.get("/api/assignment/form/"+formId+"/field/"+fieldId);
         }
 
         function deleteFieldFromForm(formId,fieldId){
-            return $http.delete("/api/assignment/form/"+formId+"/field"+fieldId);
+            console.log("in clien service",formId,fieldId);
+            return $http.delete("/api/assignment/form/"+formId+"/field/"+fieldId);
         }
 
         function updateField(formId,fieldId,field){
-            return $http.put("/api/assignment/form/"+formId+"/field"+fieldId, field);
+            return $http.put("/api/assignment/form/"+formId+"/field/"+fieldId, field);
         }
     }
 })();
