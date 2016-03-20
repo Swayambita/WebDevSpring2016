@@ -1,6 +1,6 @@
 var formMock = require("./form.mock.json");
 
-module.exports= function(){
+module.exports= function(uuid){
 
     var api = {
         getFieldsForForm:getFieldsForForm,
@@ -23,7 +23,9 @@ module.exports= function(){
     function createFieldForForm(formId,field){
         for (var u in formMock) {
             if (formMock[u]._id == formId) {
+                field._id=uuid.v1();
                 formMock[u].fields.push(field);
+                console.log("******",formMock[u].fields);
                 return formMock[u].fields;
             }
         }

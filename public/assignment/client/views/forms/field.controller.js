@@ -23,10 +23,16 @@
         }
         init();
 
-        var fieldMap = {};
+        vm.fieldMap = {"TEXT":"Single Line Text Field",
+                        "TEXTAREA":"Multi Line Text Field",
+                        "DATE":"Date Field",
+                        "OPTIONS":"Dropdown Field",
+                        "CHECKBOXES":"Checkboxes Field",
+                        "RADIO":"Radio Button Field"};
+
 
         function addField(fieldType) {
-            console.log("in the add function ");
+
             var field = null;
             //Set default field information
             if (fieldType == "Single Line Text Field") {
@@ -53,12 +59,16 @@
                     {"label": "Option C", "value": "OPTION_C"}
                 ]};
             }
-            else {
-                field = {"_id": null, "label": "New Radio Buttons", "type": "RADIO", "options": [
+            else if (fieldType == "Radio Buttons Field") {
+                field = {"_id": null, "label": "Radio Buttons Field", "type": "RADIOS", "options": [
                     {"label": "Option X", "value": "OPTION_X"},
                     {"label": "Option Y", "value": "OPTION_Y"},
                     {"label": "Option Z", "value": "OPTION_Z"}
                 ]};
+            }
+
+            else {
+                return null;
             }
 
             FieldService.createFieldForForm(formId, field)
@@ -79,14 +89,41 @@
          }
 
         function editField(field){
+            console.log(field);
+            console.log("hjfdg",formId);
             vm.selectedField=field;
         }
 
         function okayField(field){
-            console.log("okayfunction",formId,field);
-           FieldService.updateField(formId,vm.selectedField._id,field)
+            console.log("okayfunction",formId,field,vm.selectedField._id);
+
+            var sfield=vm.selectedField;
+            console.log("sfield",sfield,vm.selectedField);
+
+            if(sfield.type=="TEXT"){
+                var newField= {"_id":sfield._id, "label": field.label, "type":"TEXT", "placeholder": field.placeholder};
+            }
+            console.log("the new field",newField);
+
+            if(sfield.type=="TEXTAREA"){
+                var newField= {"_id":sfield._id, "label": field.label, "type":"TEXTAREA", "placeholder": field.placeholder};
+            }
+
+            if(sfield.type=="DATE"){
+                var newField= {"_id":sfield._id, "label": field.label, "type":"DATE"};
+            }
+
+            if(sfield.type=="EMAIL"){
+                var newField= {"_id":sfield._id, "label": field.label, "type":"EMAIL", "placeholder": field.placeholder};
+            }
+
+
+            console.log("newField",sfield,vm.selectedField);
+
+            FieldService.updateField(formId,vm.selectedField._id,newField)
                .then(function(response){
                    vm.existingFields=response.data;
+                   vm.newField=null;
                });
         }
 
