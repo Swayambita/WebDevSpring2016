@@ -12,6 +12,7 @@ module.exports= function(uuid){
     return api;
 
     function getFieldsForForm(formId){
+        console.log("hola");
         for (var u in formMock) {
             if (formMock[u]._id == formId) {
                 return formMock[u].fields;
@@ -24,6 +25,7 @@ module.exports= function(uuid){
         for (var u in formMock) {
             if (formMock[u]._id == formId) {
                 field._id=uuid.v1();
+                console.log("((((");
                 formMock[u].fields.push(field);
                 console.log("******",formMock[u].fields);
                 return formMock[u].fields;

@@ -32,10 +32,12 @@ module.exports= function(uuid){
     }
 
     function addForm(id,form){
-
        //form._id=(new Date).getTime();
         form._id=uuid.v1();
         form.userId=id;
+        form.userId=id;
+        form.fields=[];
+        console.log("formDetails",form);
         formMock.push(form);
         var allForms = findAllFormsForUser(id);
         return allForms;

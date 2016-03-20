@@ -1,6 +1,6 @@
 var mock = require("./user.mock.json");
 
-module.exports= function(){
+module.exports= function(uuid){
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -35,7 +35,7 @@ module.exports= function(){
     function createNewUser(userDetails){
         var oldUser= findUserByUsername(userDetails.username);
         if(oldUser== null){
-            userDetails._id =  (new Date()).getTime();
+            userDetails._id =  uuid.v1();
             mock.push(userDetails);
                     return userDetails;
         }
