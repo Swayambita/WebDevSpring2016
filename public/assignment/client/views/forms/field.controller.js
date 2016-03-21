@@ -23,14 +23,6 @@
         }
         init();
 
-        vm.fieldMap = {"TEXT":"Single Line Text Field",
-                        "TEXTAREA":"Multi Line Text Field",
-                        "DATE":"Date Field",
-                        "OPTIONS":"Dropdown Field",
-                        "CHECKBOXES":"Checkboxes Field",
-                        "RADIO":"Radio Button Field"};
-
-
         function addField(fieldType) {
 
             var field = null;
@@ -88,43 +80,57 @@
                 });
          }
 
-        function editField(field){
-            console.log(field);
-            console.log("hjfdg",formId);
-            vm.selectedField=field;
+        function editField(field) {
+
+            vm.selectedField = field;
+            vm.label = field.label;
+
+            console.log("options", field.options);
+            var op = field.options;
+
+            console.log("initailly", op);
+
+            if(op){
+             var optionList = [];
+             for(var u in op){
+             optionList.push(op[u].label+ ":" +op[u].value+ "\n");
+             }
+             vm.selectedField.options = optionList;
+
+             console.log("****",optionList);
+             }
+
+            if(field.placeholder){
+                vm.placeholder = field.placeholder;
+            }
+
         }
 
-        function okayField(field){
-            console.log("okayfunction",formId,field,vm.selectedField._id);
+        function okayField(){
 
-            var sfield=vm.selectedField;
-            console.log("sfield",sfield,vm.selectedField);
+            if(vm.selectedField.options){
+                var opt = vm.options.split("\n");
+                var optionList =[];
 
-            if(sfield.type=="TEXT"){
-                var newField= {"_id":sfield._id, "label": field.label, "type":"TEXT", "placeholder": field.placeholder};
-            }
-            console.log("the new field",newField);
-
-            if(sfield.type=="TEXTAREA"){
-                var newField= {"_id":sfield._id, "label": field.label, "type":"TEXTAREA", "placeholder": field.placeholder};
-            }
-
-            if(sfield.type=="DATE"){
-                var newField= {"_id":sfield._id, "label": field.label, "type":"DATE"};
+                for(var u in opt){
+                    var val = opt[u].split(":");
+                    optionList.push({"label":val[0],"value":val[1]});
+                }
+                vm.selectedField.options = optionList;
+                console.log(vm.options);
             }
 
-            if(sfield.type=="EMAIL"){
-                var newField= {"_id":sfield._id, "label": field.label, "type":"EMAIL", "placeholder": field.placeholder};
+            if(vm.selectedField.placeholder){
+                vm.selectedField.placeholder  = vm.placeholder
             }
 
+            vm.selectedField.label = vm.label;
 
-            console.log("newField",sfield,vm.selectedField);
-
-            FieldService.updateField(formId,vm.selectedField._id,newField)
-               .then(function(response){
-                   vm.existingFields=response.data;
-                   vm.newField=null;
-               });
+            FieldService.updateField(formId,vm.selectedField._id,vm.selectedField)
+                .then(init());
+            vm.label = null;
+            vm.placeholder = null;
+            vm.options = null;
         }
 
     }
