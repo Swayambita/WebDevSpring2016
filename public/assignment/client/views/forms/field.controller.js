@@ -3,7 +3,7 @@
     angular.module("FormBuilderApp")
         .controller("FieldController",FieldController);
 
-    function FieldController($rootScope,$routeParams,FieldService) {
+    function FieldController($rootScope,$routeParams,FieldService,$scope) {
 
         var vm = this;
         vm.currentUser = $rootScope.currentUser;
@@ -12,6 +12,7 @@
         vm.removeField=removeField;
         vm.editField=editField;
         vm.okayField=okayField;
+        vm.cancelField=cancelField;
 
         var formId=$routeParams.formId;
 
@@ -84,31 +85,30 @@
 
             vm.selectedField = field;
             vm.label = field.label;
-
+            var optionsInString= "";
             console.log("options", field.options);
             var op = field.options;
-
-            console.log("initailly", op);
 
             if(op){
              var optionList = [];
              for(var u in op){
              optionList.push(op[u].label+ ":" +op[u].value+ "\n");
+                 optionsInString=optionsInString+(op[u].label+ ":" +op[u].value+"\n");
              }
-             vm.selectedField.options = optionList;
-
-             console.log("****",optionList);
+                optionsInString= optionsInString.substring(0,optionsInString.length-1);
+             vm.selectedField.options = optionList;vm.options=optionsInString;
+             console.log("****",optionsInString);
              }
 
             if(field.placeholder){
                 vm.placeholder = field.placeholder;
             }
-
         }
 
         function okayField(){
 
             if(vm.selectedField.options){
+                console.log("options from view",vm.options);
                 var opt = vm.options.split("\n");
                 var optionList =[];
 
@@ -117,7 +117,6 @@
                     optionList.push({"label":val[0],"value":val[1]});
                 }
                 vm.selectedField.options = optionList;
-                console.log(vm.options);
             }
 
             if(vm.selectedField.placeholder){
@@ -133,6 +132,17 @@
             vm.options = null;
         }
 
+        function cancelField(){
+
+            FieldService.getFieldsForForm(formId)
+                .then(function(response) {
+                    vm.existingFields = response.data;
+                })
+            console.log("67",vm.existingFields);
+            vm.label = null;
+            vm.placeholder = null;
+            vm.options = null;
+        }
     }
 })();
 
