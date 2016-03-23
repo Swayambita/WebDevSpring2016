@@ -13,6 +13,7 @@ app.use(multer());
 
 // require is not working
 require("./public/assignment/server/app.js")(app,uuid);
+require("./public/projects/server/app.js")(app,uuid);
 //-------------------------------------
 
 

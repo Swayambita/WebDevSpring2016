@@ -4,22 +4,9 @@
         .module("EventBuilderApp")
         .factory("UserService",UserService);
 
-    function UserService($rootScope){
+    function UserService($rootScope,$http){
 
-        var model = {
-          users :[
-
-            {        "_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                "username":"alice",  "password":"alice",   "roles": ["user"]                },
-            {        "_id":234, "firstName":"Bob",              "lastName":"Hope",
-                "username":"bob",    "password":"bob",     "roles": ["admin"]                },
-            {        "_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                "username":"charlie","password":"charlie", "roles": ["user"]                },
-            {        "_id":456, "firstName":"Dan",              "lastName":"Craig",
-                "username":"dan",    "password":"dan",     "roles": ["user", "admin"]},
-            {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
-                "username":"ed",     "password":"ed",      "roles": ["user"]                }
-        ],
+       /* var model = {
             findUserByCredentials : findUserByCredentials,
             setCurrentUser : setCurrentUser,
             updateUser : updateUser,
@@ -30,24 +17,65 @@
             addNewUser:addNewUser
 
         };
+        return model;*/
+
+
+        var model = {
+
+            setCurrentUser : setCurrentUser,
+            updateUser : updateUser,
+            //  deleteUserById : deleteUserById,
+            findAllUsers : findAllUsers,
+            findUserByCredentials:findUserByCredentials,
+            register: register,
+            getAllUsers:getAllUsers,
+            getUserById:getUserById,
+            deleteUser:deleteUser
+        };
         return model;
 
         function setCurrentUser(user){
+            console.log(user);
             $rootScope.currentUser=user;
         }
 
-        function findUserByCredentials(username,password,callback){
-              for (var u in model.users ){
 
-                  if(username == model.users[u].username &&
-                      password == model.users[u].password)
-                     callback(model.users[u]) ;
-                  else
-                     callback(null);
-              }
+        function findUserByCredentials(credentials){
+            console.log("in client service");
+            return $http.get("/api/project/user/"+credentials.username+"/"+credentials.password);
         }
 
-        function updateUser(id,user,callback){
+        function findAllUsers(callback) {
+            callback(users);
+        }
+
+        function register(user){
+            return $http.post("/api/project/register", user);
+        }
+
+        function updateUser(user){
+            return $http.put("/api/project/updateUser/"+user._id,user);
+        }
+
+        function deleteUser(user){
+            return $http.delete("/api/project/deleteUser/"+user._id);
+        }
+
+        function getAllUsers(){
+            return $http.get("/api/project/getAllUsers/");
+        }
+
+        function getUserByUserName(username){
+            return $http.get("/api/project/getUserByUserName/"+username);
+        }
+
+        function getUserById(id){
+            return $http.get("/api/project/getUserById/"+id);
+        }
+
+
+
+      /*  function updateUser(id,user,callback){
 
             for(var u in model.users) {
                 if (model.users[u]._id == id) {
@@ -99,7 +127,7 @@
             };
             model.users.push(newUser);
             callback(newUser);
-        }
+        }*/
 
     }
 })();

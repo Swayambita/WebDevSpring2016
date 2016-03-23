@@ -3,17 +3,9 @@
     angular.module("EventBuilderApp")
         .factory("UserEvent",UserEvent);
 
-    function UserEvent($rootScope){
+    function UserEvent($rootScope,$http){
 
-        var events=[
-            {"_id": "000", "eName": "Adam Levine Live Concert",
-                "sDate": "2016-06-05T23:00:00","eDate" :"2016-06-05T23:00:00", "userId": 123,
-            "desc":null, "image": null},
-            {"_id": "010", "eName": "Bussiness Management Conference", "sDate": "11/10/2016","eDate" :"12/10/2016", "userId": 123,
-                "desc":null, "image": null},
-            {"_id": "020", "eName": "Hackathon","sDate": "11/11/2016","eDate" :"11/11/2016","userId": 234,
-                "desc":null, "image": null},
-        ];
+        var currentUser=$rootScope.currentUser;
 
         var model = {
             findEventsFoCurrentUser : findEventsFoCurrentUser,
@@ -23,8 +15,7 @@
         }
         return model;
 
-
-        function findEventsFoCurrentUser(currentUserId,callback){
+        /*function findEventsFoCurrentUser(currentUserId,callback){
             var userEvents=[];
             for(e in events){
                 if(events[e].userId==currentUserId){
@@ -32,17 +23,15 @@
                 }
             }
             callback(userEvents);
+        }*/
+
+        function findEventsFoCurrentUser(userId){
+           return $http.get("/api/project/getAllEvent/user/"+userId);
         }
 
-        function deleteEventById(eventId,callback){
-            for(e in events){
-                if(events[e]._id==eventId){
-                    events.splice(e, 1);
-                    break;
-                }
-            }
-            callback(events);
 
+        function deleteEventById(eventId,userId){
+            return $http.delete("/api/project/deleteEventById/"+eventId+"/"+userId);
         }
 
         function updateEventById(eventId, event, callback){
@@ -57,7 +46,7 @@
 
         }
 
-        function createNewEvent(newEvent,callback){
+      /*  function createNewEvent(newEvent,callback){
 
             var nEvent= { "_id": "000",
                 "eName": newEvent.Name,
@@ -72,6 +61,11 @@
             console.log(events);
             events.push(nEvent);
             callback();
+        }*/
+
+
+        function createNewEvent(newEvent){
+            return $http.post("/api/project/createEvent/"+currentUser._id,newEvent);
         }
     }
 })();

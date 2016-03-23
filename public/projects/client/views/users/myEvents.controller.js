@@ -5,35 +5,57 @@
         .module("EventBuilderApp")
         .controller("MyEvents",MyEvents);
 
-    function MyEvents($rootScope,$location,UserEvent,$scope){
+    function MyEvents($location,UserEvent,$rootScope){
 
-        var currentUserEvents=[];
-        var eventIndexSelected;
-
-        $scope.deleteEvent=deleteEvent;
+        //var currentUserEvents=[];
+        //var eventIndexSelected;
+       /* $scope.deleteEvent=deleteEvent;
         $scope.selectEvent=selectEvent;
         $scope.updateEvent=updateEvent;
-        $scope.alertMessage=null;
+        $scope.alertMessage=null;*/
 
-        if($rootScope.currentUser==null){
-            $location.url("/home");
-        }
-        else{
+        var vm=this;
+        vm.alertMessage=null;
         var currentUser=$rootScope.currentUser;
-         UserEvent.findEventsFoCurrentUser(currentUser._id,renderEvents);
+      //  vm.updateEvent=updateEvent;
+       // vm.selectEvent=selectEvent;
+        vm.deleteEvent=deleteEvent;
+
+        function init()
+        {
+            if ($rootScope.currentUser == null) {
+                $location.url("/home");
+            }
+            else {
+                var currentUser = $rootScope.currentUser;
+                UserEvent.findEventsFoCurrentUser(currentUser._id)
+                    .then(function (response) {
+                        vm.events = response.data;
+                      //  currentUserEvents = response.data;
+                    });
+            }
+        }
+        init();
+
+
+         function deleteEvent(index){
+             vm.eventIndexSelected = index;
+             var eventToDelete=vm.events[index]._id;
+             UserEvent.deleteEventById(eventToDelete,currentUser._id)
+                 .then(function(response){
+                     console.log("after deletion",response.data);
+                     vm.events=response.data;
+                     vm.eventIndexSelected=null;
+                     vm.eName=null;
+                 })
+
+
+
+           // eventIndexSelected=index;
+            //UserEvent.deleteEventById(currentUserEvents[index]._id,renderEventsAfterAction);
         }
 
-        function renderEvents(userEvents){
-            $scope.events=userEvents;
-            currentUserEvents=userEvents;
-        }
-
-        function deleteEvent(index){
-            eventIndexSelected=index;
-            UserEvent.deleteEventById(currentUserEvents[index]._id,renderEventsAfterAction);
-        }
-
-        function renderEventsAfterAction(userEvents){
+       /* function renderEventsAfterAction(userEvents){
             UserEvent.findEventsFoCurrentUser(currentUser._id,renderEvents);
         }
 
@@ -59,6 +81,6 @@
                 currentUserEvents[eventIndexSelected].eDate=eSelected.eDate;
                 $scope.eventSelected = null;
             }
-        }
+        }*/
     }
 })();

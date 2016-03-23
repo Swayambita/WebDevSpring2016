@@ -4,24 +4,35 @@
         .module("EventBuilderApp")
         .controller("LoginController",LoginController);
 
-    function LoginController($scope,$location,UserService,$rootScope){
-        $scope.login = login;
-        $scope.message=null;
+    function LoginController($location,UserService){
+        var vm=this;
+        vm.login=login;
+        vm.message=null;
 
-        function login(user)
-        {
-            // need to include the callback parameter
-            UserService.findUserByCredentials(user.username,user.password,render);
+        console.log("hola");
+        function init(){
+        }
+        init();
 
-            function render(user){
-               if(user){
-                   UserService.setCurrentUser(user);
-                   $location.url("/profile");
-               }
-                else{
-                   $scope.message="Username and password doesnot match";
-               }
+        function login(user) {
+            if(!user) {
+                return;
             }
+            console.log("am in controller");
+            UserService
+                .findUserByCredentials({
+                    username: user.username,
+                    password: user.password
+                })
+                .then(function(response){
+                    if(response.data) {
+                        UserService.setCurrentUser(response.data);
+                        $location.url("/profile");
+                    }
+                    else{
+                        vm.message="Username and password doesnot match";
+                    }
+                });
         }
     }
 })();

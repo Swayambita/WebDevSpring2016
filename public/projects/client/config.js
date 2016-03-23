@@ -12,32 +12,39 @@
 
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
-                controller:"RegisterController"
+                controller:"RegisterController",
+                controllerAs:"model"
             })
 
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
-                controller:"LoginController"
+                controller:"LoginController",
+                controllerAs:"model"
             })
 
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
-                controller:"ProfileController"
+                controller:"ProfileController",
+                controllerAs: "model"
             })
 
             .when("/search", {
                 templateUrl: "views/search/search.view.html",
-                controller:"SearchController"
+                controller:"SearchController",
+                controllerAs:"model"
             })
 
             .when("/search/:someEvent", {
                 templateUrl: "views/search/search.view.html",
-                controller:"SearchController"
+                controller:"SearchController",
+                controllerAs:"model"
+
             })
 
             .when("/createEvent", {
                 templateUrl: "views/createEvent/createEvent.view.html",
-                controller:"CreateEvent"
+                controller:"CreateEvent",
+                controllerAs:"model"
             })
 
             .when("/details/:eventID",{
@@ -47,7 +54,8 @@
 
             .when("/myEvents",{
                 templateUrl:"views/users/myEvents.view.html",
-                controller:"MyEvents"
+                controller:"MyEvents",
+                controllerAs:"model"
             })
 
             .when("/admin",{

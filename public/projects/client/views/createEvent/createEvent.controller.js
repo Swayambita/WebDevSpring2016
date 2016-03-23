@@ -4,10 +4,11 @@
     angular.module("EventBuilderApp")
         .controller("CreateEvent",CreateEvent);
 
-    function CreateEvent($scope,UserEvent){
+    function CreateEvent(UserEvent){
 
-        $scope.message=null;
-        $scope.createEvent=createEvent;
+        var vm=this;
+        vm.message=null;
+        vm.createEvent=createEvent;
 
         function createEvent(event){
 
@@ -21,7 +22,6 @@
                 return;
             }
 
-            console.log(event);
             if(event.location == null){
                 $scope.message = "Enter a event location";
                 return;
@@ -42,13 +42,18 @@
                 return;
             }
 
-            UserEvent.createNewEvent(event,render);
+           // UserEvent.createNewEvent(event,render);
 
-            function render(){
+            /*function render(){
                 $scope.message = "Your event is created";
                 $scope.event=null;
+            }*/
 
-            }
+            UserEvent.createNewEvent(event)
+                .then(function(response){
+                    vm.message="your event is created";
+                    vm.event=null;
+                })
         }
     }
 })();
