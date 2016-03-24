@@ -1,9 +1,9 @@
 
 (function (){
     angular.module("EventBuilderApp")
-        .factory("UserEvent",UserEvent);
+        .factory("UserEventService",UserEventService);
 
-    function UserEvent($rootScope,$http){
+    function UserEventService($rootScope,$http){
 
         var currentUser=$rootScope.currentUser;
 
@@ -34,16 +34,8 @@
             return $http.delete("/api/project/deleteEventById/"+eventId+"/"+userId);
         }
 
-        function updateEventById(eventId, event, callback){
-            for(e in events){
-                if(events[e]._id==eventId){
-                    events[e].eName=event.eName;
-                    events[e].sDate=event.sDate;
-                    events[e].eDate=event.eDate;
-                }
-            }
-            callback(forms[e]);
-
+        function updateEventById(eventId, event){
+            return $http.put("/api/project/updateEvent/"+eventId,event);
         }
 
       /*  function createNewEvent(newEvent,callback){

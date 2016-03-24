@@ -6,6 +6,7 @@
 
     function SideBarController($scope,$location){
         $scope.$location=$location;
+        console.log("sidebar",currentUser);
 
     }
 })();

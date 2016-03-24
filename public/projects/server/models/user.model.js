@@ -14,7 +14,6 @@ module.exports= function(uuid){
     return api;
 
     function findUserByCredentials(username,password) {
-        console.log("in server model");
         for(var u in mock) {
             if( mock[u].username == username &&
                 mock[u].password == password) {

@@ -5,7 +5,7 @@
         .module("EventBuilderApp")
         .controller("MyEvents",MyEvents);
 
-    function MyEvents($location,UserEvent,$rootScope){
+    function MyEvents($location,UserEventService,$rootScope){
 
         //var currentUserEvents=[];
         //var eventIndexSelected;
@@ -16,10 +16,11 @@
 
         var vm=this;
         vm.alertMessage=null;
-        var currentUser=$rootScope.currentUser;
-      //  vm.updateEvent=updateEvent;
-       // vm.selectEvent=selectEvent;
+        vm.updateEvent=updateEvent;
+        vm.selectEvent=selectEvent;
         vm.deleteEvent=deleteEvent;
+
+        var currentUser=$rootScope.currentUser;
 
         function init()
         {
@@ -28,10 +29,10 @@
             }
             else {
                 var currentUser = $rootScope.currentUser;
-                UserEvent.findEventsFoCurrentUser(currentUser._id)
+                UserEventService.findEventsFoCurrentUser(currentUser._id)
                     .then(function (response) {
-                        vm.events = response.data;
-                      //  currentUserEvents = response.data;
+                       vm.events = response.data;
+                        console.log("******",vm.events);
                     });
             }
         }
@@ -41,7 +42,7 @@
          function deleteEvent(index){
              vm.eventIndexSelected = index;
              var eventToDelete=vm.events[index]._id;
-             UserEvent.deleteEventById(eventToDelete,currentUser._id)
+             UserEventService.deleteEventById(eventToDelete,currentUser._id)
                  .then(function(response){
                      console.log("after deletion",response.data);
                      vm.events=response.data;
@@ -55,6 +56,43 @@
             //UserEvent.deleteEventById(currentUserEvents[index]._id,renderEventsAfterAction);
         }
 
+
+        function selectEvent(index) {
+            vm.eventIndexSelected = index;
+            vm.eName = vm.events[index].eName;
+            vm.eDesc = vm.events[index].desc;
+            vm.sDate=vm.events[index].sDate;
+        }
+        function updateEvent(eName,eDesc) {
+
+            if (eName == null || eDesc == null) {
+                vm.alertMessage = "Enter the required fields";
+            }
+
+            else {
+                var eventId = vm.events[vm.eventIndexSelected]._id;
+                var prevEvent = vm.events[vm.eventIndexSelected];
+                var changedEvent = {
+                    "_id": prevEvent._id, "eName": eName,
+                    "sDate": prevEvent.sDate, "eDate": prevEvent.eDate, "userId": prevEvent.userId,
+                    "desc": eDesc, "image": prevEvent.image};
+
+                UserEventService.updateEventById(eventId,changedEvent)
+                    .then(finalList)
+            }
+        }
+
+        function finalList(response){
+            UserEventService.findEventsFoCurrentUser(currentUser._id)
+                .then(function(response){
+                    if(response.data) {
+                        vm.events=response.data;
+                        vm.eventIndexSelected=null;
+                        vm.eName=null;
+                        vm.eDesc=null;
+                    }
+                });
+        }
        /* function renderEventsAfterAction(userEvents){
             UserEvent.findEventsFoCurrentUser(currentUser._id,renderEvents);
         }

@@ -5,17 +5,19 @@
     <div class="row">
         <div class="col-xs-6">
             <h2>Search</h2>
+            <div ng-show="model.message" class="alert alert-success" role="alert">
+                {{model.message}}</div>
             <div class="form form-inline">
-            <input ng-model="model.event.category" id="eventID" class="form-control" placeholder="Music/Business/Sport"/>
-            <input ng-model="model.event.location" id="location" class="form-control" placeholder="Boston"/>
-            <input ng-model="model.event.date" id="date" class="form-control"  type="date"/>
+            <input ng-model="model.category" id="eventID" class="form-control" placeholder="Music/Business/Sport"/>
+            <input ng-model="model.location" id="location" class="form-control" placeholder="Boston"/>
+            <input ng-model="model.date" id="date" class="form-control" type="date"/>
                 </div>
-            <a class="btn btn-primary" role="button" ng-click="model.searchEvent(model.event)">Search</a>
+            <a class="btn btn-primary" role="button" ng-click="model.searchEvent(model.category,model.location)">Search</a>
         </div>
     </div>
 
     <section ng-show="model.searchResult">
-        <h3 class="text-uppercase">{{eventToSearch}} Events</h3>
+        <h3 class="text-uppercase">{{model.eventToSearch}} Events in {{model.eventLocation}}</h3>
         <table class="table table-striped table-responsive">
             <thead>
             <tr>

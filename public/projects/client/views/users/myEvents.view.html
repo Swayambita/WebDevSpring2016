@@ -5,16 +5,21 @@
 <table class="table table-responsive table-stripped">
     <tr>
         <th>EventName</th>
+        <th>Event Description</th>
+    <!--    <th>Start Date</th> -->
         <th>Action</th>
     </tr>
 
     <tr>
         <td><input type="text" placeholder="Event Name" class="form-control" ng-model="model.eName"></td>
+        <td><textarea type="text" placeholder="Event Desc" class="form-control" ng-model="model.eDesc"></textarea></td>
+      <!-- <td><input type="date" class="form-control" ng-model="model.sDate"></td>-->
 
         <td class="text-nowrap">
-            <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName)">
+            <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc)">
                 <span class="glyphicon glyphicon-ok"></span>
-            </button></td>
+            </button>
+        </td>
     </tr>
 
     <tr ng-repeat="eve in model.events">

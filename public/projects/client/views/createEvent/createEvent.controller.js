@@ -4,7 +4,7 @@
     angular.module("EventBuilderApp")
         .controller("CreateEvent",CreateEvent);
 
-    function CreateEvent(UserEvent){
+    function CreateEvent(UserEventService){
 
         var vm=this;
         vm.message=null;
@@ -27,6 +27,7 @@
                 return;
             }
 
+            console.log("date in htmlformat",event.startDate);
             if(event.startDate == null){
                 $scope.message = "Enter a event start date and time";
                 return;
@@ -49,7 +50,7 @@
                 $scope.event=null;
             }*/
 
-            UserEvent.createNewEvent(event)
+            UserEventService.createNewEvent(event)
                 .then(function(response){
                     vm.message="your event is created";
                     vm.event=null;

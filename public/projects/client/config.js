@@ -7,7 +7,9 @@
     function Configure($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "views/home/home.view.html",
+                controller:"HomeController",
+                controllerAs:"model"
             })
 
             .when("/register", {
@@ -39,6 +41,12 @@
                 controller:"SearchController",
                 controllerAs:"model"
 
+            })
+
+            .when("/search/:someEvent/:someLocation", {
+                templateUrl: "views/search/search.view.html",
+                controller:"SearchController",
+                controllerAs:"model"
             })
 
             .when("/createEvent", {

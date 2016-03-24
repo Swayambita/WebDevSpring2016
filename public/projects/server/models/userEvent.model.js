@@ -5,25 +5,39 @@ module.exports= function(uuid) {
     var api = {
         findEventsFoCurrentUser: findEventsFoCurrentUser,
         deleteEventById: deleteEventById,
-        //updateEventById: updateEventById,
+        updateEventById: updateEventById,
         createNewEvent: createNewEvent
     }
     return api;
 
+  /*  function findEventsFoCurrentUser(userId) {
+        var userEvents = [];
+        for (e in eventMock) {
+            if (eventMock[e].userId == userId) {
+
+               var eventStartDate=new Date(eventMock[e].sYear,eventMock[e].sMon,eventMock[e].sDate1);
+                var eventEndDate=new Date(eventMock[e].eYear,eventMock[e].eMon,eventMock[e].eDate1);
+
+                eventMock[e].sDate=eventStartDate;
+                eventMock[e].eDate=eventEndDate;
+                userEvents.push(eventMock[e]);
+            }
+        }
+        return userEvents;
+    }*/
+
     function findEventsFoCurrentUser(userId) {
-        console.log("****",userId);
         var userEvents = [];
         for (e in eventMock) {
             if (eventMock[e].userId == userId) {
                 userEvents.push(eventMock[e]);
             }
         }
-        console.log("events for this user",userEvents);
         return userEvents;
     }
 
     function createNewEvent(userId,newEvent){
-        var nEvent= { "_id": uuid.v1,
+        var nEvent= { "_id": uuid.v1(),
             "eName": newEvent.Name,
             "sDate":newEvent.startDate,
             "eDate" :newEvent.endDate,
@@ -46,6 +60,16 @@ module.exports= function(uuid) {
         }
        var events= findEventsFoCurrentUser(userId)
         return events;
+    }
+
+    function updateEventById(eventId,event){
+        console.log("in server model");
+        for (e in eventMock) {
+            if(eventMock[e]._id==eventId){
+                eventMock[e]=event;
+                return eventMock[e];
+            }
+        }
     }
 
 

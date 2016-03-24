@@ -4,49 +4,53 @@
         .controller("SearchController",SearchController);
 
     function SearchController($location,$http,$routeParams){
-
         var vm=this;
-
-       // var SEARCH_URL="https://www.eventbriteapi.com/v3/events/search/?q=EVENT&popular=on&venue.city=boston&token=YOGCILSQP3UVN2EFLRPC";
         var SEARCH_URL="https://www.eventbriteapi.com/v3/events/search/?q=EVENT&popular=on&token=YOGCILSQP3UVN2EFLRPC";
-        var someEvent = $routeParams.someEvent ;
+
+        var someEvent = $routeParams.someEvent;
+        var someLocation=$routeParams.someLocation;
+
+        if(someEvent!=null && someLocation!=null){
+            searchEvent(someEvent,someLocation);
+        }
         vm.searchEvent=searchEvent;
 
-        if(someEvent){
-            searchEvent(someEvent);
+
+        function init(){
+
         }
+        init();
 
-       /* function searchEvent(event) {
-            $scope.eventToSearch=event;
-            $location.url("/search/"+event);
-            var url = SEARCH_URL.replace("EVENT", event);
-            $http.get(url).success(renderSearchResult);
-        }*/
-
-        function searchEvent(event){
+        function searchEvent(category,city){
             var search="";
 
-            if(event.category!=null){
-                search=event.category;
-            }
-
-            if(event.location!=null){
-                // if space present replace with a plus..need to implement this.
-                search=search+"&venue.city="+event.location;
+            if(category!=null){
+                search=search+category;
             }
             else{
+                category="music";
+                search="music";
+            }
+
+            if(city!=null){
+                search=search+"&venue.city="+city;
+            }
+            else{
+                city="boston";
                 search=search+"&venue.city=boston";
             }
 
-            vm.eventToSearch=event;
-            $location.url("/search/"+search);
-            var url = SEARCH_URL.replace("EVENT", search);
-            console.log("the url", url);
+            var url=SEARCH_URL.replace("EVENT",search);
+            vm.eventToSearch=category;
+            vm.eventLocation=city;
+            console.log("the url",url);
+            $location.url("/search"+"/"+category+"/"+city);
             $http.get(url).success(renderSearchResult);
         }
 
         function renderSearchResult(response){
             vm.searchResult=response;
+            console.log("vm.result",vm.searchResult);
         }
     }
 })();

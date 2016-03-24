@@ -18,7 +18,6 @@
       {"_id": "1000", "label": "Title", "type": "TEXT", "placeholder": "Title"}
     ]
        },
-
       {"_id": "010", "title": "ToDo", "userId": 234,
         "fields": [
           {"_id": "777", "label": "Title", "type": "TEXT", "placeholder": "Title"},
