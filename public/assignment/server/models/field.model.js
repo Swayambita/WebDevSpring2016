@@ -12,75 +12,54 @@ module.exports= function(uuid,formModel){
     }
     return api;
 
-    function getFieldsForForm(formId) {
-        for (var u in formMock) {
-            if (formMock[u]._id == formId) {
-                return formMock[u].fields;
-            }
-        }return null;
-    }
-
-    /*function getFieldsForForm(formId){
-        console.log("hola");
-        console.log("hhhh",formModel);
+    function getFieldsForForm(formId){
         var form=formModel.findFormById(formId);
         return form.fields;
-    }*/
+    }
 
 
     function createFieldForForm(formId,field){
-        for (var u in formMock) {
-            if (formMock[u]._id == formId) {
-                field._id=uuid.v1();
-                formMock[u].fields.push(field);
-                return formMock[u].fields;
-            }
+        var form=formModel.findFormById(formId);
+        if(form!=null){
+            field._id=uuid.v1();
+            form.fields.push(field);
+            return form.fields;
         }
-        return null;
+        else{
+            return null;
+        }
     }
 
     function deleteFieldFromForm(formId,fieldId){
-        for (var u in formMock) {
-            if (formMock[u]._id == formId) {
-                for(var v in formMock[u].fields){
-                  if(fieldId== formMock[u].fields[v]._id){
-                      formMock[u].fields.splice(v,1);
-                      var allFields=getFieldsForForm(formId);
-                      return allFields;
-              }
-            }
-         }
-        }
-        return null;
-    }
 
-  /*  function deleteFieldFromForm(formId,fieldId){
-        console.log("inside delete function");
-        var form = formModel.findFormById(formId);
-        for(var v in form){
-            if(fieldId== form.fields[v]._id){
-                form.fields.splice(v,1);
-                var allFields=getFieldsForForm(formId);
-                return allFields;
-            }
-        }
-
-    }*/
-
-    function updateField(formId,fieldId,updatedField){
-        for (var u in formMock) {
-            if (formMock[u]._id == formId) {
-                for(var v in formMock[u].fields){
-                    if(fieldId== formMock[u].fields[v]._id){
-                        formMock[u].fields[v]=updatedField;
-                        var allFields=getFieldsForForm(formId);
-                        return allFields;
-                    }
+        var form=formModel.findFormById(formId);
+        if(form!=null){
+            for(var v in form.fields){
+                if(fieldId== form.fields[v]._id){
+                    form.fields.splice(v,1);
+                    var allFields=getFieldsForForm(formId);
+                    return allFields;
                 }
             }
         }
-        return null;
+        else
+             return null;
 
+    }
+
+    function updateField(formId,fieldId,updatedField){
+        var form=formModel.findFormById(formId);
+        if(form!=null){
+            for(var v in form.fields){
+                if(fieldId== form.fields[v]._id){
+                        form.fields[v]=updatedField;
+                        var allFields=getFieldsForForm(formId);
+                        return allFields;
+                }
+            }
+        }
+        else
+            return null;
     }
 
     function cloneField(formId,field){
@@ -88,7 +67,6 @@ module.exports= function(uuid,formModel){
             var form = formModel.findFormById(formId);
             form.fields.push(field);
         }
-
 }
 
 

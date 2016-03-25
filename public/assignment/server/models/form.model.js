@@ -15,9 +15,9 @@ module.exports= function(uuid){
 
     function findFormById(formId){
         console.log("inside form function");
-        for(var u in mock){
-            if(mock[u]._id === formId){
-                return mock[u];
+        for(var u in formMock){
+            if(formMock[u]._id === formId){
+                return formMock[u];
             }
         }
         return null;
