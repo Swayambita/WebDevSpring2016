@@ -7,10 +7,21 @@ module.exports= function(uuid){
         findAllFormsForUser:findAllFormsForUser,
         addForm:addForm,
         deleteForm:deleteForm,
-        updateForm:updateForm
+        updateForm:updateForm,
+        findFormById:findFormById
     }
     return api;
 
+
+    function findFormById(formId){
+        console.log("inside form function");
+        for(var u in mock){
+            if(mock[u]._id === formId){
+                return mock[u];
+            }
+        }
+        return null;
+    }
 
     function findFormByTitle(title) {
         for (var u in formMock) {
@@ -37,7 +48,6 @@ module.exports= function(uuid){
         form.userId=id;
         form.userId=id;
         form.fields=[];
-        console.log("formDetails",form);
         formMock.push(form);
         var allForms = findAllFormsForUser(id);
         return allForms;

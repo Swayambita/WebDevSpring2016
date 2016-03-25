@@ -7,13 +7,6 @@
 
     function MyEvents($location,UserEventService,$rootScope){
 
-        //var currentUserEvents=[];
-        //var eventIndexSelected;
-       /* $scope.deleteEvent=deleteEvent;
-        $scope.selectEvent=selectEvent;
-        $scope.updateEvent=updateEvent;
-        $scope.alertMessage=null;*/
-
         var vm=this;
         vm.alertMessage=null;
         vm.updateEvent=updateEvent;
@@ -32,6 +25,19 @@
                 UserEventService.findEventsFoCurrentUser(currentUser._id)
                     .then(function (response) {
                        vm.events = response.data;
+
+                        console.log("bitchesss",response.data);
+
+                       //just for displaying the date..we are removing the time zone details
+                        for(var e in vm.events){
+                            var date1=vm.events[e].sDate.substring(0,10);
+                            console.log("date1",date1);
+                            vm.events[e].sDate=date1;
+
+                            var date2=vm.events[e].eDate.substring(0,10);
+                            console.log("date2",date2);
+                            vm.events[e].eDate=date2;
+                        }
                         console.log("******",vm.events);
                     });
             }
@@ -49,21 +55,18 @@
                      vm.eventIndexSelected=null;
                      vm.eName=null;
                  })
-
-
-
-           // eventIndexSelected=index;
-            //UserEvent.deleteEventById(currentUserEvents[index]._id,renderEventsAfterAction);
-        }
+         }
 
 
         function selectEvent(index) {
             vm.eventIndexSelected = index;
             vm.eName = vm.events[index].eName;
             vm.eDesc = vm.events[index].desc;
+
             vm.sDate=vm.events[index].sDate;
+            vm.eDate=vm.events[index].eDate;
         }
-        function updateEvent(eName,eDesc) {
+        function updateEvent(eName,eDesc,newSDate,newEDate) {
 
             if (eName == null || eDesc == null) {
                 vm.alertMessage = "Enter the required fields";
@@ -72,9 +75,11 @@
             else {
                 var eventId = vm.events[vm.eventIndexSelected]._id;
                 var prevEvent = vm.events[vm.eventIndexSelected];
+                console.log("new start date from view",newSDate);
+
                 var changedEvent = {
                     "_id": prevEvent._id, "eName": eName,
-                    "sDate": prevEvent.sDate, "eDate": prevEvent.eDate, "userId": prevEvent.userId,
+                    "sDate": newSDate, "eDate": newEDate, "userId": prevEvent.userId,
                     "desc": eDesc, "image": prevEvent.image};
 
                 UserEventService.updateEventById(eventId,changedEvent)
@@ -87,11 +92,22 @@
                 .then(function(response){
                     if(response.data) {
                         vm.events=response.data;
+                        for(var e in vm.events){
+                            var date1=vm.events[e].sDate.substring(0,10);
+                            console.log("date1",date1);
+                            vm.events[e].sDate=date1;
+
+                            var date2=vm.events[e].eDate.substring(0,10);
+                            console.log("date2",date2);
+                            vm.events[e].eDate=date2;
+                        }
                         vm.eventIndexSelected=null;
                         vm.eName=null;
                         vm.eDesc=null;
+                        vm.newSDate=null;
                     }
                 });
+
         }
        /* function renderEventsAfterAction(userEvents){
             UserEvent.findEventsFoCurrentUser(currentUser._id,renderEvents);

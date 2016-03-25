@@ -5,15 +5,20 @@ module.exports= function(uuid){
     var api = {
         findUserByCredentials: findUserByCredentials,
         findUserByUsername:findUserByUsername,
-        createNewUser :createNewUser,
+        register :register,
         updateUser:updateUser,
-        deleteUser:deleteUser,
+        deleteUserById:deleteUserById,
         getUserByUserName:getUserByUserName,
-        getUserById:getUserById
+        getUserById:getUserById,
+        getAllUsers:getAllUsers,
+        addNewUser:addNewUser,
+        profileUpdate:profileUpdate,
+        ifExitsEmail:ifExitsEmail
     }
     return api;
 
     function findUserByCredentials(username,password) {
+        console.log("in server model");
         for(var u in mock) {
             if( mock[u].username == username &&
                 mock[u].password == password) {
@@ -28,13 +33,24 @@ module.exports= function(uuid){
             if(mock[u].username=== userName){
                 return mock[u];
             }
-            return null;
         }
+        return null;
     }
 
-    function createNewUser(userDetails){
+    function ifExitsEmail(email){
+        for(var u in mock){
+            if(mock[u].email== email){
+                console.log("inside if");
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
+    function register(userDetails){
         var oldUser= findUserByUsername(userDetails.username);
-        if(oldUser== null){
+        var emailExits=ifExitsEmail(userDetails.email);
+        if(oldUser== null && emailExits==null){
             userDetails._id =  uuid.v1();
             mock.push(userDetails);
             return userDetails;
@@ -43,21 +59,23 @@ module.exports= function(uuid){
     }
 
     function updateUser(id,updatedUserDetails) {
-
         //we need to check if userName is unique here
         for (var u in mock) {
             if (mock[u]._id == id) {
                 mock[u] = updatedUserDetails;
                 mock[u].email = updatedUserDetails.email;
-                return mock[u];
+                return mock;
             }
         }
     }
 
-    function deleteUser(id) {
+    function deleteUserById(id) {
         for (var u in mock) {
             if (mock[u]._id == id) {
+                console.log("inside if",id);
                 mock.splice(u, 1);
+                console.log("after deletion",mock);
+               return mock;
             }
         }
     }
@@ -84,7 +102,47 @@ module.exports= function(uuid){
         return null;
     }
 
+    function addNewUser(user){
+        var oldUser= findUserByUsername(user.username);
 
+      if(oldUser==null){
+        user._id =  uuid.v1();
+        mock.push(user);
+        return mock;
+      }
+        else{
+          return null;
+      }
+    }
+
+
+    function profileUpdate(id,updatedUserDetails){
+        //we need to check if userName is unique here, we need to check with the userid
+       /* var oldUser= findUserByUsername(updatedUserDetails.username);
+
+        if(oldUser==null){
+            for (var u in mock) {
+                if (mock[u]._id == id) {
+                    mock[u] = updatedUserDetails;
+                    mock[u].email = updatedUserDetails.email;
+                    console.log("the mock[u] data",mock[u]);
+                    return mock[u];
+                }
+            }
+        }
+       else{
+            return null;
+        }*/
+
+        for (var u in mock) {
+            if (mock[u]._id == id) {
+                mock[u] = updatedUserDetails;
+                mock[u].email = updatedUserDetails.email;
+                console.log("the mock[u] data",mock[u]);
+                return mock[u];
+            }
+        }
+    }
 }
 
 

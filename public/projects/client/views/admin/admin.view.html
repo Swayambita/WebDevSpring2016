@@ -87,7 +87,8 @@
 
             </table>
         </div> -->
-
+        <div ng.show="model.alertMessage" class="alert alert-success" role="alert">
+           {{model.alertMessage}}</div>
       <table class="table table-responsive table-striped">
           <tr>
               <th bgcolor="gray">
@@ -109,26 +110,26 @@
 
           <tr>
               <td> <input type="text" placeholder="username" class="form-control"
-                          ng-model="user.username"></td>
+                          ng-model="model.username"></td>
               <td> <input type="text" placeholder="password" class="form-control"
-              ng-model="user.password"></td>
+              ng-model="model.password"></td>
               <td class="text-nowrap">
                   <button type="button" class="btn btn-primary add-right-pad">
-                      <span class="glyphicon glyphicon-plus" ng-click="addUser(user)"></span>
+                      <span class="glyphicon glyphicon-plus" ng-click="model.addUser(model.username,model.password)"></span>
                   </button>
-                  <button type="button" class="btn btn-success" ng-click="updateUser(user)">
+                  <button type="button" class="btn btn-success" ng-click="model.updateUser(model.username,model.password)">
                       <span class="glyphicon glyphicon-ok"></span>
                   </button></td>
           </tr>
 
-          <tr ng-repeat="user in allUsers">
+          <tr ng-repeat="user in model.allUsers">
               <td>{{user.username}}</td>
               <td>{{user.password}}</td>
               <td class="text-nowrap">
-                  <button type="button" class="btn btn-danger add-right-pad" ng-click="deleteUser($index)">
+                  <button type="button" class="btn btn-danger add-right-pad" ng-click="model.deleteUser($index)">
                       <span class="glyphicon glyphicon-remove"></span>
                   </button>
-                  <button type="button" class="btn btn-info add-right-pad" ng-click="selectUser($index)">
+                  <button type="button" class="btn btn-info add-right-pad" ng-click="model.selectUser($index)">
                       <span class="glyphicon glyphicon-pencil"></span>
                   </button>
               </td>

@@ -10,7 +10,6 @@
             <div class="form form-inline">
             <input ng-model="model.category" id="eventID" class="form-control" placeholder="Music/Business/Sport"/>
             <input ng-model="model.location" id="location" class="form-control" placeholder="Boston"/>
-            <input ng-model="model.date" id="date" class="form-control" type="date"/>
                 </div>
             <a class="btn btn-primary" role="button" ng-click="model.searchEvent(model.category,model.location)">Search</a>
         </div>
@@ -23,17 +22,17 @@
             <tr>
                 <th>Image</th>
                 <th>Event</th>
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th id="startDate" class="text-nowrap">Begins at</th>
+                <th id="endDate" class="text-nowrap">Ends at</th>
             </tr>
             </thead>
             <tbody>
-           <tr ng-repeat="event in model.searchResult.events">
-                <td class="col-lg-4"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
-                <td class="col-lg-4">
+           <tr ng-repeat="event in model.searchResult">
+                <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
+                <td class="col-lg-3">
                     <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
-                <td class="col-lg-4">{{event.start.local}}</td>
-                <td class="col-lg-4">{{event.end.local}}</td>
+                <td class="col-lg-3">{{event.startDate}}</td>
+               <td class="col-lg-3">{{event.endDate}}</td>
                 <td></td>
             </tr>
 

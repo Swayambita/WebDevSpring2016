@@ -13,6 +13,7 @@
         vm.editField=editField;
         vm.okayField=okayField;
         vm.cancelField=cancelField;
+        vm.cloneField=cloneField;
 
         var formId=$routeParams.formId;
 
@@ -142,6 +143,12 @@
             vm.label = null;
             vm.placeholder = null;
             vm.options = null;
+        }
+
+        function cloneField(field){
+            console.log("inside clone function");
+            FieldService.cloneField(formId,field)
+                .then(init());
         }
     }
 })();

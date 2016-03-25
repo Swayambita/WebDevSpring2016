@@ -47,7 +47,7 @@
                     $location.url("/profile");
                 }
                 else{
-                    vm.message="Username already exists";
+                    vm.message="Username or email already exists";
                 }
             });
         }

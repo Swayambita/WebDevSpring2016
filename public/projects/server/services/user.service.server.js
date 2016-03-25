@@ -2,11 +2,13 @@
 module.exports = function(app,userModel) {
     app.get("/api/project/user/:username/:password", findUserByCredentials);
     app.post("/api/project/register", register);
-    app.put("/api/project/updateUser/:id",updateUser);
-    app.delete("/api/project/deleteUser/:id",deleteUser);
+    app.put("/api/project/updateUser/:userId",updateUser);
+    app.put("/api/project/profileUpdate/:userId",profileUpdate);
+    app.delete("/api/project/deleteUser/:userId",deleteUserById);
     app.get("/api/project/getAllUsers/",getAllUsers);
     app.get("/api/project/getUserByUserName/:username",getUserByUserName);
     app.get("/api/project/getUserById/:id",getUserById);
+    app.post("/api/project/addNewUser",addNewUser)
 
 
     function findUserByCredentials(req,res){
@@ -18,25 +20,27 @@ module.exports = function(app,userModel) {
 
     function register(req,res){
         var userDetails = req.body;
-        var newUser=userModel.createNewUser(userDetails);
+        var newUser=userModel.register(userDetails);
         res.json(newUser);
 
     }
 
     function updateUser(req,res){
-        var id=req.params.id;
+        var userId=req.params.userId;
         var updatedUserDetails = req.body;
-        var updatedUser=userModel.updateUser(id,updatedUserDetails);
+        var updatedUser=userModel.updateUser(userId,updatedUserDetails);
         res.json(updatedUser);
     }
 
-    function deleteUser(req,res){
-        var id=req.params.id;
-        userModel.deleteUser(id);
+    function deleteUserById(req,res){
+        var userId=req.params.userId;
+        var allUsers=userModel.deleteUserById(userId);
+        res.json(allUsers);
     }
 
     function getAllUsers(req,res){
-        userModel.getAllUsers(id);
+        var allUsers=userModel.getAllUsers();
+        res.json(allUsers);
     }
 
     function getUserByUserName(req,res){
@@ -48,6 +52,19 @@ module.exports = function(app,userModel) {
     function getUserById(req,res){
         var id=rq.params.id;
         var user=userModel.getUserById(id);
-        return user;
+        res.json(user);
+    }
+
+    function addNewUser(req,res){
+        var newuser=req.body;
+        var allUser=userModel.addNewUser(newuser);
+        res.json(allUser);
+    }
+
+    function profileUpdate(req,res){
+        var userId=req.params.userId;
+        var updatedUserDetails = req.body;
+        var updatedUser=userModel.profileUpdate(userId,updatedUserDetails);
+        res.json(updatedUser);
     }
 }

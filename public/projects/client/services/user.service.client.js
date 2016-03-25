@@ -24,18 +24,19 @@
 
             setCurrentUser : setCurrentUser,
             updateUser : updateUser,
-            //  deleteUserById : deleteUserById,
+            deleteUserById : deleteUserById,
             findAllUsers : findAllUsers,
             findUserByCredentials:findUserByCredentials,
             register: register,
             getAllUsers:getAllUsers,
             getUserById:getUserById,
-            deleteUser:deleteUser
+            addNewUser:addNewUser,
+            profileUpdate:profileUpdate
         };
         return model;
 
         function setCurrentUser(user){
-            console.log(user);
+            console.log("setting user",user);
             $rootScope.currentUser=user;
         }
 
@@ -53,12 +54,15 @@
             return $http.post("/api/project/register", user);
         }
 
-        function updateUser(user){
-            return $http.put("/api/project/updateUser/"+user._id,user);
+        function updateUser(userId,user){
+            return $http.put("/api/project/updateUser/"+userId,user);
         }
 
-        function deleteUser(user){
-            return $http.delete("/api/project/deleteUser/"+user._id);
+        function profileUpdate(userId,user){
+            return $http.put("/api/project/profileUpdate/"+userId,user);
+        }
+        function deleteUserById(userId){
+            return $http.delete("/api/project/deleteUser/"+userId);
         }
 
         function getAllUsers(){
@@ -71,6 +75,10 @@
 
         function getUserById(id){
             return $http.get("/api/project/getUserById/"+id);
+        }
+
+        function addNewUser(newUser){
+            return $http.post("/api/project/addNewUser",newUser);
         }
 
 

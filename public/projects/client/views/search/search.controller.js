@@ -15,7 +15,6 @@
         }
         vm.searchEvent=searchEvent;
 
-
         function init(){
 
         }
@@ -49,7 +48,15 @@
         }
 
         function renderSearchResult(response){
-            vm.searchResult=response;
+            console.log("the eventbrite response",response);
+
+            for(var e in response.events){
+                var d1=response.events[e].start.local.substring(0,10);
+                var d2=response.events[e].end.local.substring(0,10);
+                response.events[e].startDate=d1;
+                response.events[e].endDate=d2;
+            }
+            vm.searchResult=response.events;
             console.log("vm.result",vm.searchResult);
         }
     }

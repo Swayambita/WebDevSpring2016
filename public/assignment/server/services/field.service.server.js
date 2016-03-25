@@ -4,7 +4,7 @@ module.exports = function(app,fieldModel) {
     app.post("/api/assignment/form/:formId/field",createFieldForForm);
     app.delete("/api/assignment/form/:formId/field/:fieldId",deleteFieldFromForm);
     app.put("/api/assignment/form/:formId/field/:fieldId",updateField);
-
+    app.post("/api/assignment/form/:formId", cloneField);
 
     function getFieldsForForm(req,res){
         var formId= req.params.formId;
@@ -28,15 +28,17 @@ module.exports = function(app,fieldModel) {
                  }
 
     function updateField(req,res){
-        console.log("hola");
         var formId= req.params.formId;
         var fieldId= req.params.fieldId;
         var updatedField=req.body;
-        console.log("****",formId);
-        console.log("&&&&",fieldId);
-        console.log("(((((",updatedField);
         var afterUpdation=fieldModel.updateField(formId,fieldId,updatedField);
         res.json(afterUpdation);
+    }
+
+    function cloneField(req,res){
+        var formId = req.params.formId;
+        var field= req.body;
+        res.json(fieldModel.cloneField(formId,field));
     }
 
 }

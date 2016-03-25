@@ -26,17 +26,16 @@
         function update(username,password,firstName,lastName,email){
             var newDetails= {"_id":currentUser._id, "username" : username, "firstName": firstName,
                 "lastName":lastName , "email" :email ,"password" :password};
-            UserService.updateUser(newDetails)
+            UserService.profileUpdate(currentUser._id,newDetails)
                 .then(
                     function(response){
+                        console.log("response from server",response.data);
                         if(response){
-
                             UserService.setCurrentUser(response.data);
-
-                            vm.message="Profile Update";
+                            vm.message="Profile Updated";
                         }
                         else{
-                            vm.message="Couldn't update the profile";
+                            vm.message="Couldn't update the profile beca";
                         }
                     }
                 );

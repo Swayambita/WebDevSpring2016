@@ -28,10 +28,22 @@
             }
 
             console.log("date in htmlformat",event.startDate);
+            console.log("date in htmlformat after substring",event.startDate.getDate());
+
+
             if(event.startDate == null){
                 $scope.message = "Enter a event start date and time";
                 return;
             }
+
+            var date=event.startDate.getDate()
+            var month=event.startDate.getMonth();
+            var year=event.startDate.getFullYear();
+
+            var entireSDate=new Date(year,month,date);
+            event.entireSDate=entireSDate;
+
+
 
             if(event.endDate== null){
                 $scope.message = "Enter a event end date and time";
@@ -42,13 +54,6 @@
                 $scope.message = "Enter a event description";
                 return;
             }
-
-           // UserEvent.createNewEvent(event,render);
-
-            /*function render(){
-                $scope.message = "Your event is created";
-                $scope.event=null;
-            }*/
 
             UserEventService.createNewEvent(event)
                 .then(function(response){

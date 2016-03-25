@@ -5,8 +5,6 @@
 
     function UserEventService($rootScope,$http){
 
-        var currentUser=$rootScope.currentUser;
-
         var model = {
             findEventsFoCurrentUser : findEventsFoCurrentUser,
             deleteEventById : deleteEventById,
@@ -57,6 +55,7 @@
 
 
         function createNewEvent(newEvent){
+            var currentUser=$rootScope.currentUser;
             return $http.post("/api/project/createEvent/"+currentUser._id,newEvent);
         }
     }

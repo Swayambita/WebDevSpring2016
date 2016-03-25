@@ -26,6 +26,7 @@
                 })
                 .then(function(response){
                     if(response.data) {
+                        console.log("^^^");
                         UserService.setCurrentUser(response.data);
                         $location.url("/profile");
                     }

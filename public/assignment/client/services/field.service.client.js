@@ -12,7 +12,8 @@
             getFieldsForForm:getFieldsForForm,
             getFieldForForm:getFieldForForm,
             deleteFieldFromForm:deleteFieldFromForm,
-            updateField:updateField
+            updateField:updateField,
+            cloneField:cloneField
         }
         return model;
 
@@ -37,6 +38,10 @@
 
         function updateField(formId,fieldId,field){
             return $http.put("/api/assignment/form/"+formId+"/field/"+fieldId, field);
+        }
+
+        function cloneField(formId,field){
+            return $http.post("/api/assignment/form/" +formId+ "/field", field);
         }
     }
 })();

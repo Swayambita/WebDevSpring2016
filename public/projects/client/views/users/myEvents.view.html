@@ -6,17 +6,19 @@
     <tr>
         <th>EventName</th>
         <th>Event Description</th>
-    <!--    <th>Start Date</th> -->
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Action</th>
     </tr>
 
     <tr>
         <td><input type="text" placeholder="Event Name" class="form-control" ng-model="model.eName"></td>
         <td><textarea type="text" placeholder="Event Desc" class="form-control" ng-model="model.eDesc"></textarea></td>
-      <!-- <td><input type="date" class="form-control" ng-model="model.sDate"></td>-->
+        <td><input type="date" class="form-control" ng-model="model.newSDate"></td>
+        <td><input type="date" class="form-control" ng-model="model.newEDate"></td>
 
         <td class="text-nowrap">
-            <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc)">
+            <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc,model.newSDate,model.newEDate)">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
         </td>
@@ -24,6 +26,9 @@
 
     <tr ng-repeat="eve in model.events">
         <td>{{eve.eName}}</td>
+        <td>{{eve.desc}}</td>
+        <td>{{eve.sDate}}</td>
+        <td>{{eve.eDate}}</td>
         <td>
             <a ng-click="model.deleteEvent($index)"><span class="glyphicon glyphicon-remove"></span></a>
             <a ng-click="model.selectEvent($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
