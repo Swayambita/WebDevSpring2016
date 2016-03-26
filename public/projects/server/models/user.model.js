@@ -13,7 +13,8 @@ module.exports= function(uuid){
         getAllUsers:getAllUsers,
         addNewUser:addNewUser,
         profileUpdate:profileUpdate,
-        ifExitsEmail:ifExitsEmail
+        ifExitsEmail:ifExitsEmail,
+        getFavEvents:getFavEvents
     }
     return api;
 
@@ -140,6 +141,17 @@ module.exports= function(uuid){
                 mock[u].email = updatedUserDetails.email;
                 console.log("the mock[u] data",mock[u]);
                 return mock[u];
+            }
+        }
+    }
+
+
+    function getFavEvents(userId){
+        console.log("in getFavEvents server model");
+        for (var u in mock) {
+            if (mock[u]._id == userId) {
+                console.log("these are the likes", mock[u].likes);
+                return mock[u].likes;
             }
         }
     }

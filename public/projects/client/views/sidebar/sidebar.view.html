@@ -16,6 +16,9 @@
 
         <li ng-show="currentUser" ng-class="{'active' : $location.url() == '/myEvents'}" >
             <a href="#/myEvents">MyEvents</a></li>
+
+        <li ng-show="currentUser" ng-class="{'active' : $location.url() == '/favouriteEvents'}" >
+            <a href="#/favouriteEvents">My Favourite Events</a></li>
     </ul>
 </div>
 </body>

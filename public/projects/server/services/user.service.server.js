@@ -8,7 +8,8 @@ module.exports = function(app,userModel) {
     app.get("/api/project/getAllUsers/",getAllUsers);
     app.get("/api/project/getUserByUserName/:username",getUserByUserName);
     app.get("/api/project/getUserById/:id",getUserById);
-    app.post("/api/project/addNewUser",addNewUser)
+    app.post("/api/project/addNewUser",addNewUser);
+    app.get("/api/project/getFavEvents/:userId",getFavEvents);
 
 
     function findUserByCredentials(req,res){
@@ -66,5 +67,12 @@ module.exports = function(app,userModel) {
         var updatedUserDetails = req.body;
         var updatedUser=userModel.profileUpdate(userId,updatedUserDetails);
         res.json(updatedUser);
+    }
+
+    function getFavEvents(req,res){
+        console.log("in getFavEvents server service");
+        var userId=req.params.userId;
+        res.json(userModel.getFavEvents(userId)) ;
+
     }
 }

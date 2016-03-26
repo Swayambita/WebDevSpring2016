@@ -31,7 +31,8 @@
             getAllUsers:getAllUsers,
             getUserById:getUserById,
             addNewUser:addNewUser,
-            profileUpdate:profileUpdate
+            profileUpdate:profileUpdate,
+            getFavEvents:getFavEvents
         };
         return model;
 
@@ -79,6 +80,11 @@
 
         function addNewUser(newUser){
             return $http.post("/api/project/addNewUser",newUser);
+        }
+
+        function getFavEvents(userId){
+            console.log("in getFavEvents clinet service");
+            return $http.get("/api/project/getFavEvents/"+userId);
         }
 
 

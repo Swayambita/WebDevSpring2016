@@ -1,6 +1,12 @@
 <html>
 <body ng-controller="DetailsController">
-<h1>{{details.name.text}}</h1>
-<p>{{details.description.text}}</p>
+<div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
+<h1>{{model.details.name.text}}</h1>
+<p>{{model.details.description.text}}</p>
+
+<button ng-click="model.likeEvent()" class="btn btn-primary glyphicon glyphicon-star">Like this event</button>
+
+<button ng-click="model.bookmarkEvent()" class="btn btn-primary glyphicon glyphicon-bookmark"> Save this event</button>
+
 </body>
 </html>

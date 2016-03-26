@@ -105,6 +105,7 @@
                         vm.eName=null;
                         vm.eDesc=null;
                         vm.newSDate=null;
+                        vm.newEDate=null;
                     }
                 });
 

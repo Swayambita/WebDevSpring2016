@@ -57,7 +57,8 @@
 
             .when("/details/:eventID",{
                 templateUrl:"views/details/details.view.html",
-                controller:"DetailsController"
+                controller:"DetailsController",
+                controllerAs:"model"
             })
 
             .when("/myEvents",{
@@ -69,6 +70,12 @@
             .when("/admin",{
                 templateUrl:"views/admin/admin.view.html",
                 controller:"AdminController",
+                controllerAs:"model"
+            })
+
+            .when("/favouriteEvents",{
+                templateUrl:"views/users/favouriteEvents.view.html",
+                controller:"FavouriteEventsController",
                 controllerAs:"model"
             })
 
