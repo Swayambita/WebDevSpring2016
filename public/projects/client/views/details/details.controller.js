@@ -25,7 +25,7 @@
         function likeEvent(){
             console.log("inside like function");
             if(currentUser==null){
-                vm.message="You need to logged in to like the event";
+                vm.message="You need to be logged in to like a event";
             }
             else{
                 vm.message="Event Liked!!";
@@ -35,7 +35,7 @@
 
         function bookmarkEvent(){
             if(currentUser==null){
-                vm.message="You need to logged in to bookmark the event";
+                vm.message="You need to be logged in to bookmark a event";
             }
             else{
                 vm.message="Comment Saved!!";
@@ -44,7 +44,7 @@
 
         function commentEvent(){
             if(currentUser==null){
-                vm.message="You need to logged in to bookmark the event";
+                vm.message="You need to be logged in to bookmark a event";
             }
             else{
 
