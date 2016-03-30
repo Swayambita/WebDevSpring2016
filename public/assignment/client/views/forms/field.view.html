@@ -8,10 +8,11 @@
 
             <ul class="nav nav-tabs">
                 <li role="presentation"><a class="tabText" href="#/forms">Forms</a></li>
-                <li role="presentation" class="active"><a class="tabText" href="#">Fields</a></li>
+                <li role="presentation" class="active"><a class="tabText">Fields</a></li>
             </ul>
 
             <div class="container-fluid">
+            <div ng-show="model.existingFields" jga-sortable jga-axis="y">
                 <div ng-repeat="field in model.existingFields" class="row topForm">
                     <div class="col-xs-5">
                         <form>
@@ -42,7 +43,7 @@
                         </form>
                     </div>
 
-                    <div class="col-xs-5">
+                    <div class="group-buttons" class="col-xs-5">
                         <button ng-click="model.editField(field)" data-toggle="modal" href="#"
                                 class="btn btn-primary glyphicon glyphicon-pencil" data-target="#myEdit">
                         </button>
@@ -51,9 +52,11 @@
                         </button>
                         <button ng-click="model.removeField(field)" href="#" class="glyphicon glyphicon-remove btn btn-danger">
                         </button>
-                        <button class="glyphicon glyphicon-menu-hamburger btn btn-default" aria-hidden="true">
-                        </button>
+                        <a class="btn btn-info"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+                        </a>
                     </div>
+                </div>
+
                 </div>
 
                 <div id="myEdit" class="modal fade" role="dialog">

@@ -6,15 +6,20 @@ var app = express();
 var bodyParser = require('body-parser');
 var multer =require('multer');
 var uuid=require('node-uuid');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
-//app.use(uuid());
 
-// require is not working
-require("./public/assignment/server/app.js")(app,uuid);
 require("./public/projects/server/app.js")(app,uuid);
-//-------------------------------------
+
+//-------------------
+var mongoose=require('mongoose');
+//var db=mongoose.connect('mongodb://localhost/FormBuilder');
+
+require("./public/assignment/server/app.js")(app,uuid);
+
+//--------------------
 
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';

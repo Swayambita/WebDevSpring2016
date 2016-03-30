@@ -72,6 +72,13 @@ module.exports= function(uuid){
         }
     }
 
+    function findFormById(formId){
+        for (var u in formMock) {
+            if (formMock[u]._id == formId) {
+                return formMock[u];
+            }
+        }
+    }
 }
 
 

@@ -1,6 +1,10 @@
+var mongoose=require("mongoose");
 var mock = require("./user.mock.json");
 
 module.exports= function(uuid){
+
+   // var UserSchema=require("./user.schema.server.js")();
+    //var User=mongoose.model("User",UserSchema);
 
     var api = {
         findUserByCredentials: findUserByCredentials,

@@ -4,9 +4,15 @@
 <h1>{{model.details.name.text}}</h1>
 <p>{{model.details.description.text}}</p>
 
-<button ng-click="model.likeEvent()" class="btn btn-primary glyphicon glyphicon-star">Like this event</button>
-
-<button ng-click="model.bookmarkEvent()" class="btn btn-primary glyphicon glyphicon-bookmark"> Save this event</button>
+<div class="form form-group form-inline">
+    <button ng-click="model.likeEvent()" class="btn btn-primary btn-block glyphicon glyphicon-star ">Like this event</button>
+    <br>
+    <button ng-click="model.bookmarkEvent()" class="btn btn-primary btn-block glyphicon glyphicon-bookmark"> Save this event</button>
+    <br>
+    <textarea class="form-control add-bottom-pad" ng-model="model.comment"></textarea>
+    <br>
+    <button ng-click="model.commentEvent(model.comment)" class="btn btn-primary btn-block">Comment</button>
+</div>
 
 </body>
 </html>

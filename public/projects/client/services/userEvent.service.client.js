@@ -9,19 +9,11 @@
             findEventsFoCurrentUser : findEventsFoCurrentUser,
             deleteEventById : deleteEventById,
             updateEventById :updateEventById,
-            createNewEvent : createNewEvent
+            createNewEvent : createNewEvent,
+            userLikesEvent : userLikesEvent
         }
         return model;
 
-        /*function findEventsFoCurrentUser(currentUserId,callback){
-            var userEvents=[];
-            for(e in events){
-                if(events[e].userId==currentUserId){
-                    userEvents.push(events[e]);
-                }
-            }
-            callback(userEvents);
-        }*/
 
         function findEventsFoCurrentUser(userId){
            return $http.get("/api/project/getAllEvent/user/"+userId);
@@ -36,27 +28,14 @@
             return $http.put("/api/project/updateEvent/"+eventId,event);
         }
 
-      /*  function createNewEvent(newEvent,callback){
-
-            var nEvent= { "_id": "000",
-                "eName": newEvent.Name,
-                "sDate":newEvent.startDate,
-                "eDate" :newEvent.endDate,
-                "userId": $rootScope.currentUser._id,
-                "desc":newEvent.desc,
-                "image":newEvent.image
-            }
-
-            console.log(nEvent);
-            console.log(events);
-            events.push(nEvent);
-            callback();
-        }*/
-
 
         function createNewEvent(newEvent){
             var currentUser=$rootScope.currentUser;
             return $http.post("/api/project/createEvent/"+currentUser._id,newEvent);
+        }
+
+        function userLikesEvent(){
+            return $http.post("api/project/userLikesEvent/"+currentUser._id,eventId);
         }
     }
 })();

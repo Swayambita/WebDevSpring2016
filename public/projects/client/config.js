@@ -36,12 +36,12 @@
                 controllerAs:"model"
             })
 
-            .when("/search/:someEvent", {
+            /*.when("/search/:someEvent", {
                 templateUrl: "views/search/search.view.html",
                 controller:"SearchController",
                 controllerAs:"model"
 
-            })
+            })*/
 
             .when("/search/:someEvent/:someLocation", {
                 templateUrl: "views/search/search.view.html",

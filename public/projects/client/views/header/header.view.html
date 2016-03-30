@@ -46,21 +46,22 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/register'}"
-                    data-target=".navbar-collapse.in">
+                    data-toggle="collapse" data-target=".navbar-collapse.in">
                     <a href="#/register" class="add-under-line"> Register </a></li>
 
                 <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/login'}"
-                    data-target=".navbar-collapse.in">
+                    data-toggle="collapse" data-target=".navbar-collapse.in">
                     <a href="#/login" class="add-under-line">Login</a></li>
 
                 <li ng-show="currentUser" ng-class="{'active' : $location.url() == '/profile'}"
-                    data-target=".navbar-collapse.in">
+                    data-toggle="collapse" data-target=".navbar-collapse.in">
                     <a href="#/profile" class="add-under-line"> {{currentUser.username}} </a></li>
 
                 <li ng-show="currentUser" data-target=".navbar-collapse.in"
                 ><a href="#/home" class="add-under-line" ng-click="logout()">LogOut</a></li>
 
-                <li ng-class="{'active' : $location.url() == '/search'}" data-target=".navbar-collapse.in">
+                <li ng-class="{'active' : $location.url() == '/search'}" data-toggle="collapse"
+                    data-target=".navbar-collapse.in">
                     <a href="#/search" class="add-under-line">
                         <span class="glyphicon glyphicon-search"></span>
                         Search</a></li>

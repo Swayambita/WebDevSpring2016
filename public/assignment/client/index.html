@@ -9,31 +9,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Assignment Index Page</title>
+    <title>Form Maker</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/dashboard.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
-
-    <script src="app.js"></script>
-    <script src="config.js"></script>
-
-    <script src="views/main/main.controller.js"></script>
-    <script src="views/header/header.controller.js"></script>
-    <script src="views/sidebar/sidebar.controller.js"></script>
-    <script src="views/users/login.controller.js"></script>
-    <script src="views/users/profile.controller.js"></script>
-    <script src="views/forms/forms.controller.js"></script>
-    <script src="views/forms/field.controller.js"></script>
-    <script src="views/users/register.controller.js"></script>
-
-    <script src="services/user.service.client.js"></script>
-    <script src="services/forms.service.client.js"></script>
-    <script src="services/field.service.client.js"></script>
+    <script src="directives/jgaSortable.js"></script>
 
 </head>
 
@@ -55,9 +41,33 @@
         <div ng-include="'views/sidebar/sidebar.view.html'">
         </div>
 
+    <!-------------------------  Loading other js files --------------------------------------------------------   -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="directives/jgaSortable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
+
+
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <script src="views/main/main.controller.js"></script>
+    <script src="views/header/header.controller.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
+    <script src="views/users/login.controller.js"></script>
+    <script src="views/users/profile.controller.js"></script>
+    <script src="views/forms/forms.controller.js"></script>
+    <script src="views/forms/field.controller.js"></script>
+    <script src="views/users/register.controller.js"></script>
+
+    <script src="services/user.service.client.js"></script>
+    <script src="services/forms.service.client.js"></script>
+    <script src="services/field.service.client.js"></script>
 
 </body>
 

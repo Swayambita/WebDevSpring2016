@@ -10,8 +10,8 @@
         var latitude=$rootScope.latitude;
         var longitude=$rootScope.longitude;
 
-        console.log("***",latitude);
-        console.log("***",longitude);
+        console.log("latitude",latitude);
+        console.log("longitude",longitude);
         // var SEARCH_URL="https://www.eventbriteapi.com/v3/events/search/?q=EVENT&popular=on&token=YOGCILSQP3UVN2EFLRPC";
         var SEARCH_URL="https://www.eventbriteapi.com/v3/events/search/?q=music&popular=on&location.latitude=LATITUDE&location.longitude=LONGITUDE&token=YOGCILSQP3UVN2EFLRPC";
 

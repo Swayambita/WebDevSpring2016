@@ -9,7 +9,8 @@
             findFormByTitle:findFormByTitle,
             deleteForm:deleteForm,
             addForm:addForm,
-            updateForm:updateForm
+            updateForm:updateForm,
+            findFormById:findFormById
         }
         return model;
 
@@ -30,6 +31,9 @@
         }
         function updateForm(formToBeUpdatedId,form){
             return $http.put("/api/assignment/form/"+formToBeUpdatedId,form);
+        }
+        function findFormById(formId){
+            return $http.get("/api/assignment/findFormById/"+formId);
         }
     }
 })();
