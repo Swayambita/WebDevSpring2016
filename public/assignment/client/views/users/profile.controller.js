@@ -22,9 +22,9 @@
         }
         init;
 
-        function update(username,passwaord,firstName,lastName,email){
+        function update(username,password,firstName,lastName,email){
             var newDetails= {"username" : username, "firstName": firstName,
-                "lastName":lastName , "email" :email ,"password" :passwaord};
+                "lastName":lastName , "email" :email ,"password" :password};
 
             UserService.updateUser(newDetails,currentUser._id)
                 .then(

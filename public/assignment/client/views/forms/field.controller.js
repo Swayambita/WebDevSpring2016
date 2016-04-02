@@ -73,7 +73,6 @@
                     ]
                 };
             }
-
             else {
                 return null;
             }
@@ -139,7 +138,6 @@
                 }
                 vm.selectedField.options = optionList;
             }
-
             if (vm.selectedField.placeholder) {
                 vm.selectedField.placeholder = vm.placeholder
             }
@@ -156,7 +154,6 @@
         }
 
         function cancelField() {
-
             FieldService.getFieldsForForm(formId)
                 .then(function (response) {
                     vm.existingFields = response.data.fields;
@@ -180,15 +177,12 @@
 
         function updateForm(start, end) {
             var newFields = [];
-
             for (var i in vm.existingFields) {
                 newFields[i] = vm.existingFields[i];
             }
-
             var temp = newFields[start];
             newFields[start] = newFields[end];
             newFields[end] = temp;
-
             FormService.findFormById(formId)
                 .then(function (response) {
                     var form = response.data;

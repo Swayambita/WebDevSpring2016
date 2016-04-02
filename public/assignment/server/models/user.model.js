@@ -38,12 +38,13 @@ module.exports= function(uuid,db){
         return deferred.promise;
     }
 
-
     function updateUser (id, userDetails) {
         var deferred= q.defer();
                 User.update (
                             {"_id": id},
-                            {$set: userDetails},
+                            {$set: {"username":userDetails.username,"password":userDetails.password,
+                                "firstName":userDetails.firstName,
+                                "lastName":userDetails.lastName}},
                     function (err, stats) {
                            if(!err){
                                console.log("&&&&");
