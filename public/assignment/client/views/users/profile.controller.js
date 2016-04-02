@@ -42,7 +42,7 @@
         }*/
 
         function update(username,passwaord,firstName,lastName,email){
-            var newDetails= {"_id":currentUser._id, "username" : username, "firstName": firstName,
+            var newDetails= {"username" : username, "firstName": firstName,
                 "lastName":lastName , "email" :email ,"password" :passwaord};
 
             UserService.updateUser(newDetails)
