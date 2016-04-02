@@ -11,9 +11,6 @@
         vm.message= null;
         vm.update=update;
 
-       // vm.user = currentUser;
-
-
         vm.firstName=currentUser.firstName;
         vm.lastName=currentUser.lastName;
         vm.username=currentUser.username;
@@ -25,16 +22,16 @@
         }
         init;
 
-        function update(username,passwaord,firstName,lastName,email){
+       /* function update(username,passwaord,firstName,lastName,email){
             var newDetails= {"_id":currentUser._id, "username" : username, "firstName": firstName,
                 "lastName":lastName , "email" :email ,"password" :passwaord};
-            UserService.updateUser(newDetails)
+
+
+             UserService.updateUser(newDetails)
                 .then(
                     function(response){
                         if(response){
-
                             UserService.setCurrentUser(response.data);
-
                             vm.message="Profile Update";
                         }
                         else{
@@ -42,6 +39,22 @@
                         }
                     }
                 );
+        }*/
+
+        function update(username,passwaord,firstName,lastName,email){
+            var newDetails= {"_id":currentUser._id, "username" : username, "firstName": firstName,
+                "lastName":lastName , "email" :email ,"password" :passwaord};
+
+            UserService.updateUser(newDetails)
+                .then(
+                    function(response){
+                            UserService.setCurrentUser(response.data);
+                            vm.message="Profile Update";
+                        },
+                    function(err){
+
+                            vm.message="Couldn't update the profile";
+                        });
         }
     }
 })();

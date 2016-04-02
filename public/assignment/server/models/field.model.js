@@ -1,53 +1,50 @@
-var formMock = require("./form.mock.json");
+//var formMock = require("./form.mock.json");
+var mongoose=require("mongoose");
+var q= require("q");
 
-module.exports= function(uuid,formModel){
+module.exports= function(uuid,formModel,db){
+
+    var FieldSchema=require("./field.schema.server.js")();
+    var Field=mongoose.model("Field",FieldSchema);
 
     var api = {
-        getFieldsForForm:getFieldsForForm,
-        createFieldForForm:createFieldForForm,
         deleteFieldFromForm:deleteFieldFromForm,
         updateField:updateField,
-        cloneField:cloneField
-
+        cloneField:cloneField,
+        createNewField:createNewField
     }
     return api;
 
-    function getFieldsForForm(formId){
-        var form=formModel.findFormById(formId);
-        return form.fields;
-    }
 
-
-    function createFieldForForm(formId,field){
-        var form=formModel.findFormById(formId);
-        if(form!=null){
-            field._id=uuid.v1();
-            form.fields.push(field);
-            return form.fields;
-        }
-        else{
-            return null;
-        }
-    }
-
-    function deleteFieldFromForm(formId,fieldId){
-
-        var form=formModel.findFormById(formId);
-        if(form!=null){
-            for(var v in form.fields){
-                if(fieldId== form.fields[v]._id){
-                    form.fields.splice(v,1);
-                    var allFields=getFieldsForForm(formId);
-                    return allFields;
-                }
+    function createNewField(field){
+        var deferred= q.defer();
+        Field.create(field,function(err,doc){
+            if(err){
+                deferred.reject(err);
             }
-        }
-        else
-             return null;
-
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function updateField(formId,fieldId,updatedField){
+
+    function deleteFieldFromForm(fieldId){
+        var deferred= q.defer();
+        Field.remove({"_id":fieldId},function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+
+    }
+    function updateField(arrOfFields,fieldId,updatedField){
         var form=formModel.findFormById(formId);
         if(form!=null){
             for(var v in form.fields){
@@ -62,11 +59,21 @@ module.exports= function(uuid,formModel){
             return null;
     }
 
-    function cloneField(formId,field){
-            field._id = uuid.v1();
-            var form = formModel.findFormById(formId);
-            form.fields.push(field);
+    function cloneField(field){
+        var deferred= q.defer();
+
+        Field.create(field,function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
         }
+
+
 }
 
 

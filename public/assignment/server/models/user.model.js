@@ -1,10 +1,11 @@
 var mongoose=require("mongoose");
-var mock = require("./user.mock.json");
+var q= require("q");
+//var mock = require("./user.mock.json");
 
-module.exports= function(uuid){
+module.exports= function(uuid,db){
 
-   // var UserSchema=require("./user.schema.server.js")();
-    //var User=mongoose.model("User",UserSchema);
+    var UserSchema=require("./user.schema.server.js")();
+    var User=mongoose.model("User",UserSchema);
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -18,25 +19,44 @@ module.exports= function(uuid){
         return api;
 
     function findUserByCredentials(username,password) {
-        for(var u in mock) {
-                      if( mock[u].username == username &&
-                                mock[u].password == password) {
-                               return mock[u];
-                            }
-                   }
-                return null;
-        }
+       return User.findOne({"username":username,"password":password})
 
-    function findUserByUsername(userName){
-        for(var u in mock){
-            if(mock[u].username=== userName){
-                return mock[u];
-            }
-            return null;
-        }
     }
 
-    function createNewUser(userDetails){
+    function findUserByUsername(userName){
+        var deferred= q.defer();
+        User.findOne (
+            {"username": userName},
+            function (err, stats) {
+                if(!err){
+                    deferred.resolve(stats);
+                }
+                else{
+                    deferred.reject(err);
+                }
+            } );
+        return deferred.promise;
+    }
+
+
+    function updateUser (id, userDetails) {
+        var deferred= q.defer();
+                User.update (
+                            {"_id": id},
+                            {$set: userDetails},
+                    function (err, stats) {
+                           if(!err){
+                               console.log("&&&&");
+                               deferred.resolve(stats);
+                           }
+                        else{
+                               deferred.reject(err);
+                           }
+                    } );
+        return deferred.promise;
+    }
+
+   /* function createNewUser(userDetails){
         var oldUser= findUserByUsername(userDetails.username);
         if(oldUser== null){
             userDetails._id =  uuid.v1();
@@ -44,9 +64,25 @@ module.exports= function(uuid){
                     return userDetails;
         }
         return null;
+    }*/
+
+    // add validation checks whether username already exists
+
+    function createNewUser(userDetails){
+        var deferred= q.defer();
+        User.create(userDetails,function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 
-    function updateUser(id,updatedUserDetails) {
+   /* function updateUser(id,updatedUserDetails) {
 
         //we need to check if userName is unique here
         for (var u in mock) {
@@ -56,7 +92,7 @@ module.exports= function(uuid){
                 return mock[u];
             }
         }
-    }
+    }*/
 
         function deleteUser(id) {
             for (var u in mock) {
@@ -79,15 +115,20 @@ module.exports= function(uuid){
         return null;
     }
 
-    function getUserById(id){
-        for (var u in mock) {
-            if (mock[u]._id == id) {
-                return mock[u];
-            }
-        }
-        return null;
-    }
 
+    function getUserById(id){
+        var deferred= q.defer();
+        User.findOne({"_id":id},function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+    }
 
 }
 

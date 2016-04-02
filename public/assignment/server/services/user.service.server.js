@@ -12,22 +12,52 @@ module.exports = function(app,userModel) {
     function findUserByCredentails(req,res){
         var username=req.params.username;
         var password=req.params.password;
-        var user=userModel.findUserByCredentials(username,password);
-        res.json(user);
+
+        userModel.findUserByCredentials(username,password)
+            .then(function(user){
+             res.json(user);
+            },
+              function(err){
+                res.status(400).send(err);
+            });
     }
 
     function register(req,res){
+        // username validation will be added when we implement passport
         var userDetails = req.body;
-        var newUser=userModel.createNewUser(userDetails);
-        res.json(newUser);
-
+        userModel.createNewUser(userDetails)
+            .then(function(user) {
+                res.json(user);
+            },
+            function(err){
+                res.status(400).send(err);
+            });
     }
 
     function updateUser(req,res){
+        console.log("upadteuser");
         var id=req.params.id;
         var updatedUserDetails = req.body;
-        var updatedUser=userModel.updateUser(id,updatedUserDetails);
-        res.json(updatedUser);
+
+        userModel.updateUser(id,updatedUserDetails)
+            .then(function(user){
+                console.log("1st response",user);
+
+                userModel.getUserById(id)
+                   .then(function (response){
+                           console.log("2nd response",response);
+                    res.json(response);
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
+
+
+            },
+            function(err){
+                console.log("error");
+                res.status(400).send(err);
+            });
     }
 
     function deleteUser(req,res){
@@ -46,6 +76,7 @@ module.exports = function(app,userModel) {
     }
 
     function getUserById(req,res){
+        console.log("getuserbyid");
         var id=rq.params.id;
         var user=userModel.getUserById(id);
         return user;

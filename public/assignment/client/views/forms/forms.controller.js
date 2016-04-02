@@ -15,17 +15,17 @@
         vm.selectForm=selectForm;
 
         function init(){
-
             if(vm.currentUser == null){
                 $location.url("/home");
             }
             else{
                 FormService.findAllFormsForUser(vm.currentUser._id)
                     .then(function(response){
-                        if(response.data) {
                             vm.forms=response.data;
-                        }
-                    });
+                        },
+                    function(error){
+                        vm.message="Error from server side";
+                    })
             }
         }
         init();
@@ -39,6 +39,9 @@
                         vm.forms=response.data;
                         vm.formIndexSelected=null;
                         vm.formName=null;
+                    },
+                    function(error){
+                        vm.message="Form couldnot be created"
                     })
             }
             else{
@@ -52,21 +55,26 @@
                 var changedForm ={"title" : form, "userId" : vm.currentUser._id ,
                     "_id": formToBeUpdatedId};
                 FormService.updateForm(formToBeUpdatedId,changedForm)
-                    .then(finalList)
+                    .then(function(response){
+                        finalList(response);
+                    },
+                    function(error){
+                      vm.message="Error from server side";
+                    })
              }
         }
 
         function finalList(response){
             FormService.findAllFormsForUser(vm.currentUser._id)
                 .then(function(response){
-                    if(response.data) {
                         vm.forms=response.data;
                         vm.formIndexSelected=null;
                         vm.formName=null;
-                    }
-                });
+                    },
+                function(error){
+                    vm.message="Error from server side";
+                })
         }
-
         function selectForm(index){
             vm.formIndexSelected = index;
             vm.formName = vm.forms[index].title;
@@ -76,15 +84,17 @@
             var userId=vm.currentUser._id;
             vm.formIndexSelected = index;
             var formToDelete=vm.forms[index]._id;
+            console.log("id of form to be deleted",formToDelete);
             FormService.deleteForm(formToDelete,userId)
                 .then(function(response){
-                    console.log("after deletion",response.data);
-                    vm.forms=response.data;
-                    vm.formIndexSelected=null;
-                    vm.formName=null;
-                })
+                        vm.forms=response.data;
+                        vm.formIndexSelected=null;
+                        vm.formName=null;
+                    },
+                    function(error){
+                        vm.message="Form couldnot be deleted"
+                    })
         }
-
     }
 
 })();

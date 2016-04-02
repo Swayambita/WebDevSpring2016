@@ -40,16 +40,14 @@
                 return;
             }
 
-            UserService.register(user).
-            then(function (response){
-                if(response.data) {
-                    UserService.setCurrentUser(response.data);
+            UserService.register(user)
+                .then(function (user){
+                    UserService.setCurrentUser(user.data);
                     $location.url("/profile");
-                }
-                else{
-                    vm.message="Username already exists";
-                }
-            });
+                },
+                function (error){
+                    vm.message="Username already";
+                })
         }
     }
 })();

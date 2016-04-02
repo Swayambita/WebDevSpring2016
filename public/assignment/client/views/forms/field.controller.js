@@ -8,6 +8,7 @@
         var vm = this;
         vm.currentUser = $rootScope.currentUser;
         vm.message = null;
+
         vm.addField = addField;
         vm.removeField = removeField;
         vm.editField = editField;
@@ -19,12 +20,19 @@
         var formId = $routeParams.formId;
 
         function init() {
-            FieldService.getFieldsForForm(formId)
+            FormService.findFormById(formId)
                 .then(function (response) {
-                    vm.existingFields = response.data;
+                    if(response.data.fields.length>0) {
+                        vm.existingFields = response.data.fields;
+                    }
+                    else{
+                        vm.message="this form has no fields yet"
+                    }
+                },
+                function(error){
+                    vm.message="Error from server";
                 })
         }
-
         init();
 
         function addField(fieldType) {
@@ -32,17 +40,16 @@
             var field = null;
             //Set default field information
             if (fieldType == "Single Line Text Field") {
-                field = {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"};
+                field = {"label": "New Text Field", "type": "TEXT", "placeholder": "New Field"};
             }
             else if (fieldType == "Multi Line Text Field") {
-                field = {"_id": null, "label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"};
+                field = { "label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"};
             }
             else if (fieldType == "Date Field") {
-                field = {"_id": null, "label": "New Date Field", "type": "DATE"};
+                field = {"label": "New Date Field", "type": "DATE"};
             }
             else if (fieldType == "Dropdown Field") {
-                field = {
-                    "_id": null, "label": "New Dropdown", "type": "OPTIONS",
+                field = {"label": "New Dropdown", "type": "OPTIONS",
                     "options": [
                         {"label": "Option 1", "value": "OPTION_1"},
                         {"label": "Option 2", "value": "OPTION_2"},
@@ -51,8 +58,7 @@
                 };
             }
             else if (fieldType == "Checkboxes Field") {
-                field = {
-                    "_id": null, "label": "New Checkboxes", "type": "CHECKBOXES", "options": [
+                field = {"label": "New Checkboxes", "type": "CHECKBOXES", "options": [
                         {"label": "Option A", "value": "OPTION_A"},
                         {"label": "Option B", "value": "OPTION_B"},
                         {"label": "Option C", "value": "OPTION_C"}
@@ -60,8 +66,7 @@
                 };
             }
             else if (fieldType == "Radio Buttons Field") {
-                field = {
-                    "_id": null, "label": "Radio Buttons Field", "type": "RADIOS", "options": [
+                field = {"label": "Radio Buttons Field", "type": "RADIOS", "options": [
                         {"label": "Option X", "value": "OPTION_X"},
                         {"label": "Option Y", "value": "OPTION_Y"},
                         {"label": "Option Z", "value": "OPTION_Z"}
@@ -75,18 +80,23 @@
 
             FieldService.createFieldForForm(formId, field)
                 .then(function (response) {
-                    if (response.data) {
-                        vm.existingFields = response.data;
-                    }
+                    console.log("the response for adding",response);
+                    vm.existingFields = response.data.fields;
+                    vm.message=null;
+                },
+                function(error){
+                  vm.message="couldnot add the field";
                 });
         }
 
         function removeField(field) {
+            console.log("field to be deleted",field);
             FieldService.deleteFieldFromForm(formId, field._id)
                 .then(function (response) {
-                    if (response.data) {
-                        vm.existingFields = response.data;
-                    }
+                        vm.existingFields = response.data.fields;
+                },
+                function(error){
+                    vm.message="couldnot delete the field";
                 });
         }
 
@@ -98,7 +108,7 @@
             console.log("options", field.options);
             var op = field.options;
 
-            if (op) {
+            if (op && (field.type == 'OPTIONS' ||field.type == 'CHECKBOXES'|| field.type == 'RADIOS' )) {
                 var optionList = [];
                 for (var u in op) {
                     optionList.push(op[u].label + ":" + op[u].value + "\n");
@@ -107,6 +117,10 @@
                 optionsInString = optionsInString.substring(0, optionsInString.length - 1);
                 vm.selectedField.options = optionList;
                 vm.options = optionsInString;
+            }
+            else
+            {
+                vm.selectedField.options=null;
             }
 
             if (field.placeholder) {
@@ -131,9 +145,11 @@
             }
 
             vm.selectedField.label = vm.label;
-
             FieldService.updateField(formId, vm.selectedField._id, vm.selectedField)
-                .then(init());
+                .then(function(response) {
+                    init()
+                });
+
             vm.label = null;
             vm.placeholder = null;
             vm.options = null;
@@ -143,7 +159,7 @@
 
             FieldService.getFieldsForForm(formId)
                 .then(function (response) {
-                    vm.existingFields = response.data;
+                    vm.existingFields = response.data.fields;
                 })
             vm.label = null;
             vm.placeholder = null;
@@ -151,8 +167,15 @@
         }
 
         function cloneField(field) {
-            FieldService.cloneField(formId, field)
-                .then(init());
+            var cloneField=  field;
+            delete cloneField['_id'];
+            FieldService.cloneField(formId, cloneField)
+                .then(function(response){
+                    init();
+                },
+                function(error){
+                    vm.message="error from server";
+                });
         }
 
         function updateForm(start, end) {

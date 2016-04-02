@@ -32,7 +32,7 @@
         }
 
         function deleteFieldFromForm(formId,fieldId){
-            console.log("in clien service",formId,fieldId);
+            console.log("in client service",formId,fieldId);
             return $http.delete("/api/assignment/form/"+formId+"/field/"+fieldId);
         }
 
@@ -41,7 +41,7 @@
         }
 
         function cloneField(formId,field){
-            return $http.post("/api/assignment/form/" +formId+ "/field", field);
+            return $http.post("/api/assignment/form/"+formId+"/cloneField/", field);
         }
     }
 })();
