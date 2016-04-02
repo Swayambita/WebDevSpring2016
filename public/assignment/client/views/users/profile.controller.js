@@ -45,7 +45,7 @@
             var newDetails= {"username" : username, "firstName": firstName,
                 "lastName":lastName , "email" :email ,"password" :passwaord};
 
-            UserService.updateUser(newDetails)
+            UserService.updateUser(newDetails,currentUser._id)
                 .then(
                     function(response){
                             UserService.setCurrentUser(response.data);

@@ -47,8 +47,8 @@
             return $http.post("/api/assignment/register", user);
         }
 
-        function updateUser(user){
-            return $http.put("/api/assignment/updateUser/"+user._id,user);
+        function updateUser(user,currentUserId){
+            return $http.put("/api/assignment/updateUser/"+currentUserId,user);
         }
 
         function deleteUser(user){
