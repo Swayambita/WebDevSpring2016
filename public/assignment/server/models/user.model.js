@@ -56,18 +56,6 @@ module.exports= function(uuid,db){
         return deferred.promise;
     }
 
-   /* function createNewUser(userDetails){
-        var oldUser= findUserByUsername(userDetails.username);
-        if(oldUser== null){
-            userDetails._id =  uuid.v1();
-            mock.push(userDetails);
-                    return userDetails;
-        }
-        return null;
-    }*/
-
-    // add validation checks whether username already exists
-
     function createNewUser(userDetails){
         var deferred= q.defer();
         User.create(userDetails,function(err,doc){
@@ -82,18 +70,6 @@ module.exports= function(uuid,db){
         return deferred.promise;
     }
 
-   /* function updateUser(id,updatedUserDetails) {
-
-        //we need to check if userName is unique here
-        for (var u in mock) {
-            if (mock[u]._id == id) {
-                mock[u] = updatedUserDetails;
-                mock[u].email = updatedUserDetails.email;
-                return mock[u];
-            }
-        }
-    }*/
-
         function deleteUser(id) {
             for (var u in mock) {
                 if (mock[u]._id == id) {
@@ -101,10 +77,6 @@ module.exports= function(uuid,db){
                 }
             }
         }
-
-    function getAllUsers(){
-        return mock;
-    }
 
     function getUserByUserName(username){
         for (var u in mock) {
@@ -126,7 +98,6 @@ module.exports= function(uuid,db){
                 deferred.resolve(doc);
             }
         });
-
         return deferred.promise;
     }
 
