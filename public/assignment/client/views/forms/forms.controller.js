@@ -15,6 +15,7 @@
         vm.selectForm=selectForm;
 
         function init(){
+
             if(vm.currentUser == null){
                 $location.url("/home");
             }
@@ -29,6 +30,7 @@
             }
         }
         init();
+
 
         function addForm(formName){
             var userId=vm.currentUser._id;
@@ -52,8 +54,7 @@
         function updateForm(form){
             if (form!= null) {
                 var formToBeUpdatedId= vm.forms[vm.formIndexSelected]._id;
-                var changedForm ={"title" : form, "userId" : vm.currentUser._id ,
-                    "_id": formToBeUpdatedId};
+                var changedForm ={"title" : form, "userId" : vm.currentUser._id};
                 FormService.updateForm(formToBeUpdatedId,changedForm)
                     .then(function(response){
                         finalList(response);
