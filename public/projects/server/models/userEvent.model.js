@@ -1,11 +1,6 @@
-//var eventMock = require("./event.mock.json");
-var mongoose=require("mongoose");
-var q= require("q");
+var eventMock = require("./event.mock.json");
 
 module.exports= function(uuid,db) {
-
-    var UserSchema=require("./user.schema.server.js")();
-    var User=mongoose.model("User",UserSchema);
 
     var api = {
         findEventsFoCurrentUser: findEventsFoCurrentUser,
