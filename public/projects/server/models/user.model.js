@@ -1,6 +1,11 @@
-var mock = require("./user.mock.json");
+//var mock = require("./user.mock.json");
+var mongoose=require("mongoose");
+var q= require("q");
 
 module.exports= function(uuid){
+
+    var UserSchema=require("./user.schema.server.js")();
+    var User=mongoose.model("User",UserSchema);
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -13,12 +18,12 @@ module.exports= function(uuid){
         getAllUsers:getAllUsers,
         addNewUser:addNewUser,
         profileUpdate:profileUpdate,
-        ifExitsEmail:ifExitsEmail,
+     //   ifExitsEmail:ifExitsEmail,
         getFavEvents:getFavEvents
     }
     return api;
 
-    function findUserByCredentials(username,password) {
+  /*  function findUserByCredentials(username,password) {
         console.log("in server model");
         for(var u in mock) {
             if( mock[u].username == username &&
@@ -27,16 +32,37 @@ module.exports= function(uuid){
             }
         }
         return null;
+    }*/
+
+
+    function findUserByCredentials(username,password) {
+        return User.findOne({"username":username,"password":password})
     }
 
     function findUserByUsername(userName){
+        var deferred= q.defer();
+        User.findOne (
+            {"username": userName},
+            function (err, stats) {
+                if(!err){
+                    deferred.resolve(stats);
+                }
+                else{
+                    deferred.reject(err);
+                }
+            } );
+        return deferred.promise;
+    }
+
+
+   /* function findUserByUsername(userName){
         for(var u in mock){
             if(mock[u].username=== userName){
                 return mock[u];
             }
         }
         return null;
-    }
+    }*/
 
     function ifExitsEmail(email){
         for(var u in mock){
@@ -48,7 +74,7 @@ module.exports= function(uuid){
         return null;
     }
 
-    function register(userDetails){
+   /* function register(userDetails){
         var oldUser= findUserByUsername(userDetails.username);
         var emailExits=ifExitsEmail(userDetails.email);
         if(oldUser== null && emailExits==null){
@@ -57,9 +83,62 @@ module.exports= function(uuid){
             return userDetails;
         }
         return null;
+    }*/
+
+
+    //check if repeated username and repeated emailid
+    function register(userDetails){
+        var deferred= q.defer();
+        var userName=userDetails.username;
+        var email=userDetails.email;
+
+        User.create(userDetails,function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                User.update({"username":userName},{$push:{"emails":email}},
+                    function(err,res){
+                        if(err){
+                            deferred.reject(err);
+                        }
+                        else{
+                            User.findOne({"username":userName},function(err,resp){
+                                if(err){
+                                    deferred.reject(err);
+                                }
+                                else{
+                                    deferred.resolve(resp);
+                                }
+                            })
+                        }
+                    });
+            }
+        });
+
+        return deferred.promise;
     }
 
-    function updateUser(id,updatedUserDetails) {
+    function updateUser (id, userDetails) {
+        var deferred= q.defer();
+        User.update (
+            {"_id": id},
+            {$set: {"username":userDetails.username,"password":userDetails.password,
+                "firstName":userDetails.firstName,
+                "lastName":userDetails.lastName,
+                "emails":userDetails.email}},
+            function (err, stats) {
+                if(!err){
+                    deferred.resolve(stats);
+                }
+                else{
+                    deferred.reject(err);
+                }
+            } );
+        return deferred.promise;
+    }
+
+    /*function updateUser(id,updatedUserDetails) {
         //we need to check if userName is unique here
         for (var u in mock) {
             if (mock[u]._id == id) {
@@ -68,9 +147,9 @@ module.exports= function(uuid){
                 return mock;
             }
         }
-    }
+    }*/
 
-    function deleteUserById(id) {
+   /* function deleteUserById(id) {
         for (var u in mock) {
             if (mock[u]._id == id) {
                 console.log("inside if",id);
@@ -79,28 +158,77 @@ module.exports= function(uuid){
                return mock;
             }
         }
+    }*/
+
+    function deleteUserById(id) {
+        var deferred= q.defer();
+        User.remove({"_id":id},function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function getAllUsers(){
-        return mock;
+        var deferred= q.defer();
+        User.find({},function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function getUserByUserName(username){
+   /* function getUserByUserName(username){
         for (var u in mock) {
             if (mock[u].username == username) {
                 return mock[u];
             }
         }
         return null;
+    }*/
+
+    function getUserByUserName(username){
+        var deferred= q.defer();
+        User.findOne({"username":username},function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function getUserById(id){
+    /*function getUserById(id){
         for (var u in mock) {
             if (mock[u]._id == id) {
                 return mock[u];
             }
         }
         return null;
+    }*/
+
+
+    function getUserById(id){
+        var deferred= q.defer();
+        User.findOne({"_id":id},function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function addNewUser(user){

@@ -10,12 +10,11 @@
         var vm=this;
         vm.message= null;
         vm.update=update;
-
         vm.firstName=currentUser.firstName;
         vm.lastName=currentUser.lastName;
         vm.username=currentUser.username;
         vm.password=currentUser.password;
-        vm.email=currentUser.email;
+        vm.email=currentUser.emails.join(",");
 
         function init(){
 
@@ -24,8 +23,7 @@
 
         function update(username,password,firstName,lastName,email){
             var newDetails= {"username" : username, "firstName": firstName,
-                "lastName":lastName , "email" :email ,"password" :password};
-
+                "lastName":lastName , "email" :email.split(",") ,"password" :password};
             UserService.updateUser(newDetails,currentUser._id)
                 .then(
                     function(response){
@@ -33,7 +31,6 @@
                             vm.message="Profile Update";
                         },
                     function(err){
-
                             vm.message="Couldn't update the profile";
                         });
         }

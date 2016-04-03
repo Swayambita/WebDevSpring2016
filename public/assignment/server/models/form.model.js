@@ -20,7 +20,6 @@ module.exports= function(uuid,db) {
     }
     return api;
 
-
     function findFormById(formId) {
 
         var deferred = q.defer();
@@ -57,7 +56,6 @@ module.exports= function(uuid,db) {
         return deferred.promise;
     }
 
-
     function addForm(id, form) {
         var deferred = q.defer();
         form.userId = id;
@@ -73,7 +71,6 @@ module.exports= function(uuid,db) {
         });
         return deferred.promise;
     }
-
 
     function deleteForm(formId, userId) {
         var deferred = q.defer();

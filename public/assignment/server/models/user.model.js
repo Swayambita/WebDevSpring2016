@@ -20,7 +20,6 @@ module.exports= function(uuid,db){
 
     function findUserByCredentials(username,password) {
        return User.findOne({"username":username,"password":password})
-
     }
 
     function findUserByUsername(userName){
@@ -44,10 +43,10 @@ module.exports= function(uuid,db){
                             {"_id": id},
                             {$set: {"username":userDetails.username,"password":userDetails.password,
                                 "firstName":userDetails.firstName,
-                                "lastName":userDetails.lastName}},
+                                "lastName":userDetails.lastName,
+                            "emails":userDetails.email}},
                     function (err, stats) {
                            if(!err){
-                               console.log("&&&&");
                                deferred.resolve(stats);
                            }
                         else{
@@ -59,7 +58,39 @@ module.exports= function(uuid,db){
 
     function createNewUser(userDetails){
         var deferred= q.defer();
+        var userName=userDetails.username;
+        var email=userDetails.email;
+
         User.create(userDetails,function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                User.update({"username":userName},{$push:{"emails":email}},
+                function(err,res){
+                    if(err){
+                        deferred.reject(err);
+                    }
+                    else{
+                        User.findOne({"username":userName},function(err,resp){
+                            if(err){
+                                deferred.reject(err);
+                            }
+                            else{
+                                deferred.resolve(resp);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function deleteUser(id) {
+        var deferred= q.defer();
+        User.remove({"_id":id},function(err,doc){
             if(err){
                 deferred.reject(err);
             }
@@ -67,25 +98,21 @@ module.exports= function(uuid,db){
                 deferred.resolve(doc);
             }
         });
-
         return deferred.promise;
     }
 
-        function deleteUser(id) {
-            for (var u in mock) {
-                if (mock[u]._id == id) {
-                    mock.splice(u, 1);
-                }
-            }
-        }
 
     function getUserByUserName(username){
-        for (var u in mock) {
-            if (mock[u].username == username) {
-                return mock[u];
+        var deferred= q.defer();
+        User.findOne({"username":username},function(err,doc){
+            if(err){
+                deferred.reject(err);
             }
-        }
-        return null;
+            else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
 
