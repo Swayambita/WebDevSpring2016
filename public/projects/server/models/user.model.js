@@ -1,4 +1,6 @@
 var mock = require("./user.mock.json");
+var mongoose=require("mongoose");
+var q= require("q");
 
 module.exports= function(uuid,db){
 
@@ -7,7 +9,7 @@ module.exports= function(uuid,db){
 
     var api = {
         findUserByCredentials: findUserByCredentials,
-       /* findUserByUsername:findUserByUsername,
+        findUserByUsername:findUserByUsername,
         register :register,
         updateUser:updateUser,
         deleteUserById:deleteUserById,
@@ -16,12 +18,12 @@ module.exports= function(uuid,db){
         getAllUsers:getAllUsers,
         addNewUser:addNewUser,
         profileUpdate:profileUpdate,
-       ifExitsEmail:ifExitsEmail,
-        getFavEvents:getFavEvents*/
+     //   ifExitsEmail:ifExitsEmail,
+        getFavEvents:getFavEvents
     }
     return api;
 
-    function findUserByCredentials(username,password) {
+  /*  function findUserByCredentials(username,password) {
         console.log("in server model");
         for(var u in mock) {
             if( mock[u].username == username &&
@@ -30,14 +32,14 @@ module.exports= function(uuid,db){
             }
         }
         return null;
-    }
-
-
-   /* function findUserByCredentials(username,password) {
-        return User.findOne({"username":username,"password":password})
     }*/
 
-   /* function findUserByUsername(userName){
+
+    function findUserByCredentials(username,password) {
+        return User.findOne({"username":username,"password":password})
+    }
+
+    function findUserByUsername(userName){
         var deferred= q.defer();
         User.findOne (
             {"username": userName},
@@ -50,17 +52,17 @@ module.exports= function(uuid,db){
                 }
             } );
         return deferred.promise;
-    }*/
+    }
 
 
-    /*function findUserByUsername(userName){
+   /* function findUserByUsername(userName){
         for(var u in mock){
             if(mock[u].username=== userName){
                 return mock[u];
             }
         }
         return null;
-    }
+    }*/
 
     function ifExitsEmail(email){
         for(var u in mock){
@@ -85,7 +87,7 @@ module.exports= function(uuid,db){
 
 
     //check if repeated username and repeated emailid
-  /*  function register(userDetails){
+    function register(userDetails){
         var deferred= q.defer();
         var userName=userDetails.username;
         var email=userDetails.email;
@@ -158,7 +160,7 @@ module.exports= function(uuid,db){
         }
     }*/
 
-  /*  function deleteUserById(id) {
+    function deleteUserById(id) {
         var deferred= q.defer();
         User.remove({"_id":id},function(err,doc){
             if(err){
@@ -173,7 +175,7 @@ module.exports= function(uuid,db){
 
     function getAllUsers(){
         var deferred= q.defer();
-        User.find({},function(err,doc){
+        User.find({"username":username},function(err,doc){
             if(err){
                 deferred.reject(err);
             }
@@ -193,7 +195,7 @@ module.exports= function(uuid,db){
         return null;
     }*/
 
-  /*  function getUserByUserName(username){
+    function getUserByUserName(username){
         var deferred= q.defer();
         User.findOne({"username":username},function(err,doc){
             if(err){
@@ -216,7 +218,7 @@ module.exports= function(uuid,db){
     }*/
 
 
-  /*  function getUserById(id){
+    function getUserById(id){
         var deferred= q.defer();
         User.findOne({"_id":id},function(err,doc){
             if(err){
@@ -261,7 +263,7 @@ module.exports= function(uuid,db){
             return null;
         }*/
 
-     /*   for (var u in mock) {
+        for (var u in mock) {
             if (mock[u]._id == id) {
                 mock[u] = updatedUserDetails;
                 mock[u].email = updatedUserDetails.email;
@@ -280,7 +282,7 @@ module.exports= function(uuid,db){
                 return mock[u].likes;
             }
         }
-    }*/
+    }
 }
 
 
