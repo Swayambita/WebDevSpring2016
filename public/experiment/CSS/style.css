@@ -36,7 +36,7 @@
 
 .details-image{
     padding-top :350px;
-    background-image: url('../views/assets/paper_img/Conception.jpg');
+    background-image: url('../../../experiment/paper_img/Conception.jpg');
     background-position: center center;
     background-size: cover;
     height: 10px;
