@@ -17,14 +17,18 @@
                     vm.allUsers=response.data;
                     vm.username=null;
                     vm.password=null;
+                    vm.firstName=null;
+                    vm.lastName=null;
                 })
         }
 
         init();
 
-        function addUser(username,password){
+        function addUser(username,password,firstName,lastName){
             var user={"username":username,
-            "password":password};
+            "password":password,
+            "firstName":firsName,
+            "lastName":lastName};
             UserService.addNewUser(user)
                 .then(function(response){
                     if(response.data!=null){
@@ -39,12 +43,14 @@
                 })
         }
 
-        function updateUser(username,password){
+        function updateUser(username,password,firstName,lastName){
            var index= vm.indexSelected;
             console.log("the index",index);
             var userId= vm.allUsers[index]._id;
             var user={"username":username, 
-                "password":password}; 
+                "password":password,
+            "firstName":firstName,
+            "lastName":lastName}; 
             UserService.updateUser(userId,user) 
                 .then(function(response){ 
                     vm.allUsers=response.data; 

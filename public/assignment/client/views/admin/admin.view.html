@@ -1,92 +1,92 @@
+<html>
 <body>
 
 <div class="container-fluid">
     <div class="row">
 
-            <h1>Admin</h1>
-            <h3>Users</h3>
-
-            <div class="table-responsive">
-              <table class="table table-striped table-hover table-bordered table-condensed">
-
-                <tr>
-                    <th bgcolor="gray">
-                        <a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                        Username
-                    </th>
-
-                    <th bgcolor="gray">
-                        <a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span>
+        <h1>Admin</h1>
+        <h3>Users</h3>
+        <div ng.show="model.message" class="alert alert-success" role="alert">
+            {{model.message}}</div>
+        <table class="table table-responsive table-striped table-bordered">
+            <tr>
+                <th bgcolor="gray" class="text-nowrap">
+                    <a href="" ng-click="sortType='username'; sortReverse = !sortReverse">
+                        <span ng-show = "sortType == 'username' &&  !sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                        <span ng-show = "sortType == 'username' &&   sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                    Username
                         </a>
-                        Password
-                    </th>
-                    <th bgcolor="gray">
-                        <a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                        Role
-                    </th>
-                    <th bgcolor="gray">
-                        <a href="#"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                        Action
-                    </th>
-                </tr>
+                </th>
 
-                <tr>
-                    <td> <input type="text" placeholder="username" class="form-control"></td>
-                    <td> <input type="password" placeholder="password" class="form-control"></td>
-                    <td> <input type="text" placeholder="role1,role2" class="form-control"></td>
-                    <td class="text-nowrap">
-                        <button type="button" class="btn btn-primary add-right-pad">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </button></td>
-                </tr>
+                <th bgcolor="gray">
+                    Password
+                </th>
 
-                <tr>
-                    <td>alice</td>
-                    <td>&nbsp;</td>
-                    <td>student</td>
-                    <td class="text-nowrap">
-                        <button type="button" class="btn btn-danger add-right-pad">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <button type="button" class="btn btn-info add-right-pad">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
+                <th bgcolor="gray" class="text-nowrap">
+                    <a href=""  ng-click="sortType='firstName'; sortReverse = !sortReverse">
+                        <span ng-show = "sortType == 'firstName' &&  !sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                        <span ng-show = "sortType == 'firstName' &&   sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                    First Name
+                    </a>
+                </th>
 
-                  <tr>
-                    <td>bob</td>
-                    <td>&nbsp;</td>
-                    <td> faculty|student</td>
-                    <td class="text-nowrap">
-                        <button type="button" class="btn btn-danger add-right-pad">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <button type="button" class="btn btn-info add-right-pad">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
+                <th bgcolor="gray" class="text-nowrap">
+                    <a href="" ng-click="sortType='lastName'; sortReverse = !sortReverse">
+                        <span ng-show = "sortType == 'lastName' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show = "sortType == 'lastName' &&  sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                    Last Name
+                    </a>
+                </th>
 
-                  <tr>
-                    <td>charlie</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td class="text-nowrap">
-                        <button type="button" class="btn btn-danger add-right-pad">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <button type="button" class="btn btn-info add-right-pad">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
+                <th bgcolor="gray">
+                    Roles
+                </th>
 
-              </table>
-            </div>
+                <th bgcolor="gray">
+                    Action
+                </th>
+            </tr>
+
+            <tr>
+                <td> <input type="text" placeholder="username" class="form-control"
+                            ng-model="model.username"></td>
+                <td> <input type="text" placeholder="password" class="form-control"
+                            ng-model="model.password"></td>
+
+                <td> <input type="text" placeholder="First Name" class="form-control"
+                            ng-model="model.firstName"></td>
+
+                <td> <input type="text" placeholder="Last Name" class="form-control"
+                            ng-model="model.lastName"></td>
+
+                <td> <input type="text" placeholder="Roles" class="form-control"
+                            ng-model="model.roles"></td>
+                <td class="text-nowrap">
+                    <button type="button" class="btn btn-primary add-right-pad">
+                        <span class="glyphicon glyphicon-plus" ng-click="model.addUser(model.username,model.password,model.firstName,model.lastName,model.roles)"></span>
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="model.updateUser(model.username,model.password,model.firstName,model.lastName,model.roles)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button></td>
+            </tr>
+
+            <tr ng-repeat="user in model.allUsers | orderBy:sortType:sortReverse">
+                <td>{{user.username}}</td>
+                <td>&nbsp;</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.roles.join(",")}}</td>
+                <td class="text-nowrap">
+                    <button type="button" class="btn btn-danger add-right-pad" ng-click="model.deleteUser($index)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <button type="button" class="btn btn-info add-right-pad" ng-click="model.selectUser($index)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+            </tr>
+
+        </table>
     </div>
 </div>
 

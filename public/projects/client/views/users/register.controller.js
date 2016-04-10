@@ -42,11 +42,16 @@
 
             UserService.register(user)
                 .then(function (user){
-                        UserService.setCurrentUser(user.data);
-                        $location.url("/profile/"+user.data._id);
+                        if(user.data!=null){
+                            $rootScope.currentUser=user;
+                            $location.url("/profile");
+                        }
+                        else{
+                            vm.message="Username already exists";
+                        }
                     },
                     function (error){
-                        vm.message="Username already";
+                        console.log(error);
                     })
         }
     }

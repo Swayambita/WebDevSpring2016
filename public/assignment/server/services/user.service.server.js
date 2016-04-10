@@ -5,14 +5,14 @@ module.exports = function(app,userModel) {
 
     var auth=authorized;
     app.post('/api/assignment/login', passport.authenticate('local'), login);
-     app.post('/api/assignment/logout',logout);
+    app.post('/api/assignment/logout',logout);
     app.get('/api/assignment/loggedin',loggedin);
-  //  app.post("/api/assignment/user",auth,createUser);
+    app.post("/api/assignment/addNewUser",auth,addNewUser);
     app.post('/api/assignment/register',register);
 
-       app.put("/api/assignment/updateUser/:id",updateUser);
-       app.delete("/api/assignment/deleteUser/:id",deleteUser);
-       app.get("/api/assignment/getAllUsers/",auth,getAllUsers);
+       app.put("/api/assignment/updateUser/:id",auth,updateUser);
+       app.delete("/api/assignment/deleteUser/:id",auth,deleteUser);
+       app.get("/api/assignment/getAllUsers",auth,getAllUsers);
        app.get("/api/assignment/getUserByUserName/:username",getUserByUserName);
        app.get("/api/assignment/getUserById/:id",getUserById);
 
@@ -22,7 +22,6 @@ module.exports = function(app,userModel) {
 
     function localStrategy(username, password, done) {
 
-        console.log("here",username,password);
         userModel
             .findUserByCredentials( username, password)
             .then(
@@ -121,6 +120,7 @@ module.exports = function(app,userModel) {
     }
 
     function updateUser(req,res){
+        console.log("here in update User");
         var id=req.params.id;
         var updatedUserDetails = req.body;
 
@@ -129,6 +129,7 @@ module.exports = function(app,userModel) {
         }
         if(typeof updatedUserDetails.roles == "string") {
             updatedUserDetails.roles = updatedUserDetails.roles.split(",");
+            console.log("splitted the roles",updatedUserDetails.roles);
         }
 
         userModel.updateUser(id,updatedUserDetails)
@@ -191,5 +192,39 @@ module.exports = function(app,userModel) {
         var id=rq.params.id;
         var user=userModel.getUserById(id);
         return user;
+    }
+
+    function addNewUser(req,res){
+        var newUser=req.body;
+        if(newUser.roles && newUser.roles.length > 1) {
+            newUser.roles = newUser.roles;
+        } else {
+            newUser.roles = ['student'];
+        }
+
+        userModel
+            .findUserByUsername(newUser.username)
+            .then(function (user) {
+                    if (user) {
+                        res.json(null);
+                    } else {
+                        return userModel.createNewUser(newUser);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        res.json(user);
+                    }else{
+                        res.json(null);
+                    }},
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 }

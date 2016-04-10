@@ -12,8 +12,6 @@
         init();
 
         function logout() {
-
-            console.log("entered header controller");
             UserService.logout()
                 .then(function () {
                     $rootScope.currentUser = null;

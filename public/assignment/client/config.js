@@ -17,6 +17,8 @@
 
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
+                controller:"AdminController",
+                controllerAs:"model",
                 resolve :{
                     loggedin:checkAdmin
                 }
@@ -78,7 +80,6 @@
     var checkAdmin = function($q, $timeout, $http, $location, $rootScope)
     {
         var deferred = $q.defer();
-
         $http.get('/api/assignment/loggedin').success(function(user)
         {
             $rootScope.errorMessage = null;

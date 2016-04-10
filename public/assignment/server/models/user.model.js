@@ -13,7 +13,8 @@ module.exports= function(db){
         updateUser:updateUser,
         deleteUser:deleteUser,
         getUserByUserName:getUserByUserName,
-        getUserById:getUserById
+        getUserById:getUserById,
+        findAllUsers:findAllUsers
     }
     return api;
 
@@ -40,11 +41,13 @@ module.exports= function(db){
         var deferred= q.defer();
         User.update (
             {"_id": id},
-            {$set: {"username":userDetails.username,"password":userDetails.password,
+            {$set: {"username":userDetails.username,
+                "password":userDetails.password,
                 "firstName":userDetails.firstName,
                 "lastName":userDetails.lastName,
-                "emails":userDetails.email,
-                "phones":userDetails.phones}},
+                "emails":userDetails.emails,
+                "phones":userDetails.phones,
+            "roles":userDetails.roles}},
             function (err, stats) {
                 if(!err){
                     deferred.resolve(stats);
@@ -60,7 +63,6 @@ module.exports= function(db){
         var deferred= q.defer();
         var userName=userDetails.username;
         var email=userDetails.email;
-
         User.create(userDetails,function(err,doc){
             if(err){
                 deferred.reject(err);
@@ -124,6 +126,20 @@ module.exports= function(db){
             }
             else{
                 deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findAllUsers(){
+
+        var deferred = q.defer();
+        User.find(function(err,users){
+            if(err){
+                deferred.reject(err);
+            }
+            else{
+                deferred.resolve(users);
             }
         });
         return deferred.promise;

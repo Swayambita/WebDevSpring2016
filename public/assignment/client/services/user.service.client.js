@@ -17,7 +17,8 @@
             getUserById:getUserById,
             deleteUser:deleteUser,
             login:login,
-            logout:logout
+            logout:logout,
+            addNewUserByAdmin:addNewUserByAdmin
         };
         return model;
 
@@ -38,15 +39,17 @@
         }
 
         function updateUser(user,currentUserId){
+            console.log("in client service update user");
             return $http.put("/api/assignment/updateUser/"+currentUserId,user);
         }
 
         function deleteUser(user){
-            return $http.delete("/api/assignment/deleteUser/"+user._id);
+            return $http.delete("/api/assignment/deleteUser/"+user);
         }
 
         function getAllUsers(){
-            return $http.get("/api/assignment/getAllUsers/");
+            console.log("getAllUsers");
+            return $http.get("/api/assignment/getAllUsers");
         }
 
         function getUserByUserName(username){
@@ -63,6 +66,10 @@
         function logout() {
             console.log("entered logout controller");
             return $http.post("/api/assignment/logout");
+        }
+
+        function addNewUserByAdmin(user){
+            return $http.post("/api/assignment/addNewUser",user);
         }
     }
 })();
