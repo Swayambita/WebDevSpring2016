@@ -1,7 +1,7 @@
 <html>
 <body>
- <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController">
-     <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController as model">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -12,29 +12,29 @@
             <a class="navbar-brand" href="#/home">Form Maker</a>
         </div>
 
-         <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse">
 
-             <ul class="nav navbar-nav navbar-right check-sidebar">
+            <ul class="nav navbar-nav navbar-right check-sidebar">
 
-                 <li ng-class="{'active': $location.url() == '/home'}"
-                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                     <a href="#/home">Home</a></li>
+                <li ng-class="{'active': $location.url() == '/home'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/home">Home</a></li>
 
-                 <li ng-show="currentUser"  ng-class="{'active': $location.url() == '/profile'}"
-                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                     <a href="#/profile">Profile</a></li>
+                <li ng-show="currentUser"  ng-class="{'active': $location.url() == '/profile'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/profile">Profile</a></li>
 
-                 <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url() == '/admin'}"
-                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                     <a href="#/admin">Admin</a></li>
+                <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url() == '/admin'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/admin">Admin</a></li>
 
-                 <li ng-show="currentUser" ng-class="{'active': $location.url() == '/form'}"
-                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                     <a href="#/form">Forms</a></li>
+                <li ng-show="currentUser" ng-class="{'active': $location.url() == '/form'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/form">Forms</a></li>
 
-             </ul>
+            </ul>
 
-             <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
 
                 <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/register'}" data-toggle="collapse"
                     data-target=".navbar-collapse.in">
@@ -48,12 +48,12 @@
                     data-toggle="collapse" data-target=".navbar-collapse.in">
                     <a href="#/profile" class="add-under-line"> {{currentUser.username}} </a></li>
 
-                <li ng-show="currentUser"><a href="#/home" class="add-under-line" ng-click="logout()"
+                <li ng-show="currentUser"><a class="add-under-line" ng-click="model.logout()"
                                              data-toggle="collapse" data-target=".navbar-collapse.in">LogOut</a></li>
             </ul>
         </div>
     </div>
-  </nav>
+</nav>
 </body>
 </html>
 

@@ -8,6 +8,7 @@ module.exports =function(){
        firstName:String,
        lastName:String,
        emails:[String],
+           roles:[String],
        phones:[String]},
        {collection :'user'});
     return UserSchema;

@@ -1,5 +1,5 @@
 (function() {
     "use strict";
     angular
-        .module("FormBuilderApp", ["ngRoute","jgaSortable","ui.bootstrap"]);
+        .module("FormBuilderApp", ["ngRoute","jgaDirectives","ui.bootstrap"]);
 })();

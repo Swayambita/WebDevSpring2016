@@ -15,7 +15,9 @@
             register: register,
             getAllUsers:getAllUsers,
             getUserById:getUserById,
-            deleteUser:deleteUser
+            deleteUser:deleteUser,
+            login:login,
+            logout:logout
         };
         return model;
 
@@ -26,7 +28,6 @@
         function findAllUsers(callback) {
             callback(users);
         }
-
 
         function findUserByCredentials(credentials){
             return $http.get("/api/assignment/user/"+credentials.username+"/"+credentials.password);
@@ -54,6 +55,14 @@
 
         function getUserById(id){
             return $http.get("/api/assignment/getUserById/"+id);
+        }
+
+        function login(user) {
+            return $http.post("/api/assignment/login",user);}
+
+        function logout() {
+            console.log("entered logout controller");
+            return $http.post("/api/assignment/logout");
         }
     }
 })();

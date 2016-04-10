@@ -6,7 +6,6 @@ module.exports =function(){
                type: {
                    type: String,
                    enum : ['TEXT', 'TEXTAREA', 'EMAIL', 'PASSWORD', 'OPTIONS', 'DATE', 'RADIOS', 'CHECKBOXES'],
-                  // default : 'TEXT'
                },
             placeholder:String,
             options:[{label:String,

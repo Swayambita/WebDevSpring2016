@@ -9,7 +9,7 @@
 
         var latitude=$rootScope.latitude;
         var longitude=$rootScope.longitude;
-
+        vm.categories=["Music","Sports","Business","Cooking","Yoga","Educational"];
         console.log("latitude",latitude);
         console.log("longitude",longitude);
         // var SEARCH_URL="https://www.eventbriteapi.com/v3/events/search/?q=EVENT&popular=on&token=YOGCILSQP3UVN2EFLRPC";

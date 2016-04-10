@@ -4,63 +4,141 @@ var q= require("q");
 
 module.exports= function(uuid,db) {
 
-    var UserSchema=require("./user.schema.server.js")();
-    var User=mongoose.model("User",UserSchema);
+     var EventSchema=require("./eventDetails.schema.server.js")();
+     Event=mongoose.model("Event",EventSchema);
 
     var api = {
-        findEventsFoCurrentUser: findEventsFoCurrentUser,
+       findEventsFoCurrentUser: findEventsFoCurrentUser,
         deleteEventById: deleteEventById,
         updateEventById: updateEventById,
-        createNewEvent: createNewEvent
+        createNewEvent: createNewEvent,
+        goLive:goLive,
+        getLive:getLive
     }
     return api;
 
     function findEventsFoCurrentUser(userId) {
-        var userEvents = [];
-        for (e in eventMock) {
-            if (eventMock[e].userId == userId) {
-                userEvents.push(eventMock[e]);
+        var deferred= q.defer();
+
+        Event.find({"createdBy":userId},function(err,res){
+            if(err){
+                deferred.reject(err);
             }
-        }
-        return userEvents;
+            else {
+                deferred.resolve(res);
+            }
+        });
+        return deferred.promise;
     }
 
     function createNewEvent(userId,newEvent){
-        var nEvent= { "_id": uuid.v1(),
+        var deferred= q.defer();
+        var nEvent= {
             "eName": newEvent.Name,
             "sDate":newEvent.entireSDate,
+            "sTime":newEvent.startTime,
             "eDate" :newEvent.endDate,
-            "userId": userId,
+            "eTime":newEvent.endTime,
             "desc":newEvent.desc,
-            "image":newEvent.image
+            "image":newEvent.image,
+            "createdBy":userId,
+            "genre":newEvent.genre,
+            "live":false,
+            "location":newEvent.location
         }
-        console.log("the new event created looks like this",nEvent);
 
-        eventMock.push(nEvent);
-        return "event added";
+        Event.create(nEvent,function(err,res){
+            if(err){
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res);
+            }
+        });
+        return deferred.promise;
     }
 
-
     function deleteEventById(eventId,userId){
-        for (e in eventMock) {
-            if(eventMock[e]._id==eventId){
-                eventMock.splice(e, 1);
-               break;
+        var deferred= q.defer();
+        Event.remove({"_id":eventId},function(err,res){
+            if(err){
+                deferred.reject(err);
             }
-        }
-       var events= findEventsFoCurrentUser(userId)
-        return events;
+            else {
+                deferred.resolve(res);
+            }
+        });
+        return deferred.promise;
     }
 
     function updateEventById(eventId,event){
-        console.log("in server model");
-        for (e in eventMock) {
-            if(eventMock[e]._id==eventId){
-                eventMock[e]=event;
-                console.log("from server model after updation",eventMock[e]);
-                return eventMock[e];
+        var deferred= q.defer();
+        Event.update(
+            {"_id":eventId},
+            {$set: {"eName":event.eName,
+                "desc":event.desc,
+            "sDate":event.sDate,
+            "sTime":event.sTime,
+            "eDate":event.eDate,
+                "eTime":event.eTime,
+                "image":event.image,
+                "genre":event.genre,
+                "createdBy":event.createdBy,
+            "location":event.location}}
+            ,function(err,res){
+            if(err){
+                deferred.reject(err);
             }
-        }
+            else {
+                deferred.resolve(res);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function goLive(eventId,event){
+        var deferred= q.defer();
+
+        Event.update(
+            {"_id":eventId},
+            {$set: {"eName":event.eName,
+                "desc":event.desc,
+                "sDate":event.sDate,
+                "sTime":event.sTime,
+                "eDate":event.eDate,
+                "eTime":event.eTime,
+                "image":event.image,
+                "genre":event.genre,
+                "createdBy":event.createdBy,
+                "live":true,
+                 "location":event.location}}
+            ,function(err,res){
+                if(err){
+                    console.log("response error for go live",err);
+                    deferred.reject(err);
+                }
+                else {
+
+                    console.log("response for go live",res);
+                    deferred.resolve(res);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function getLive(category,loc){
+        var deferred= q.defer();
+        Event.find(
+            {"genre":category,"location":loc,"live":true}
+            ,function(err,res){
+                if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(res);
+                }
+            });
+        return deferred.promise;
     }
 
 

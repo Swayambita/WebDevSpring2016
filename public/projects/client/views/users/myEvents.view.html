@@ -1,4 +1,4 @@
-<html>
+<!--<html>
 <body ng-controller="MyEvents">
 <h1>{{currentUser.firstName}} your events are</h1>
 <div ng-show="alertMessage" class="alert alert-danger" role="alert">{{alertMessage}}</div>
@@ -36,5 +36,71 @@
     </tr>
 
 </table>
+</body>
+</html> -->
+
+<html>
+<body ng-controller="MyEvents">
+<div class="wrapper">
+
+    <div class="myEvents-background"></div>
+    <div class="myEvents-content section-nude">
+        <div class="container">
+            <div class="row owner" style="padding-top: 10px">
+
+            </div>
+
+            <div class="row">
+                <h4 class="page-header">Create your event here</h4>
+                <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Go Live</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Starts</th>
+                        <th></th>
+                        <th>Ends</th>
+                        <th></th>
+                        <th>Action</th>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><textarea type="text" placeholder="Event Name" class="form-control text-nowrap" ng-model="model.eName"></textarea></td>
+                        <td><textarea type="text" placeholder="Event Desc" class="form-control" ng-model="model.eDesc"></textarea></td>
+                        <td><input type="date" class="form-control" ng-model="model.newSDate"></td>
+                        <td><input type="time" class="form-control" ng-model="model.newSTime"></td>
+                        <td><input type="date" class="form-control" ng-model="model.newEDate"></td>
+                        <td><input type="time" class="form-control" ng-model="model.newETime"></td>
+
+                        <td class="text-nowrap">
+                            <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc,model.newSDate,
+                            model.newSTime,model.newEDate,model.newETime)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr ng-repeat="eve in model.events">
+                        <td> <a ng-click="model.goLive($index)"><span class="glyphicon glyphicon-flag"></span></a></td>
+                        <td>{{eve.eName}}</td>
+                        <td>{{eve.desc}}</td>
+                        <td>{{eve.sDate | date : hh:mm}}</td>
+                        <td>{{eve.sTime | date : 'hh:mm a'}}</td>
+                        <td>{{eve.eDate | date : hh: mm}}</td>
+                        <td>{{eve.eTime | date : 'hh:mm a' }}</td>
+                        <td>
+                            <a ng-click="model.deleteEvent($index)"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a ng-click="model.selectEvent($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
-<body>
+<!--<body>
 <div class="container" ng-controller="SearchController">
+
     <h1>Search Events</h1>
 
     <div class="row">
@@ -41,4 +42,71 @@
         </table>
     </section>
 </div>
+</body> -->
+
+
+<html>
+
+<body>
+<div ng-controller="SearchController">
+
+    <div class="wrapper">
+        <div class="search-background">
+            <div class="search-content">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+                                <div class="register-card">
+                                    <h3 class="title">Search</h3>
+                                    <form class="register-form">
+
+                                        <input ng-model="model.category" type="text" class="form-control" placeholder="Music/Business/Sport">
+                                        <br>
+                                        <input ng-model="model.location" type="text" class="form-control" placeholder="Boston">
+
+                                        <a ng-click="model.searchEvent(model.category,model.location)" class="btn btn-danger btn-block">Search</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div ng-show="model.searchResult" class="top-padding">
+            <div class="container">
+
+                <div class="row" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                    <section>
+                        <h3 class="text-uppercase">{{model.eventToSearch}} Events in {{model.eventLocation}}</h3>
+                        <table class="table table-striped table-responsive table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Event</th>
+                                <th id="startDate" class="text-nowrap">Begins at</th>
+                                <th id="endDate" class="text-nowrap">Ends at</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="event in model.searchResult">
+                                <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
+                                <td class="col-lg-3">
+                                    <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
+                                <td class="col-lg-3">{{event.startDate}}</td>
+                                <td class="col-lg-3">{{event.endDate}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+</html>

@@ -9,21 +9,22 @@
         var vm=this;
         vm.message=null;
         vm.createEvent=createEvent;
+        vm.cancel=cancel;
 
         function createEvent(event){
 
             if(event==null){
-                $scope.message = "Not a valid entry";
+                vm.message = "Not a valid entry";
                 return;
             }
 
             if(event.Name == null){
-                $scope.message ="Enter a event name";
+                vm.message ="Enter a event name";
                 return;
             }
 
             if(event.location == null){
-                $scope.message = "Enter a event location";
+                vm.message = "Enter a event location";
                 return;
             }
 
@@ -32,7 +33,7 @@
 
 
             if(event.startDate == null){
-                $scope.message = "Enter a event start date and time";
+                vm.message = "Enter a event start date and time";
                 return;
             }
 
@@ -43,23 +44,30 @@
             var entireSDate=new Date(year,month,date);
             event.entireSDate=entireSDate;
 
-
-
             if(event.endDate== null){
-                $scope.message = "Enter a event end date and time";
+                vm.message = "Enter a event end date and time";
                 return;
             }
 
             if(event.desc == null){
-                $scope.message = "Enter a event description";
+                vm.message = "Enter a event description";
                 return;
             }
 
+            console.log("the create event is as follows",event);
             UserEventService.createNewEvent(event)
                 .then(function(response){
+                        console.log("the response for create event is as follows",response);
                     vm.message="your event is created";
                     vm.event=null;
+                },
+                function(err){
+                    vm.message="your event couldnot be created";
                 })
+        }
+
+        function cancel(){
+            vm.event=null;
         }
     }
 })();

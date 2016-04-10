@@ -1,8 +1,7 @@
 var mongoose=require("mongoose");
 var q= require("q");
-//var mock = require("./user.mock.json");
 
-module.exports= function(uuid,db){
+module.exports= function(db){
 
     var UserSchema=require("./user.schema.server.js")();
     var User=mongoose.model("User",UserSchema);
@@ -16,10 +15,10 @@ module.exports= function(uuid,db){
         getUserByUserName:getUserByUserName,
         getUserById:getUserById
     }
-        return api;
+    return api;
 
     function findUserByCredentials(username,password) {
-       return User.findOne({"username":username,"password":password})
+        return User.findOne({"username":username,"password":password})
     }
 
     function findUserByUsername(userName){
@@ -39,20 +38,21 @@ module.exports= function(uuid,db){
 
     function updateUser (id, userDetails) {
         var deferred= q.defer();
-                User.update (
-                            {"_id": id},
-                            {$set: {"username":userDetails.username,"password":userDetails.password,
-                                "firstName":userDetails.firstName,
-                                "lastName":userDetails.lastName,
-                            "emails":userDetails.email}},
-                    function (err, stats) {
-                           if(!err){
-                               deferred.resolve(stats);
-                           }
-                        else{
-                               deferred.reject(err);
-                           }
-                    } );
+        User.update (
+            {"_id": id},
+            {$set: {"username":userDetails.username,"password":userDetails.password,
+                "firstName":userDetails.firstName,
+                "lastName":userDetails.lastName,
+                "emails":userDetails.email,
+                "phones":userDetails.phones}},
+            function (err, stats) {
+                if(!err){
+                    deferred.resolve(stats);
+                }
+                else{
+                    deferred.reject(err);
+                }
+            } );
         return deferred.promise;
     }
 
@@ -67,21 +67,21 @@ module.exports= function(uuid,db){
             }
             else{
                 User.update({"username":userName},{$push:{"emails":email}},
-                function(err,res){
-                    if(err){
-                        deferred.reject(err);
-                    }
-                    else{
-                        User.findOne({"username":userName},function(err,resp){
-                            if(err){
-                                deferred.reject(err);
-                            }
-                            else{
-                                deferred.resolve(resp);
-                            }
-                        })
-                    }
-                });
+                    function(err,res){
+                        if(err){
+                            deferred.reject(err);
+                        }
+                        else{
+                            User.findOne({"username":userName},function(err,resp){
+                                if(err){
+                                    deferred.reject(err);
+                                }
+                                else{
+                                    deferred.resolve(resp);
+                                }
+                            })
+                        }
+                    });
             }
         });
 

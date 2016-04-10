@@ -43,11 +43,6 @@ module.exports = function(app,formModel) {
     }
 
     function deleteForm(req,res){
-       /* var formId=req.params.formId;
-        var userId=req.params.userId;
-        var newSetOfForms=formModel.deleteForm(formId,userId);
-        res.json(newSetOfForms);*/
-
         var formId = req.params.formId;
         var userId=req.params.userId;
         formModel.deleteForm(formId,userId)

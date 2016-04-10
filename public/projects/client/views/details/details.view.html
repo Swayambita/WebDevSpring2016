@@ -1,8 +1,13 @@
 <html>
 <body ng-controller="DetailsController">
+<div  class="details-image">
+</div>
+<div class="top-padding-details-page">
 <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
-<h1>{{model.details.name.text}}</h1>
+<h4>{{model.details.name.text}}</h4>
 <p>{{model.details.description.text}}</p>
+
+    <div>      </div>
 
 <div class="form form-group form-inline">
     <button ng-click="model.likeEvent()" class="btn btn-primary btn-block glyphicon glyphicon-star ">Like this event</button>
@@ -12,6 +17,27 @@
     <textarea class="form-control add-bottom-pad" ng-model="model.comment"></textarea>
     <br>
     <button ng-click="model.commentEvent(model.comment)" class="btn btn-primary btn-block">Comment</button>
+</div>
+
+    <div class="main">
+        <div class="section section-dark text-center landing-section" style="padding-top: 50px">
+            <div class="container-fluid">
+                <h2>Other users who also liked this event </h2>
+                <div ng-repeat="user in model.allUsersWhoLikedThis">
+                    <div class="col-md-3">
+                        <div class="team-player">
+                            <a href="#/profile/570575c21721531c03e8f530"><img src="../client/views/assets/paper_img/icon-user-default.png" alt="Thumbnail Image" class="img-circle img-responsive"></a>
+                            <h5 style="margin-bottom: 5px"><a href="#">user</a></h5>
+                            <p>can add some summary</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
 </div>
 
 </body>

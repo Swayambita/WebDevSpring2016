@@ -1,7 +1,7 @@
 
-<html>
 <body ng-controller="RegisterController">
-<div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
+
+<!--<div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
 <h1 class="page-header">Register</h1>
 <form class="form-horizontal">
     <div class="form-group">
@@ -42,8 +42,48 @@
         </div>
     </div>
 
-</form>
+</form> -->
+
+<div class="wrapper">
+    <div class="register-background">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+                    <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
+                    <div class="register-card">
+
+                        <h3 class="title">Welcome</h3>
+                        <form class="form-horizontal">
+
+                                <label>Username</label>
+                                    <input type="text" class="form-control" placeholder="Username"
+                                           id="uname" ng-model="model.user.username" >
+
+                                <label>Password</label>
+                                    <input type="password" class="form-control" placeholder="Password"
+                                           id="password" ng-model="model.user.password">
+
+                                <label>Verify Password</label>
+                                    <input type="password" class="form-control" placeholder="Verify Password"
+                                           id="vpw" ng-model="model.user.password2">
+
+                                <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="youremail@domain.com"
+                                           id="email" ng-model="model.user.email">
+
+                                    <a ng-click="model.register(model.user)" class="btn btn-danger btn-block" role="button">Register</a>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
-</html>
 
 

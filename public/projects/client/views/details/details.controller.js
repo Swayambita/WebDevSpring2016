@@ -13,9 +13,17 @@
         vm.bookmarkEvent=bookmarkEvent;
         vm.commentEvent=commentEvent;
         vm.message=null;
+        vm.allUsersWhoLikedThis =["henry","bob"];
 
         function init(){
 
+         /*   UserEventService.findAllUsersWhoLikeThisEvent(eventId)
+                .then(function(response){
+
+                },
+                function(error){
+
+                });*/
         }
         init();
 
@@ -31,7 +39,6 @@
         }
 
         function likeEvent(){
-            console.log("inside like function");
             if(currentUser==null){
                 vm.message="You need to be logged in to like an event";
             }
@@ -39,8 +46,8 @@
                 UserEventService.userLikesEvent(currentUser._id,eventID)
                     .then(function(response){
                         vm.message="Event Liked!!";
-                        // need to call the getLikes for this event function,
-                        // to get updated like list
+                        // need to call the getLikes after this event function,
+                        // to get updated like list for the user
                     });
             }
         }

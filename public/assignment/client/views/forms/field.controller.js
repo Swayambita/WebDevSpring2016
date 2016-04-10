@@ -3,7 +3,7 @@
     angular.module("FormBuilderApp")
         .controller("FieldController",FieldController);
 
-    function FieldController($rootScope,$routeParams,$scope,FieldService,FormService) {
+    function FieldController($rootScope,$routeParams,FieldService,FormService) {
 
         var vm = this;
         vm.currentUser = $rootScope.currentUser;
@@ -15,7 +15,7 @@
         vm.okayField = okayField;
         vm.cancelField = cancelField;
         vm.cloneField = cloneField;
-        $scope.updateForm = updateForm;
+        vm.sortField=sortField;
 
         var formId = $routeParams.formId;
 
@@ -143,9 +143,13 @@
             }
 
             vm.selectedField.label = vm.label;
-            FieldService.updateField(formId, vm.selectedField._id, vm.selectedField)
+
+            var newUpdatedField ={ "_id":  vm.selectedField._id,"placeholder": vm.selectedField.placeholder,"type":vm.selectedField.type ,
+                "label":vm.selectedField.label ,"options":vm.selectedField.options};
+
+            FieldService.updateField(formId, vm.selectedField._id, newUpdatedField)
                 .then(function(response) {
-                    init()
+                    init();
                 });
 
             vm.label = null;
@@ -189,6 +193,19 @@
                     form.fields = newFields;
                     FormService.updateForm(form._id, form);
                 });
+        }
+
+        function sortField(start,end){
+            console.log("am in sortField field controller client");
+            FieldService
+                .sortField(formId,start,end)
+                .then(function(response){
+                        console.log("resposne for sorting",response.data);
+                        vm.existingFields= response.data;
+                    },
+                    function(err){
+                        console.log(err);
+                    });
         }
     }
 })();

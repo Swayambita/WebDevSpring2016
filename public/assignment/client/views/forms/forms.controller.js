@@ -1,7 +1,7 @@
 (function(){
     "use strict";
     angular.module("FormBuilderApp")
-     .controller("FormController",FormController);
+        .controller("FormController",FormController);
 
     function FormController(FormService,$rootScope,$location){
 
@@ -24,9 +24,9 @@
                     .then(function(response){
                             vm.forms=response.data;
                         },
-                    function(error){
-                        vm.message="Error from server side";
-                    })
+                        function(error){
+                            vm.message="Error from server side";
+                        })
             }
         }
         init();
@@ -38,13 +38,13 @@
             if(formName!=null){
                 FormService.addForm(newForm,userId)
                     .then(function(response){
-                        vm.forms=response.data;
-                        vm.formIndexSelected=null;
-                        vm.formName=null;
-                    },
-                    function(error){
-                        vm.message="Form couldnot be created"
-                    })
+                            vm.forms=response.data;
+                            vm.formIndexSelected=null;
+                            vm.formName=null;
+                        },
+                        function(error){
+                            vm.message="Form couldnot be created"
+                        })
             }
             else{
                 vm.message="Enter a form name";
@@ -57,12 +57,12 @@
                 var changedForm ={"title" : form, "userId" : vm.currentUser._id};
                 FormService.updateForm(formToBeUpdatedId,changedForm)
                     .then(function(response){
-                        finalList(response);
-                    },
-                    function(error){
-                      vm.message="Error from server side";
-                    })
-             }
+                            finalList(response);
+                        },
+                        function(error){
+                            vm.message="Error from server side";
+                        })
+            }
         }
 
         function finalList(response){
@@ -72,9 +72,9 @@
                         vm.formIndexSelected=null;
                         vm.formName=null;
                     },
-                function(error){
-                    vm.message="Error from server side";
-                })
+                    function(error){
+                        vm.message="Error from server side";
+                    })
         }
         function selectForm(index){
             vm.formIndexSelected = index;
@@ -85,7 +85,6 @@
             var userId=vm.currentUser._id;
             vm.formIndexSelected = index;
             var formToDelete=vm.forms[index]._id;
-            console.log("id of form to be deleted",formToDelete);
             FormService.deleteForm(formToDelete,userId)
                 .then(function(response){
                         vm.forms=response.data;

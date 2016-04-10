@@ -32,7 +32,7 @@
             getUserById:getUserById,
             addNewUser:addNewUser,
             profileUpdate:profileUpdate,
-            getFavEvents:getFavEvents
+            getFavEvents:getFavEvents,
         };
         return model;
 
@@ -86,6 +86,7 @@
             console.log("in getFavEvents clinet service");
             return $http.get("/api/project/getFavEvents/"+userId);
         }
+
 
 
 

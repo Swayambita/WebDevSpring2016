@@ -2,7 +2,7 @@
 var mongoose=require("mongoose");
 var q= require("q");
 
-module.exports= function(uuid,db) {
+module.exports= function() {
 
     var FormSchema = require("./form.schema.server.js")();
     var Form = mongoose.model("Form", FormSchema);
@@ -16,22 +16,14 @@ module.exports= function(uuid,db) {
         findFormById: findFormById,
         updateFieldsArrayOfForm:updateFieldsArrayOfForm,
         getFieldsOfForm:getFieldsOfForm,
-        deleteFieldFromArray:deleteFieldFromArray
+        deleteFieldFromArray:deleteFieldFromArray,
+        updateField:updateField,
+        sortField:sortField
     }
     return api;
 
     function findFormById(formId) {
-
-        var deferred = q.defer();
-        Form.findOne({"_id": formId}, function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return Form.findById(formId);
     }
 
     function findFormByTitle(title) {
@@ -123,7 +115,7 @@ module.exports= function(uuid,db) {
                     deferred.reject(err);
                 }
                 else {
-                    console.log("*******",doc);
+                    console.log(" get fields of form *******",doc);
                     deferred.resolve(doc);
                 }
             });
@@ -145,4 +137,50 @@ module.exports= function(uuid,db) {
             });
         return deferred.promise;
     }
-}
+
+    function updateField(formId,fieldId,updatedField,form) {
+
+        var deferred = q.defer();
+        var newForm=form;
+
+        for(var u in newForm.fields){
+            if(newForm.fields[u]._id == fieldId){
+                newForm.fields[u] = updatedField;
+
+                Form.update({_id : formId},
+                    {$set: {fields: newForm.fields,
+                        updated:new Date()}},
+                    function (err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+            }
+        }
+
+        return deferred.promise;
+    }
+
+    function sortField(doc,formId,startIndex,endIndex) {
+        console.log("in sort field field model");
+        var deferred = q.defer();
+
+                    console.log("user Form", doc);
+                    var userForm = doc;
+                    userForm.fields.splice(endIndex, 0, userForm.fields.splice(startIndex, 1)[0]);
+                    Form.update(
+                        {"_id": formId},
+                        {$set: {"fields": userForm.fields}},
+                        function (err, doc) {
+                            if (err) {
+                                deferred.reject(err);
+                            } else {
+                                deferred.resolve(doc);
+                            }
+                        });
+        return deferred.promise;
+    }
+
+    }

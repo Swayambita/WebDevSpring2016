@@ -1,11 +1,11 @@
-var mock = require("./user.mock.json");
+//var mock = require("./user.mock.json");
 var mongoose=require("mongoose");
 var q= require("q");
 
 module.exports= function(uuid,db){
 
-    var UserSchema=require("./user.schema.server.js")();
-    var User=mongoose.model("User",UserSchema);
+    var UserSchema=require("./userDetails.schema.server.js")();
+    var UserDetails=mongoose.model("UserDetails",UserSchema);
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -14,34 +14,23 @@ module.exports= function(uuid,db){
         updateUser:updateUser,
         deleteUserById:deleteUserById,
         getUserByUserName:getUserByUserName,
-        getUserById:getUserById,
         getAllUsers:getAllUsers,
         addNewUser:addNewUser,
         profileUpdate:profileUpdate,
      //   ifExitsEmail:ifExitsEmail,
-        getFavEvents:getFavEvents
+        getFavEvents:getFavEvents,
+        getUserById:getUserById
     }
     return api;
 
-  /*  function findUserByCredentials(username,password) {
-        console.log("in server model");
-        for(var u in mock) {
-            if( mock[u].username == username &&
-                mock[u].password == password) {
-                return mock[u];
-            }
-        }
-        return null;
-    }*/
-
 
     function findUserByCredentials(username,password) {
-        return User.findOne({"username":username,"password":password})
+        return UserDetails.findOne({"username":username,"password":password})
     }
 
     function findUserByUsername(userName){
         var deferred= q.defer();
-        User.findOne (
+        UserDetails.findOne (
             {"username": userName},
             function (err, stats) {
                 if(!err){
@@ -92,18 +81,18 @@ module.exports= function(uuid,db){
         var userName=userDetails.username;
         var email=userDetails.email;
 
-        User.create(userDetails,function(err,doc){
+        UserDetails.create(userDetails,function(err,doc){
             if(err){
                 deferred.reject(err);
             }
             else{
-                User.update({"username":userName},{$push:{"emails":email}},
+                UserDetails.update({"username":userName},{$push:{"emails":email}},
                     function(err,res){
                         if(err){
                             deferred.reject(err);
                         }
                         else{
-                            User.findOne({"username":userName},function(err,resp){
+                            UserDetails.findOne({"username":userName},function(err,resp){
                                 if(err){
                                     deferred.reject(err);
                                 }
@@ -115,13 +104,12 @@ module.exports= function(uuid,db){
                     });
             }
         });
-
         return deferred.promise;
     }
 
     function updateUser (id, userDetails) {
         var deferred= q.defer();
-        User.update (
+        UserDetails.update (
             {"_id": id},
             {$set: {"username":userDetails.username,"password":userDetails.password,
                 "firstName":userDetails.firstName,
@@ -162,7 +150,7 @@ module.exports= function(uuid,db){
 
     function deleteUserById(id) {
         var deferred= q.defer();
-        User.remove({"_id":id},function(err,doc){
+        UserDetails.remove({"_id":id},function(err,doc){
             if(err){
                 deferred.reject(err);
             }
@@ -175,7 +163,7 @@ module.exports= function(uuid,db){
 
     function getAllUsers(){
         var deferred= q.defer();
-        User.find({"username":username},function(err,doc){
+        UserDetails.find({"username":username},function(err,doc){
             if(err){
                 deferred.reject(err);
             }
@@ -197,7 +185,7 @@ module.exports= function(uuid,db){
 
     function getUserByUserName(username){
         var deferred= q.defer();
-        User.findOne({"username":username},function(err,doc){
+        UserDetails.findOne({"username":username},function(err,doc){
             if(err){
                 deferred.reject(err);
             }
@@ -220,7 +208,8 @@ module.exports= function(uuid,db){
 
     function getUserById(id){
         var deferred= q.defer();
-        User.findOne({"_id":id},function(err,doc){
+
+        UserDetails.findOne({"_id":id},function(err,doc){
             if(err){
                 deferred.reject(err);
             }
@@ -245,7 +234,7 @@ module.exports= function(uuid,db){
     }
 
 
-    function profileUpdate(id,updatedUserDetails){
+   /* function profileUpdate(id,updatedUserDetails){
         //we need to check if userName is unique here, we need to check with the userid
        /* var oldUser= findUserByUsername(updatedUserDetails.username);
 
@@ -261,7 +250,7 @@ module.exports= function(uuid,db){
         }
        else{
             return null;
-        }*/
+        }
 
         for (var u in mock) {
             if (mock[u]._id == id) {
@@ -271,14 +260,32 @@ module.exports= function(uuid,db){
                 return mock[u];
             }
         }
+    }*/
+
+
+    function profileUpdate (id, userDetails) {
+        var deferred= q.defer();
+        UserDetails.update (
+            {"_id": id},
+            {$set: {"username":userDetails.username,"password":userDetails.password,
+                "firstName":userDetails.firstName,
+                "lastName":userDetails.lastName,
+                "emails":userDetails.emails}},
+            function (err, stats) {
+                if(!err){
+                    deferred.resolve(stats);
+                }
+                else{
+                    deferred.reject(err);
+                }
+            } );
+        return deferred.promise;
     }
 
 
     function getFavEvents(userId){
-        console.log("in getFavEvents server model");
         for (var u in mock) {
             if (mock[u]._id == userId) {
-                console.log("these are the likes", mock[u].likes);
                 return mock[u].likes;
             }
         }

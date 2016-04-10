@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("LoginController",LoginController);
 
-    function LoginController(UserService,$location) {
+    function LoginController(UserService,$location,$rootScope) {
         var vm = this;
         vm.login = login;
         vm.message = null;
@@ -15,26 +15,19 @@
         init();
 
         function login(user) {
-            if (!user) {
+            if(!user){
+                vm.message = "Please enter login details";
                 return;
             }
-            UserService
-                .findUserByCredentials({
-                    username: user.username,
-                    password: user.password
-                })
-                .then(function (user){
-                    if(user.data!=null) {
-                        UserService.setCurrentUser(user.data);
+            UserService.login(user)
+                .then(function(response){
+                        $rootScope.currentUser = response.data;
                         $location.url("/profile");
+                    },
+                    function(err){
+                        vm.message = "username or password not found";
                     }
-                    else{
-                        vm.message="Username and password doesnot match";
-                    }
-                },
-                function (error){
-                    vm.message="Username and password doesnot match";
-                })
+                );
         }
     }
 })();

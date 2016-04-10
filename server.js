@@ -4,10 +4,21 @@ var app = express();
 var bodyParser = require('body-parser');
 var multer =require('multer');
 var uuid=require('node-uuid');
+var cookieParser=require('cookie-parser');
+var session=require('express-session');
+var passport=require('passport');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
+
+app.use(cookieParser());
+app.use(session({secret: 'swayam',
+resave:true,
+    saveUninitialized:true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 var mongoose=require('mongoose');
 var connectionString = 'mongodb://127.0.0.1:27017/webdev2016';

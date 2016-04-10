@@ -13,7 +13,8 @@
             getFieldForForm:getFieldForForm,
             deleteFieldFromForm:deleteFieldFromForm,
             updateField:updateField,
-            cloneField:cloneField
+            cloneField:cloneField,
+            sortField:sortField
         }
         return model;
 
@@ -42,6 +43,11 @@
 
         function cloneField(formId,field){
             return $http.post("/api/assignment/form/"+formId+"/cloneField/", field);
+        }
+
+        function sortField(formId,startIndex,endIndex){
+            console.log("am in sortField field service client");
+            return $http.put("/api/assignment/"+formId+"/field?startIndex="+startIndex+"&endIndex="+endIndex);
         }
     }
 })();

@@ -1,0 +1,47 @@
+/* add a right padding */
+
+.add-right-pad{
+    padding-right: 5px;
+}
+
+.add-under-line{
+    text-decoration: underline;
+}
+
+
+.check-sidebar {
+    display: none;
+}
+
+@media (max-width: 768px)
+{
+    .check-sidebar {
+        display: block;
+    }
+}
+
+.text-nowrap{
+    white-space: nowrap;
+}
+
+.top-padding{
+    padding-top: 725px;
+}
+
+
+.top-padding-details-page{
+    padding-top: 400px;
+}
+
+
+.details-image{
+    padding-top :350px;
+    background-image: url('../views/assets/paper_img/Conception.jpg');
+    background-position: center center;
+    background-size: cover;
+    height: 10px;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+

@@ -5,13 +5,14 @@ module.exports = function(app,fieldModel,formModel) {
     app.delete("/api/assignment/form/:formId/field/:fieldId",deleteFieldFromForm);
     app.put("/api/assignment/form/:formId/field/:fieldId",updateField);
     app.post("/api/assignment/form/:formId/cloneField/", cloneField);
+    app.put("/api/assignment/:formId/field",sortField);
 
     function getFieldsOfForm(req,res){
 
         var formId= req.params.formId;
         formModel.getFieldsOfForm(formId)
             .then(function(form) {
-                console.log("all fields",form);
+                    console.log("all fields",form);
                     res.json(form);
                 },
                 function(err){
@@ -37,10 +38,10 @@ module.exports = function(app,fieldModel,formModel) {
                             function(err){
                                 res.status(400).send(err);
                             });
-            },
-            function(err){
-                res.status(400).send(err);
-            });
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
     }
 
     function deleteFieldFromForm(req,res) {
@@ -73,19 +74,22 @@ module.exports = function(app,fieldModel,formModel) {
         var formId= req.params.formId;
         var fieldId= req.params.fieldId;
         var updatedField=req.body;
-        formModel.getFieldsOfForm(formId)
-            .then(function(resp){
-                fieldModel.updateField(resp,fieldId,updatedField)
-                    .then(function(respone){
-                        res.json(response);
-                    },
-                    function(error){
-                        res.status(400).send(err);
-                    });
-            },
-            function(error){
-                res.status(400).send(err);
-            })
+
+        formModel.findFormById(formId)
+            .then(function(response){
+
+                    formModel.updateField(formId,fieldId,updatedField,response)
+                        .then(function(res){
+                                res.json(resp);
+                            },
+                            function(err){
+                                res.status(400).send(err);
+                            });
+                },
+
+                function(err){
+                    res.status(400).send(err);
+                });
     }
 
     function cloneField(req,res){
@@ -94,23 +98,47 @@ module.exports = function(app,fieldModel,formModel) {
         fieldModel.cloneField(field)
             .then(function(response) {
 
-                formModel.updateFieldsArrayOfForm(formId, response)
-                    .then(function (doc) {
-                            formModel.getFieldsOfForm(formId)
-                                .then(function (resp) {
-                                        res.json(resp);
-                                    },
-                                    function (err) {
-                                        res.status(400).send(err);
-                                    });
-                        },
-                        function (error) {
-                            res.status(400).send(err);
-                        });
-            },
+                    formModel.updateFieldsArrayOfForm(formId, response)
+                        .then(function (doc) {
+                                formModel.getFieldsOfForm(formId)
+                                    .then(function (resp) {
+                                            res.json(resp);
+                                        },
+                                        function (err) {
+                                            res.status(400).send(err);
+                                        });
+                            },
+                            function (error) {
+                                res.status(400).send(err);
+                            });
+                },
                 function(err) {
                     res.status(400).send(err);
                 });
+    }
+
+    function sortField(req,res){
+
+        var formId = req.params.formId;
+        var startIndex = req.query.startIndex;
+        var endIndex = req.query.endIndex;
+
+        if(startIndex && endIndex){
+
+            formModel.findFormById(formId)
+                .then(function(resp){
+                        formModel.sortField(resp,formId,startIndex,endIndex)
+                            .then(function(doc){
+                                    formModel.getFieldsOfForm(formId);
+                                },
+                                function(err){
+                                    res.status(400).send(err);
+                                })
+                    },
+                    function(err){
+                        res.status(400).send(err);
+                    });
+        }
     }
 
 }

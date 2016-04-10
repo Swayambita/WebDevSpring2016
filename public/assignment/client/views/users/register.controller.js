@@ -1,13 +1,14 @@
 (function(){
-       "use strict";
-        angular.module("FormBuilderApp")
+    "use strict";
+    angular.module("FormBuilderApp")
         .controller("RegisterController",RegisterController);
 
-    function RegisterController(UserService,$location) {
+    function RegisterController(UserService,$location,$rootScope) {
 
         var vm=this;
-        vm.register=register;
         vm.message=null;
+        vm.register=register;
+
         function init(){
 
         }
@@ -42,12 +43,17 @@
 
             UserService.register(user)
                 .then(function (user){
-                    UserService.setCurrentUser(user.data);
-                    $location.url("/profile");
-                },
-                function (error){
-                    vm.message="Username already";
-                })
+                        if(user.data!=null){
+                            $rootScope.currentUser=user;
+                            $location.url("/profile");
+                        }
+                    else{
+                            vm.message="Username already exists";
+                        }
+                    },
+                    function (error){
+                        console.log(error);
+                    })
         }
     }
 })();

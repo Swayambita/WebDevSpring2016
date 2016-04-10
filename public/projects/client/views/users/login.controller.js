@@ -4,37 +4,38 @@
         .module("EventBuilderApp")
         .controller("LoginController",LoginController);
 
-    function LoginController($location,UserService){
-        var vm=this;
-        vm.login=login;
-        vm.message=null;
+    function LoginController(UserService,$location) {
+        var vm = this;
+        vm.login = login;
+        vm.message = null;
 
-        console.log("hola");
-        function init(){
+        function init() {
         }
+
         init();
 
         function login(user) {
-            if(!user) {
+            if (!user) {
                 return;
             }
-            console.log("am in controller");
             UserService
                 .findUserByCredentials({
                     username: user.username,
                     password: user.password
                 })
-                .then(function(response){
-                    if(response.data) {
-                        console.log("^^^");
-                        UserService.setCurrentUser(response.data);
-                        $location.url("/profile");
-                    }
-                    else{
+                .then(function (user){
+                        if(user.data!=null) {
+                            console.log("currentuser",user.data);
+                            UserService.setCurrentUser(user.data);
+                            $location.url("/profile/"+user.data._id);
+                        }
+                        else{
+                            vm.message="Username and password doesnot match";
+                        }
+                    },
+                    function (error){
                         vm.message="Username and password doesnot match";
-                    }
-                });
+                    })
         }
     }
 })();
-
