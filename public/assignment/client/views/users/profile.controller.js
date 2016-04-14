@@ -24,7 +24,9 @@
 
         function update(username,password,firstName,lastName,email,phones){
             var newDetails= {"username" : username, "firstName": firstName,
-                "lastName":lastName , "email" :email.split(",") ,"phones" :phones.split(",") ,"password" :password};
+                "lastName":lastName , "emails" :email.split(",") ,"phones" :phones.split(",") ,"password" :password,
+                "roles":currentUser.roles};
+
             UserService.updateUser(newDetails,currentUser._id)
                 .then(
                     function(response){

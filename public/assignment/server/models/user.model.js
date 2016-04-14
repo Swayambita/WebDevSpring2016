@@ -103,7 +103,6 @@ module.exports= function(db){
         return deferred.promise;
     }
 
-
     function getUserByUserName(username){
         var deferred= q.defer();
         User.findOne({"username":username},function(err,doc){
@@ -116,7 +115,6 @@ module.exports= function(db){
         });
         return deferred.promise;
     }
-
 
     function getUserById(id){
         var deferred= q.defer();

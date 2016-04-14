@@ -10,11 +10,11 @@ module.exports = function(app,userModel) {
     app.post("/api/assignment/addNewUser",auth,addNewUser);
     app.post('/api/assignment/register',register);
 
-       app.put("/api/assignment/updateUser/:id",auth,updateUser);
-       app.delete("/api/assignment/deleteUser/:id",auth,deleteUser);
-       app.get("/api/assignment/getAllUsers",auth,getAllUsers);
-       app.get("/api/assignment/getUserByUserName/:username",getUserByUserName);
-       app.get("/api/assignment/getUserById/:id",getUserById);
+    app.put("/api/assignment/updateUser/:id",auth,updateUser);
+    app.delete("/api/assignment/deleteUser/:id",auth,deleteUser);
+    app.get("/api/assignment/getAllUsers",auth,getAllUsers);
+    app.get("/api/assignment/getUserByUserName/:username",getUserByUserName);
+    app.get("/api/assignment/getUserById/:id",getUserById);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -34,7 +34,6 @@ module.exports = function(app,userModel) {
                 }
             );
     }
-
 
     function serializeUser(user, done) {
         done(null, user);
@@ -66,7 +65,6 @@ module.exports = function(app,userModel) {
         req.logOut();
         res.send(200);
     }
-
 
     function isAdmin(user) {
         if(user.roles.indexOf("admin") >= 0) {
@@ -120,12 +118,12 @@ module.exports = function(app,userModel) {
     }
 
     function updateUser(req,res){
-        console.log("here in update User");
         var id=req.params.id;
         var updatedUserDetails = req.body;
 
         if(!isAdmin(req.user)) {
             delete updatedUserDetails.roles;
+            updatedUserDetails.roles=["student"];
         }
         if(typeof updatedUserDetails.roles == "string") {
             updatedUserDetails.roles = updatedUserDetails.roles.split(",");
@@ -134,20 +132,18 @@ module.exports = function(app,userModel) {
 
         userModel.updateUser(id,updatedUserDetails)
             .then(function(user){
-                userModel.getUserById(id)
-                   .then(function (response){
-                    res.json(response);
+                    userModel.getUserById(id)
+                        .then(function (response){
+                                res.json(response);
+                            },
+                            function(err){
+                                res.status(400).send(err);
+                            });
                 },
                 function(err){
+                    console.log("error");
                     res.status(400).send(err);
                 });
-
-
-            },
-            function(err){
-                console.log("error");
-                res.status(400).send(err);
-            });
     }
 
     function deleteUser(req,res){
