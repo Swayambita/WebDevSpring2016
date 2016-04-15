@@ -14,7 +14,12 @@
             userBookMarksEvent:userBookMarksEvent,
             userCommentsEvent:userCommentsEvent,
             goLive:goLive,
-            getLiveEventsForGenre:getLiveEventsForGenre
+            getLiveEventsForGenre:getLiveEventsForGenre,
+            getDetailsOfEvent:getDetailsOfEvent,
+            allUsersWhoLikeThisEvent:allUsersWhoLikeThisEvent,
+            getFavEvents:getFavEvents,
+            unlikeEvent:unlikeEvent,
+            unbookmarkEvent:unbookmarkEvent
         }
         return model;
 
@@ -34,28 +39,49 @@
 
 
         function createNewEvent(newEvent){
-            return $http.post("/api/project/createEvent/"+currentUser._id,newEvent);
+            var userId=$rootScope.currentUser._id;
+            return $http.post("/api/project/createEvent/"+userId,newEvent);
         }
 
-        function userLikesEvent(userId,eventId){
-            return $http.post("/api/project/userLikesEvent/"+userId+"/event/"+eventId);
+        function userLikesEvent(userId,eventId,currentUser,detailName,fetchFrom){
+            return $http.post("/api/project/userLikeEvent/"+userId+"/event/"+eventId+"/"+detailName+"/"+fetchFrom,currentUser);
         }
 
-        function userBookMarksEvent(userId,eventId){
-            return $http.post("/api/project/userBookMarksEvent/"+userId+"/event/"+eventId);
+        function userBookMarksEvent(userId,eventId,currentUser,detailName,fetchFrom){
+            return $http.post("/api/project/userBookmarkEvent/"+userId+"/event/"+eventId+"/"+detailName+"/"+fetchFrom,currentUser);
         }
 
-        function userCommentsEvent(userId,eventId,comment){
-            return $http.post("/api/project/userCommentsEvent/"+userId+"/event/"+eventId,comment);
+        function userCommentsEvent(userId,eventId,currentUser,comment,detailName,fetchFrom){
+            return $http.post("/api/project/userCommentsEvent/"+userId+"/event/"+eventId+"/"+detailName+"/"+fetchFrom,currentUser,comment);
         }
 
         function goLive(eventId,eventSelected){
-            console.log("in client service golive",eventId,eventSelected);
             return $http.put("/api/project/goLive/"+eventId,eventSelected);
         }
 
         function getLiveEventsForGenre(category,city){
             return $http.get("/api/project/getLive/"+category+"/"+city);
         }
+
+        function getDetailsOfEvent(eventId){
+            return $http.get("/api/project/getEventInfo/"+eventId);
+        }
+
+        function allUsersWhoLikeThisEvent(eventId){
+            return $http.get("/api/project/allUserLikeThisEvent/"+eventId);
+        }
+
+        function getFavEvents(userId){
+            return $http.get("/api/project/getFavEvents/"+userId);
+        }
+
+        function unlikeEvent(eventId,userId){
+            return $http.put("/api/project/unlikeEvent/"+eventId+"/"+userId);
+        }
+
+        function unbookmarkEvent(eventId,userId){
+            return $http.put("/api/project/unbookmarkEvent/"+eventId+"/"+userId);
+        }
+
     }
 })();

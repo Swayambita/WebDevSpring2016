@@ -4,7 +4,7 @@
         .module("EventBuilderApp")
         .controller("LoginController",LoginController);
 
-    function LoginController(UserService,$location) {
+    function LoginController(UserService,$location,$rootScope) {
         var vm = this;
         vm.login = login;
         vm.message = null;
@@ -15,27 +15,21 @@
         init();
 
         function login(user) {
-            if (!user) {
+            if(!user){
+                vm.message = "Please enter login details";
                 return;
             }
-            UserService
-                .findUserByCredentials({
-                    username: user.username,
-                    password: user.password
-                })
-                .then(function (user){
-                        if(user.data!=null) {
-                            console.log("currentuser",user.data);
-                            UserService.setCurrentUser(user.data);
-                            $location.url("/profile/"+user.data._id);
-                        }
-                        else{
-                            vm.message="Username and password doesnot match";
-                        }
+            UserService.login(user)
+                .then(function(response){
+                        $rootScope.currentUser = response.data;
+                        console.log("the current user for login",$rootScope.currentUser);
+                        console.log("the current user for login))))",response.data);
+                        $location.url("/profile/"+response.data._id);
                     },
-                    function (error){
-                        vm.message="Username and password doesnot match";
-                    })
+                    function(err){
+                        vm.message = "username or password not found";
+                    }
+                );
         }
     }
 })();

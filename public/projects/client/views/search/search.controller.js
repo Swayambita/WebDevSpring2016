@@ -10,7 +10,6 @@
         var someLocation=$routeParams.someLocation;
 
         var genredata;
-        var apiResult;
 
         console.log('am printing url evnet',someEvent);
         console.log('am printing url location',someLocation);
@@ -36,37 +35,23 @@
                 city="boston";
             }
 
-
+            category=category.toLowerCase();
+            city=city.toLowerCase();
 
             vm.eventToSearch=category;
             vm.eventLocation=city;
 
             EventBriteService.getSearchResult(category,city)
                 .then(function(response){
-                    for(var e in response.data.events){
-                        var d1=response.data.events[e].start.local.substring(0,10);
-                        var d2=response.data.events[e].end.local.substring(0,10);
-                        response.data.events[e].startDate=d1;
-                        response.data.events[e].endDate=d2;
-                        apiResult=response.data.events;
-                    }
-
                     UserEventService.getLiveEventsForGenre(category,city)
                         .then(function(res){
-                            genredata= res.data;
-                            console.log("teh mongodata result",genredata);
+                            vm.dbSearch= res.data;
                         },
                         function(error){
 
                         })
-
-                    //append result from api and from our db together
-
                     vm.searchResult=response.data.events;
                     console.log("vm.result",vm.searchResult);
-
-                    //vm.searchResult=apiResult;
-                    //console.log("vm.result",vm.searchResult);
                 })
         }
 

@@ -58,7 +58,7 @@
                 }
             })
 
-            .when("/details/:eventID",{
+            .when("/details/:fetch/:eventID",{
                 templateUrl:"views/details/details.view.html",
                 controller:"DetailsController",
                 controllerAs:"model"
@@ -77,7 +77,7 @@
                 templateUrl:"views/admin/admin.view.html",
                 controller:"AdminController",
                 controllerAs:"model",
-                resolve :{
+               resolve :{
                     loggedin:checkAdmin
                 }
             })
@@ -101,7 +101,7 @@
     {
         var deferred = $q.defer();
 
-        $http.get('/api/assignment/loggedin').success(function(user)
+        $http.get('/api/project/loggedin').success(function(user)
         {
             $rootScope.errorMessage = null;
             // User is Authenticated
@@ -118,10 +118,10 @@
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
     {
         var deferred = $q.defer();
-
-        $http.get('/api/assignment/loggedin').success(function(user)
+        $http.get('/api/project/loggedin').success(function(user)
         {
             $rootScope.errorMessage = null;
+
             // User is Authenticated
             if (user !== '0')
             {
@@ -143,7 +143,7 @@
     var checkCurrentUser = function($q, $timeout, $http, $location, $rootScope)
     {
         var deferred = $q.defer();
-        $http.get('/api/assignment/loggedin').success(function(user)
+        $http.get('/api/project/loggedin').success(function(user)
         {
             $rootScope.errorMessage = null;
             // User is Authenticated

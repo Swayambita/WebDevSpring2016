@@ -6,38 +6,30 @@
 
     function UserService($rootScope,$http){
 
-       /* var model = {
-            findUserByCredentials : findUserByCredentials,
-            setCurrentUser : setCurrentUser,
-            updateUser : updateUser,
-            createUser:createUser,
-            deleteUserById : deleteUserById,
-            findAllUsers : findAllUsers,
-            getAllUser :getAllUser,
-            addNewUser:addNewUser
-
-        };
-        return model;*/
-
-
         var model = {
 
             setCurrentUser : setCurrentUser,
             updateUser : updateUser,
-            deleteUserById : deleteUserById,
+            deleteUser : deleteUser,
             findAllUsers : findAllUsers,
             findUserByCredentials:findUserByCredentials,
             register: register,
             getAllUsers:getAllUsers,
             getUserById:getUserById,
-            addNewUser:addNewUser,
+          //  addNewUser:addNewUser,
+            addNewUserByAdmin:addNewUserByAdmin,
             profileUpdate:profileUpdate,
             getFavEvents:getFavEvents,
+            login:login,
+            logout:logout,
+            toFollowUser:toFollowUser,
+            getMyFollowers:getMyFollowers,
+            getWhomAmFollowing:getWhomAmFollowing,
+            unFollowUser:unFollowUser
         };
         return model;
 
         function setCurrentUser(user){
-            console.log("setting user",user);
             $rootScope.currentUser=user;
         }
 
@@ -55,8 +47,13 @@
             return $http.post("/api/project/register", user);
         }
 
-        function updateUser(userId,user){
-            return $http.put("/api/project/updateUser/"+userId,user);
+        function deleteUser(user){
+            return $http.delete("/api/project/deleteUser/"+user);
+        }
+
+
+        function updateUser(user,currentUserId){
+            return $http.put("/api/project/updateUser/"+currentUserId,user);
         }
 
         function profileUpdate(userId,user){
@@ -78,71 +75,42 @@
             return $http.get("/api/project/getUserById/"+id);
         }
 
-        function addNewUser(newUser){
-            return $http.post("/api/project/addNewUser",newUser);
-        }
+      //  function addNewUser(newUser){
+       //     return $http.post("/api/project/addNewUser",newUser);
+       // }
+
+
 
         function getFavEvents(userId){
-            console.log("in getFavEvents clinet service");
             return $http.get("/api/project/getFavEvents/"+userId);
         }
 
+        function login(user) {
+            return $http.post("/api/project/login",user);}
 
-
-
-      /*  function updateUser(id,user,callback){
-
-            for(var u in model.users) {
-                if (model.users[u]._id == id) {
-                    model.users[u] = user;
-                    callback(model.users[u]);
-                }
-                else{
-                    callback(null);
-                }
-            }
+        function logout() {
+            return $http.post("/api/project/logout");
         }
 
-        function createUser(user,callback){
-
-            var user ={
-             username: user.username,
-             password:user.password,
-             _id:(new Date).getTime(),
-             email:user.email
-         };
-            model.users.push(user);
-            callback(user);
+        function toFollowUser(loggedInUser,userTofollow,userName,loggedInUserName){
+            return $http.post("/api/project/userTofollow/"+loggedInUser+"/"+userTofollow+"/"+userName+"/"+loggedInUserName);
         }
 
-        function deleteUserById(userId, callback){
-            for(var u in model.users) {
-                if (model.users[u]._id == userId) {
-                    model.users.splice(u, 1);
-                }
-            }
-            callback(model.users);
+        function getMyFollowers(userId){
+            return $http.get("/api/project/getFollowers/"+userId);
         }
 
-        function findAllUsers(callback){
-            callback(users);
+        function getWhomAmFollowing(userId){
+            return $http.get("/api/project/getWhomAmFollowing/"+userId);
         }
 
-
-        function getAllUser(callback){
-            var allUsers=model.users;
-            callback(allUsers);
+        function unFollowUser(followerId,userId){
+            return $http.put("/api/project/unFollowUser/"+followerId+"/"+userId);
         }
 
-        function addNewUser(newUser){
-
-            var newUser={
-                username : newUser.username,
-                password : newUser.password
-            };
-            model.users.push(newUser);
-            callback(newUser);
-        }*/
+        function addNewUserByAdmin(user){
+            return $http.post("/api/project/addNewUser",user);
+        }
 
     }
 })();

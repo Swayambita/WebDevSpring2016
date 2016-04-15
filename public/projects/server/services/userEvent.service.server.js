@@ -3,11 +3,12 @@ module.exports = function(app,userEventModel) {
     app.get("/api/project/getAllEvent/user/:userId",findEventsFoCurrentUser);
     app.delete("/api/project/deleteEventById/:eventId/:userId",deleteEventById);
     app.put("/api/project/updateEvent/:eventId",updateEventById);
-    app.post("/api/project/userLikesEvent/:userId/event/:eventId",userLikesEvent);
-    app.post("/api/project/userBookMarksEvent/:userId/event/:eventId",userBookMarksEvent);
-    app.post("/api/project/userCommentsEvent/:userId/event/:eventId",userCommentsEvent);
+   // app.post("/api/project/userEventConnect/:userId/event/:eventId",userLikesEvent);
+   // app.post("/api/project/userBookMarksEvent/:userId/event/:eventId",userBookMarksEvent);
+   // app.post("/api/project/userCommentsEvent/:userId/event/:eventId",userCommentsEvent);
     app.put("/api/project/goLive/:eventId",goLiveEvent);
     app.get("/api/project/getLive/:category/:city",getLive);
+    app.get("/api/project/getEventInfo/:eventId",getEventInfo);
 
 
     function createEvent(req,res){
@@ -100,21 +101,14 @@ module.exports = function(app,userEventModel) {
     }
 
 
-    function userLikesEvent(req,res){
-        var userId=req.params.userId;
+    function getEventInfo(req,res){
         var eventId=req.params.eventId;
-
-    }
-
-    function userBookMarksEvent(req,res){
-        var userId=req.params.userId;
-        var eventId=req.params.eventId;
-
-    }
-
-    function userCommentsEvent(req,res){
-        var userId=req.params.userId;
-        var eventId=req.params.eventId;
-        var comment=req.body;
+        userEventModel.findEventById(eventId)
+            .then(function(resp){
+                    res.json(resp);
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
     }
 }

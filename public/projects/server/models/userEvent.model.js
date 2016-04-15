@@ -1,4 +1,3 @@
-var eventMock = require("./event.mock.json");
 var mongoose=require("mongoose");
 var q= require("q");
 
@@ -13,7 +12,8 @@ module.exports= function(uuid,db) {
         updateEventById: updateEventById,
         createNewEvent: createNewEvent,
         goLive:goLive,
-        getLive:getLive
+        getLive:getLive,
+        findEventById:findEventById
     }
     return api;
 
@@ -141,7 +141,21 @@ module.exports= function(uuid,db) {
         return deferred.promise;
     }
 
+    function findEventById(eventId){
+        var deferred= q.defer();
+        Event.findOne(
+            {"_id":eventId}
+            ,function(err,res){
+                if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(res);
+                }
+            });
+        return deferred.promise;
 
+    }
 }
 
 

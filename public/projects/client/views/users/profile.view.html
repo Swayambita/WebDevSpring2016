@@ -1,79 +1,10 @@
-
-<!--<html>
-<body ng-controller="ProfileController">
-<div class="wrapper">
-<div class="container-fluid">
-    <div class="row">
-        <h1 class="page-header">Profile</h1>
-        <div ng-show="model.message" class="alert alert-success" role="alert">
-            {{model.message}}</div>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="uname"> UserName</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="UserName" id="uname" ng-model="model.username">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="password">Password</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Password" id="password" ng-model="model.password">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="fname">First Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="First Name" id="fname" ng-model="model.firstName">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="lname">Last Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Last Name" id="lname" ng-model="model.lastName">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="email">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="youremail@domain.com" id="email" ng-model="model.emails">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="image">Profile Image</label>
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="file" id="image" ng-model="model.image">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-primary" ng-click="model.update(model.username,model.password,
-                        model.firstName,model.lastName,model.emails,model.image)">Update</button>
-                </div>
-            </div>
-
-        </form>
-
-    </div>
-</div>
-</div>
-</body>
-</html> -->
-
-
 <html>
 <body ng-controller="ProfileController">
-<div class="wrapper">
-  <!--  <div class="profile-background"></div>  -->
-    <div class="profile-content section-nude">
-        <div class="container">
+<div class="wrapper font-cust">
+  <!--    <div class="profile-background"></div>  -->
+      <div class="profile-content section-nude">
+        <div class="container font-cust">
             <div class="row owner" style="padding-top: 10px">
-
 
                 <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
                     <div class="avatar">
@@ -88,36 +19,37 @@
             </div>
 
             <div class="row">
+                <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
                 <div class="container centered">
                     <!--<p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>-->
                     <!--<p>{{user.aboutme}}</p>-->
                     <br />
-                   <table class="table col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-3">
+                    <table class="table col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-3 font-cust">
                         <thead>
 
                         </thead>
                         <tbody>
                         <tr>
-                            <td style="border-top: none">
-                                FirstName
+                            <td style="border-top: none; font-size:15px">
+                                <b>Firstname</b>
                             </td>
-                            <td style="border-top: none">
+                            <td style="border-top: none ; font-size:15px">
                                 {{model.firstName}}
                             </td>
                         </tr>
                         <tr>
-                            <td style="border-top: none">
-                                Lastname
+                            <td style="border-top: none ; font-size:15px">
+                                <b>Lastname</b>
                             </td>
-                            <td style="border-top: none">
+                            <td style="border-top: none ; font-size:15px">
                                 {{model.lastName}}
                             </td>
                         </tr>
                         <tr>
-                            <td style="border-top: none">
-                                Email
+                            <td style="border-top: none ; font-size:15px">
+                                <b>Email</b>
                             </td>
-                            <td style="border-top: none">
+                            <td style="border-top: none ; font-size:15px">
                                 {{model.emails}}
                             </td>
                         </tr>
@@ -126,13 +58,14 @@
 
 
                     <div>
-                        <btn ng-show="model.loggedInUser == model.viewProfileOfUser" style="margin-left: 15px" ng-click="model.beginEdit()" class="btn"><i class="fa fa-cog"></i> Edit </btn>
-                        <btn ng-show="model.loggedInUser != model.viewProfileOfUser" ng-click="followUser()" class="btn"> Follow </btn>
+                        <btn ng-show="model.loggedInUser == model.viewProfileOfUser" style="margin-left: 15px" ng-click="model.beginEdit()"
+                             class="btn"><i class="fa fa-cog"></i> <b>Edit</b> </btn>
+                        <btn ng-show="model.loggedInUser != model.viewProfileOfUser" ng-click="model.followUser()" class="btn"><b> Follow </b></btn>
 
                     </div>
 
+                    <br>
                     <div ng-show="model.userdetailsedit">
-                        <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
                         <!--<br>-->
                         <table class="table table-bordered">
                             <thead>
@@ -141,46 +74,46 @@
                             <tbody>
 
                             <tr>
-                                <td style="padding-top: 18px">User Name</td>
+                                <td style="padding-top: 18px; font-size:15px"><b>User Name</b></td>
 
                                 <td class="text-center">
-                                    <input style="border:1px " type="text"  class="form-control" ng-model="model.usernameNew">
+                                    <input style="border:1px; font-size:15px " type="text"  class="form-control" ng-model="model.usernameNew">
                                 </td>
 
                             </tr>
 
                             <tr>
-                                <td style="padding-top: 18px">Password</td>
+                                <td style="padding-top: 18px; font-size:15px"><b>Password</b></td>
 
                                 <td class="text-center">
-                                    <input style="border:1px " type="text"  class="form-control" ng-model="model.passwordNew">
+                                    <input style="border:1px ; font-size:15px" type="text"  class="form-control" ng-model="model.passwordNew">
                                 </td>
 
                             </tr>
 
                             <tr>
-                                <td style="padding-top: 18px">First Name</td>
+                                <td style="padding-top: 18px; font-size:15px"><b>First Name</b></td>
 
                                 <td class="text-center">
-                                    <input style="border:1px " type="text"  class="form-control" ng-model="model.firstNameNew">
+                                    <input placeholder= "Your Firstname" style="border:1px; font-size:15px " type="text"  class="form-control" ng-model="model.firstNameNew">
                                 </td>
 
                             </tr>
                             <tr>
-                                <td style="padding-top: 18px">Last Name</td>
+                                <td style="padding-top: 18px; font-size:15px"><b>Last Name</b></td>
                                 <td>
-                                    <input type="text" class="form-control" ng-model="model.lastNameNew">
+                                    <input placeholder= "Your Lastname" type="text" class="form-control" ng-model="model.lastNameNew">
                                 </td>
                             </tr>
                             <tr>
-                                <td style="padding-top: 18px">Email</td>
+                                <td style="padding-top: 18px; font-size:15px"><b>Email</b></td>
                                 <td>
-                                    <input type="text" class="form-control" ng-model="model.emailsNew">
+                                    <input placeholder = "Your emails" type="text" class="form-control" ng-model="model.emailsNew">
                                 </td>
                             </tr>
 
                             <tr>
-                                <td style="padding-top: 18px">Image</td>
+                                <td style="padding-top: 18px; font-size:15px"><b>Image</b></td>
                                 <td>
                                     <input type="file" id="image" ng-model="model.imageNew">
                                 </td>
@@ -190,14 +123,16 @@
 
                                 </td>
                                 <td>
-                                    <button ng-click="model.save(model.usernameNew,model.passwordNew,model.firstNameNew,model.lastNameNew,model.emailsNew,model.imageNew)"
+                                    <button ng-click="model.save(model.usernameNew,model.passwordNew,model.firstNameNew,
+                                    model.lastNameNew,model.emailsNew,model.imageNew)"
                                             type="button" class="btn btn-default" aria-label="Left Align">
                                         <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
-                                        Save
+                                        <b>Save</b>
                                     </button>
                                     &nbsp;&nbsp;
-                                    <button ng-click="model.cancelEdit()" type="button" class="btn btn-default" aria-label="Left Align">
-                                        Cancel<!--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>-->
+                                    <button ng-click="model.cancelEdit()" type="button" class="btn btn-default"
+                                            aria-label="Left Align">
+                                        <b>Cancel</b>
                                     </button>
                                 </td>
                             </tr>
@@ -213,115 +148,45 @@
 
                 <div>
                     <div>
-                       <!-- <div ng-if="user.username == displayuser.username">
-                            <hr>
-                            <tr >
-                                <button ng-click="addTrip()" type="button" class="btn btn-default" aria-label="Left Align">
-                                    <span class="glyphicon" aria-hidden="true"></span>Add New Trip
-                                </button>
-
-                            </tr>
-                        </div>
-                        <br> -->
-                       <!-- <div ng-if="addNewTrip">
-                            <tr>
-                                <div>
-                                    <label for="title">Title:</label>
-                                    <input ng-model="newtitle" type="text" class="form-control" id="title" style="border: 1px solid;">
-                                </div>
-
-                            </tr>
-                            <tr>
-                                <div style="padding-top: 5px">
-                                    <label for="usr">Summary:</label>
-                                    <input ng-model="newsummary" type="text" class="form-control" id="usr" style="border: 1px solid;">
-                                </div>
-
-                            </tr>
-                            <tr>
-                                <div style="padding-top: 5px">
-                                    <label for="comment">Experience:</label>
-                                    <textarea ng-model="newcontent" class="form-control" rows="5" id="comment" style="border: 1px solid;"></textarea>
-                                </div>
-                            </tr>
-                            <br>
-
-                            <tr class="col-sm-1">
-                                <button ng-click="saveTrip(newtitle,newsummary,newcontent)" type="button" class="btn btn-default" aria-label="Left Align">
-                                    <span class="glyphicon" aria-hidden="true"></span> Save Trip
-                                </button>
-
-                            </tr>
-
-                        </div>  -->
                         <div>
                             <tr>
                                 <td colspan="2">
                                     <hr style=" color:black; height:4px; background-color:black" />
                                 </td>
                             </tr>
-                            <tr>
-                                <th>
-                                    <h4 ng-if="user.username == displayuser.username">Your Events</h4>
-                                    <h4 ng-if="user.username != displayuser.username">{{displayuser.username}} Trips</h4>
-                                </th>
-                            </tr>
 
-                            <table class="table table-bordered">
-                                <thead>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="trip in trips">
-                                    <td style="padding-top: 13px"><a href="#/trip/{{trips[$index]._id}}">{{trip.title}}</a></td>
-                                    <td style="padding-top: 13px">{{trip.summary}}</td>
-                                    <td ng-if="user._id == displayuser._id" class="text-center">
-                                        <button ng-click="removeTrip($index)" type="button" class="btn btn-default centered">
-                                            <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
                             <tr>
                                 <th>
-                                    <h4 ng-if="user.username == displayuser.username">Your Followers</h4>
-                                    <h4 ng-if="user.username != displayuser.username">{{displayuser.username}} Followers</h4>
+                                    <h4 ng-if="model.loggedInUser == model.viewProfileOfUser">Your Followers</h4>
+                                    <h4 ng-if="model.loggedInUser != model.viewProfileOfUser">Followers of {{model.displayName}}</h4>
                                 </th>
                             </tr>
                             <table class="table table-bordered">
                                 <thead>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="follower in displayuser.followers">
-                                    <td style="padding-top: 13px"><a href="#/profile/{{follower.userid}}">{{follower.username}}</a></td>
-                                    <!--<td style="padding-top: 13px">{{trip.summary}}</td>-->
-                                    <!--<td ng-if="user._id == displayuser._id" class="text-center">-->
-                                    <!--<button ng-click="removeTrip($index)" type="button" class="btn btn-default centered">-->
-                                    <!--<span class="glyphicon glyphicon-trash " aria-hidden="true"></span>-->
-                                    <!--</button>-->
-                                    <!--</td>-->
+                                <tr ng-repeat="follower in model.myFollowers">
+                                    <td style="padding-top: 13px"><a href="#/profile/{{follower.follower}}"><b><i>{{follower.followerName}}</i></b></a></td>
                                 </tr>
                                 </tbody>
                             </table>
 
                             <tr>
                                 <th>
-                                    <h4 ng-if="user.username == displayuser.username">You are Following</h4>
-                                    <h4 ng-if="user.username != displayuser.username">{{displayuser.username}} is Following</h4>
+                                    <h4 ng-if="model.loggedInUser == model.viewProfileOfUser">You are Following</h4>
+                                    <h4 ng-if="model.loggedInUser != model.viewProfileOfUser">{{model.displayName}} is Following</h4>
                                 </th>
                             </tr>
                             <table class="table table-bordered">
                                 <thead>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="follow in displayuser.following">
-                                    <td style="padding-top: 13px"><a href="#/profile/{{follow.userid}}">{{follow.username}}</a></td>
-                                    <!--<td style="padding-top: 13px">{{trip.summary}}</td>-->
-                                    <!--<td ng-if="user._id == displayuser._id" class="text-center">-->
-                                    <!--<button ng-click="removeTrip($index)" type="button" class="btn btn-default centered">-->
-                                    <!--<span class="glyphicon glyphicon-trash " aria-hidden="true"></span>-->
-                                    <!--</button>-->
-                                    <!--</td>-->
+                                <tr ng-repeat="follow in model.iFollow">
+                                    <td style="padding-top: 13px"><a href="#/profile/{{follow.userId}}"><b><i>{{follow.userName}}</i></b></a></td>
+                                    <td ng-if="model.loggedInUser == model.viewProfileOfUser">
+                                        <button ng-click="model.unFollowUser(follow.userId)" type="button" class="btn btn-default" aria-label="Left Align">
+                                        <b>Unfollow</b>
+                                    </button>  </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -334,20 +199,6 @@
                     <br>
                 </div>
             </div>
-            <!--<div>-->
-            <!--<button type="button" class="btn btn-default" ng-click="isCollapsedfollowers = !isCollapsedfollowers">Followers</button>-->
-            <!--<hr>-->
-            <!--<div ng-if="isCollapsedfollowers">-->
-            <!--<div class="well well-lg">All Followers</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div>-->
-            <!--<button type="button" class="btn btn-default" ng-click="isCollapsedfollowing = !isCollapsedfollowing">Following</button>-->
-            <!--<hr>-->
-            <!--<div ng-if="isCollapsedfollowing">-->
-            <!--<div class="well well-lg">All Following</div>-->
-            <!--</div>-->
-            <!--</div>-->
         </div>
     </div>
 </div>

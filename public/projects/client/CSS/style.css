@@ -28,11 +28,13 @@
     padding-top: 725px;
 }
 
+.details-page-margin{
+   margin:auto;
+}
 
 .top-padding-details-page{
     padding-top: 400px;
 }
-
 
 .details-image{
     padding-top :350px;
@@ -45,3 +47,12 @@
     width: 100%;
 }
 
+.details-des-padding{
+    margin-left: 100px;
+    margin-right:100px;
+}
+
+
+.font-cust{
+    font-size: 10px;
+}

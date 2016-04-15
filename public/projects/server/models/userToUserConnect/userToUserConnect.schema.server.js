@@ -8,6 +8,6 @@ module.exports =function(){
             follower:String,
             followerName:String
         },
-        {collection :'UserEventConnect'});
+        {collection :'UserToUserConnect'});
     return UserToUserConnect;
 };

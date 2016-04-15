@@ -4,34 +4,49 @@
         .module("EventBuilderApp")
         .controller("FavouriteEventsController",FavouriteEventsController);
 
-    function FavouriteEventsController($rootScope,UserService){
+    function FavouriteEventsController($rootScope,UserEventService){
         var vm=this;
-        vm.unlike=unlike;
-        vm.uncomment=uncomment;
+        vm.unlikeEvent=unlikeEvent;
+        vm.unbookmarkEvent=unbookmarkEvent;
 
         vm.message=null;
 
        var userId=$rootScope.currentUser._id;
-
-        console.log("these");
         function init(){
-            console.log("these are");
-            UserService.getFavEvents(userId)
+            UserEventService.getFavEvents(userId)
                 .then(function(response){
+
                     vm.favEvents=response.data;
-                    console.log("these are the favoutire eventes",response.data);
+                    console.log("hgdfsafdsga",response.data);
+                },
+                function(err){
+                    console.log("error while getting the favourite events of user",err);
                 })
         }
         init();
 
-        function unlike(){
-
+        function unlikeEvent(eventId){
+            UserEventService.unlikeEvent(eventId,userId)
+                .then(function(response){
+                    init();
+                },
+                function(err){
+                    console.log("error while unliking the event",err);
+                })
         }
 
-        function uncomment(){
-
+        function unbookmarkEvent(eventId){
+            console.log("****",eventId);
+            UserEventService.unbookmarkEvent(eventId,userId)
+                .then(function(response){
+                        console.log("((((",response);
+                        init();
+                    },
+                    function(err){
+                        console.log("error while unbookmark the event",err);
+                    })
         }
-
     }
+
 })();
 

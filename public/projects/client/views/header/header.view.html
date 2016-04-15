@@ -1,6 +1,6 @@
 <html>
 <body>
- <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController">
+ <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController as model">
      <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -21,19 +21,13 @@
                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
                     <a href="#/home">Home</a></li>
 
-                <li ng-show="currentUser"  ng-class="{'active': $location.url() == '/profile'}"
+               <!-- <li ng-show="currentUser"  ng-class="{'active': $location.url() == '/profile'}"
                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                    <a href="#/profile/"+currentUser._id>Profile</a></li>
+                    <a href="#/profile/"+currentUser._id>Profile</a></li> -->
 
-                <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url() == '/admin'}"
+               <!-- <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url() == '/admin'}"
                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                    <a href="#/admin">Admin</a></li>
-
-
-                <li ng-show="currentUser" ng-class="{'active' : $location.url() == '/favouriteEvents'}"
-                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
-                    <a href="#/favouriteEvents">My Favourite Events</a></li>
-
+                    <a href="#/admin">Admin</a></li>  -->
             </ul>
 
 
@@ -58,9 +52,18 @@
                     data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
                     <a href="#/myEvents">MyEvents</a></li>
 
+                <li ng-show="currentUser" ng-class="{'active' : $location.url() == '/favouriteEvents'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/favouriteEvents">My Favourite Events</a></li>
 
-                <li ng-show="currentUser" data-target=".navbar-collapse.in"
-                ><a href="#/home" class="add-under-line" ng-click="model.logout()">Logout</a></li>
+
+                <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url() == '/admin'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/admin">Admin</a></li>
+
+
+                <li ng-show="currentUser" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    <a href="#/home" class="add-under-line" ng-click="model.logout()">Logout</a></li>
 
                 <li ng-class="{'active' : $location.url() == '/search'}" data-toggle="collapse"
                     data-target=".navbar-collapse.in">

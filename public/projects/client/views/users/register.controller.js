@@ -3,7 +3,7 @@
         angular.module("EventBuilderApp")
         .controller("RegisterController",RegisterController);
 
-    function RegisterController(UserService,$location) {
+    function RegisterController(UserService,$location,$rootScope) {
 
         var vm=this;
         vm.register=register;
@@ -13,38 +13,38 @@
         }
         init();
 
-        function register(user){
+        function register(userNew){
 
-            if (user == null) {
+            if (userNew == null) {
                 vm.message = "Please fill in the required details";
                 return;
             }
 
-            if (user.username == null) {
+            if (userNew.username == null) {
                 vm.message = "Please enter a valid username";
                 return;
             }
 
-            if (user.password == null || user.password2 == null) {
+            if (userNew.password == null || userNew.password2 == null) {
                 vm.message = "Please enter a password";
                 return;
             }
 
-            if (user.password != user.password2) {
+            if (userNew.password != userNew.password2) {
                 vm.message = "Passwords do not match";
                 return;
             }
 
-            if (user.email == null) {
+            if (userNew.email == null) {
                 vm.message = "Enter an emailID";
                 return;
             }
 
-            UserService.register(user)
+            UserService.register(userNew)
                 .then(function (user){
                         if(user.data!=null){
                             $rootScope.currentUser=user;
-                            $location.url("/profile");
+                            $location.url("/profile/"+user.data._id);
                         }
                         else{
                             vm.message="Username already exists";

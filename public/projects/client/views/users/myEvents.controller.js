@@ -13,6 +13,8 @@
         vm.selectEvent=selectEvent;
         vm.deleteEvent=deleteEvent;
         vm.goLive=goLive;
+        vm.cancelEdit=cancelEdit;
+        vm.selectEventForEdit =false;
 
         var currentUser=$rootScope.currentUser;
 
@@ -26,7 +28,6 @@
                 UserEventService.findEventsFoCurrentUser(currentUser._id)
                     .then(function (response) {
                        vm.events = response.data;
-                        console.log("my events response*****", response.data);
                     });
             }
         }
@@ -46,13 +47,15 @@
 
 
         function selectEvent(index) {
+
+            vm.selectEventForEdit=true;
             vm.eventIndexSelected = index;
             vm.eName = vm.events[index].eName;
             vm.eDesc = vm.events[index].desc;
-            vm.sDate=vm.events[index].sDate;
-            vm.sTime=vm.events[index].sTime;
-            vm.eDate=vm.events[index].eDate;
-            vm.eTime=vm.events[index].eTime;
+            vm.newSDate= new Date(vm.events[index].sDate);
+            vm.newSTime=new Date(vm.events[index].sTime);
+            vm.newEDate=new Date(vm.events[index].eDate);
+            vm.newETime=new Date(vm.events[index].eTime);
         }
         function updateEvent(eName,eDesc,newSDate,newSTime,newEDate,newETime) {
 
@@ -95,6 +98,7 @@
                         vm.newSTime=null;
                         vm.newEDate=null;
                         vm.newETime=null;
+                        vm.selectEventForEdit=false;
                     }
                 },
                 function(error){
@@ -114,6 +118,11 @@
                     vm.message="error";
                 });
             }
+
+        function cancelEdit(){
+            vm.selectEventForEdit=false;
+
+        }
        /* function renderEventsAfterAction(userEvents){
             UserEvent.findEventsFoCurrentUser(currentUser._id,renderEvents);
         }

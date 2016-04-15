@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <body ng-controller="FavouriteEventsController">
 
 <div class="container-fluid">
@@ -25,13 +25,51 @@
                     <a ng-click="model.uncomment($index)" class="btn btn-primary glyphicon glyphicon-bookmark"></span></a></td>
                 </td>
             </tr>
-
         </table>
-
 
 
     </div>
 </div>
 </body>
-</html>
+</html>   -->
 
+<html>
+<body ng-controller="FavouriteEventsController">
+
+<div class="wrapper">
+    <div class="myEvents-background"></div>
+    <div class="myEvents-content section-nude">
+    <div class="container">
+
+        <div class="row owner" style="padding-top: 10px">
+
+        </div>
+
+        <div class="row">
+            <h4 class="page-header">Your Favourite Events</h4>
+
+            <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th class="text no-wrap">EventName</th>
+                <th>Unlike</th>
+                <th>Unbookmark</th>
+            </tr>
+
+            <tr ng-repeat="eve in model.favEvents">
+                <td ng-show="eve.bookMark || eve.like" >{{eve.eName}}</td>
+                <td>
+                    <a ng-show="eve.like" ng-click="model.unlikeEvent(eve.eventId)" class="btn btn-primary glyphicon glyphicon-star-empty" ></a>
+                </td>
+                <td>
+                    <a ng-show="eve.bookMark" ng-click="model.unbookmarkEvent(eve.eventId)" class="btn btn-primary glyphicon glyphicon-bookmark"></span></a></td>
+                </td>
+            </tr>
+        </table>
+</div>
+</div>
+    </div>
+</div>
+</body>
+</html>

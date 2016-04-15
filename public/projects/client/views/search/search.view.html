@@ -51,7 +51,7 @@
 <div ng-controller="SearchController">
 
     <div class="wrapper">
-       <!-- <div class="search-background"> -->
+    <!--   <div class="search-background">  -->
             <div class="search-content">
                 <div>
                     <div class="container">
@@ -63,7 +63,7 @@
 
                                         <input ng-model="model.category" type="text" class="form-control" placeholder="Music/Business/Sport">
                                         <br>
-                                        <input ng-model="model.location" type="text" class="form-control" placeholder="Boston">
+                                        <input ng-model="model.location" type="text" class="form-control" placeholder="Enter your city: Boston">
 
                                         <a ng-click="model.searchEvent(model.category,model.location)" class="btn btn-danger btn-block">Search</a>
                                     </form>
@@ -74,7 +74,6 @@
                 </div>
             </div>
         </div>
-
 
         <div ng-show="model.searchResult" class="top-padding">
             <div class="container">
@@ -92,12 +91,27 @@
                             </tr>
                             </thead>
                             <tbody>
+
+                            <div ng-show="model.dbSearch">
+                                <tr ng-repeat="event in model.dbSearch">
+                                    <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.image}}"></image></td>
+                                    <td class="col-lg-3">
+                                        <a href="#/details/db/{{event._id}}">{{event.eName}}</a></td>
+                                    <td class="col-lg-3">{{event.sDate | date : hh:mm}}</td>
+                                    <td class="col-lg-3">{{event.eDate | date : hh:mm}}</td>
+                                </tr>
+
+
+                            </div>
+
+
+
                             <tr ng-repeat="event in model.searchResult">
                                 <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
                                 <td class="col-lg-3">
-                                    <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
-                                <td class="col-lg-3">{{event.startDate}}</td>
-                                <td class="col-lg-3">{{event.endDate}}</td>
+                                    <a href="#/details/api/{{event.id}}">{{event.name.text}}</a></td>
+                                <td class="col-lg-3">{{event.start.local | date : hh:mm}}</td>
+                                <td class="col-lg-3">{{event.end.local | date : hh:mm}}</td>
                             </tr>
 
                             </tbody>

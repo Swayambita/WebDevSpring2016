@@ -5,9 +5,13 @@ module.exports =function(){
     var UserEventConnect =mongoose.Schema(
         {userId:String,
         eventId:String,
-        likes:Boolean,
+        like:Boolean,
         comment:String,
-        bookMark:Boolean},
+        bookMark:Boolean,
+        username:String,
+        source:String,
+        eName:String
+        },
         {collection :'UserEventConnect'});
     return UserEventConnect;
 };

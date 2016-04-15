@@ -13,53 +13,62 @@
                 <h4 class="page-header">Create your event here</h4>
                 <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
 
-                <table class="table table-bordered">
+                <table class="table table-bordered table-responsive">
                     <thead>
 
                     </thead>
                     <tbody>
 
                     <tr>
-                        <td style="padding-top: 18px">Event Name</td>
+                        <td style="padding-top: 18px; font-size:15px">
+                        <b>Event Name</b>
+                        </td>
 
                         <td class="text-center">
-                            <input style="border:1px " type="text"  class="form-control" ng-model="model.event.Name">
+                            <input style="border:1px ;font-size:15px; font-size:15px" type="text"  class="form-control" ng-model="model.event.Name">
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td style="padding-top: 18px">Location</td>
+                        <td style="padding-top: 18px;font-size:15px">
+                            <b>Venue</b></td>
 
                         <td class="text-center">
-                            <input style="border:1px " type="text"  class="form-control" ng-model="model.event.location">
+                            <input style="border:1px;font-size:15px " type="text"  class="form-control" ng-model="model.event.location">
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td style="padding-top: 18px">Starts</td>
+                        <td style="padding-top: 18px;font-size:15px">
+                            <b>Starts</b>
+                        </td>
 
 
                         <td class="text-center">
-                            <div>  <input style="border:1px " type="date"  class="form-control" ng-model="model.event.startDate">  </div>
-                            <div>   <input style="border:1px " type="time"  class="form-control" ng-model="model.event.startTime"> </div>
+                            <div>  <input style="border:1px ;font-size:15px" type="date"  class="form-control" ng-model="model.event.startDate">  </div>
+                            <div>   <input style="border:1px ;font-size:15px" type="time"  class="form-control" ng-model="model.event.startTime"> </div>
 
                         </td>
 
 
                     </tr>
                     <tr>
-                        <td style="padding-top: 18px">Ends</td>
+                        <td style="padding-top: 18px;font-size:15px">
+                            <b>Ends</b>
+                        </td>
 
                         <td class="text-center">
-                            <input style="border:1px " type="date"  class="form-control" ng-model="model.event.endDate">
-                            <input style="border:1px " type="time"  class="form-control" ng-model="model.event.endTime">
+                            <input style="border:1px ;font-size:15px" type="date"  class="form-control" ng-model="model.event.endDate">
+                            <input style="border:1px;font-size:15px " type="time"  class="form-control" ng-model="model.event.endTime">
                         </td>
                     </tr>
 
                     <tr>
-                        <td style="padding-top: 18px">Description</td>
+                        <td style="padding-top: 18px;font-size:15px">
+                            <b>Description</b>
+                        </td>
                         <td>
                             <textarea class="form-control" ng-model="model.event.desc"></textarea>
                         </td>
@@ -67,14 +76,18 @@
 
 
                     <tr>
-                        <td style="padding-top: 18px">Genre</td>
+                        <td style="padding-top: 18px;font-size:15px">
+                            <b>Genre</b>
+                        </td>
                         <td>
-                            <input style="border:1px " type="text"  class="form-control" ng-model="model.event.genre">
+                            <input style="border:1px ;font-size:15px" type="text"  class="form-control" ng-model="model.event.genre">
                         </td>
                     </tr>
 
                     <tr>
-                        <td style="padding-top: 18px">Image</td>
+                        <td style="padding-top: 18px;font-size:15px">
+                            <b>Image</b>
+                        </td>
                         <td>
                             <input type="file" id="image" ng-model="model.event.image">
                         </td>
@@ -87,11 +100,11 @@
                             <button ng-click="model.createEvent(model.event)"
                                     type="button" class="btn btn-default" aria-label="Left Align">
                                 <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
-                                Create
+                                <b>Create</b>
                             </button>
                             &nbsp;&nbsp;
                             <button ng-click="model.cancel()" type="button" class="btn btn-default" aria-label="Left Align">
-                                Cancel<!--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>-->
+                                <b>Cancel</b><!--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>-->
                             </button>
                         </td>
                     </tr>

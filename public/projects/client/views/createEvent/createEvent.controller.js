@@ -28,9 +28,6 @@
                 return;
             }
 
-            console.log("date in htmlformat",event.startDate);
-            console.log("date in htmlformat after substring",event.startDate.getDate());
-
 
             if(event.startDate == null){
                 vm.message = "Enter a event start date and time";
@@ -54,10 +51,15 @@
                 return;
             }
 
-            console.log("the create event is as follows",event);
+            if(event.genre == null){
+                vm.message = "Enter a event genre";
+                return;
+            }
+            event.genre=event.genre.toLowerCase();
+            event.location=event.location.toLowerCase();
+
             UserEventService.createNewEvent(event)
                 .then(function(response){
-                        console.log("the response for create event is as follows",response);
                     vm.message="your event is created";
                     vm.event=null;
                 },

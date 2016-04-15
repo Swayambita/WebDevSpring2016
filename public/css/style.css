@@ -1,25 +1,25 @@
 /* add a right padding */
 
 .add-right-pad{
-    padding-right: 5px;
+	padding-right: 5px;
 }
 
 .add-under-line{
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 
 .check-sidebar {
-    display: none;
+	display: none;
 }
 
 @media (max-width: 768px)
 {
-    .check-sidebar {
-        display: block;
-    }
+	.check-sidebar {
+		display: block;
+	}
 }
 
 .text-nowrap{
-    white-space: nowrap;
+	white-space: nowrap;
 }

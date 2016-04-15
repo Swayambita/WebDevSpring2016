@@ -39,7 +39,6 @@
         }
 
         function updateUser(user,currentUserId){
-            console.log("in client service update user");
             return $http.put("/api/assignment/updateUser/"+currentUserId,user);
         }
 

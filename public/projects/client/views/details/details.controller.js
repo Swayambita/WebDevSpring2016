@@ -3,51 +3,69 @@
     angular.module("EventBuilderApp")
         .controller("DetailsController",DetailsController);
 
-    function DetailsController($routeParams,$http,$rootScope,EventBriteService,UserEventService){
+    function DetailsController($routeParams,$rootScope,EventBriteService,UserEventService){
 
         var vm=this;
         var eventID= $routeParams.eventID;
+        var fetchFrom=$routeParams.fetch;
         var currentUser=$rootScope.currentUser;
+      //  vm.userId=$rootScope.currentUser._id;
 
         vm.likeEvent=likeEvent;
         vm.bookmarkEvent=bookmarkEvent;
         vm.commentEvent=commentEvent;
         vm.message=null;
-        vm.allUsersWhoLikedThis =["henry","bob"];
+        vm.detailName=null;
+        //vm.allUsersWhoLikedThis =["henry","bob"];
 
         function init(){
 
-         /*   UserEventService.findAllUsersWhoLikeThisEvent(eventId)
+            if(fetchFrom=="api"){
+                EventBriteService.getDetails(eventID)
+                    .then(function(response){
+                        console.log("the details object",response);
+                        vm.detailName=response.data.name.text;
+                        vm.desc=response.data.description.text;
+                        vm.image=response.data.logo.url;
+
+                    });
+            }
+            else{
+                UserEventService.getDetailsOfEvent(eventID)
+                    .then(function(response){
+                        vm.detailName=response.data.eName;
+                        vm.desc=response.data.desc;
+                    })
+            }
+            UserEventService.allUsersWhoLikeThisEvent(eventID)
                 .then(function(response){
+                    vm.allUsersWhoLikedThis=response.data;
+                    console.log("******",vm.allUsersWhoLikedThis);
+                })
 
-                },
-                function(error){
-
-                });*/
         }
         init();
 
-        EventBriteService.getDetails(eventID)
-            .then(function(response){
 
-                console.log("at details controller",response);
-                vm.details=response.data;
-            })
 
-        function renderDetails(response){
-            vm.details=response;
-        }
 
         function likeEvent(){
             if(currentUser==null){
                 vm.message="You need to be logged in to like an event";
             }
             else{
-                UserEventService.userLikesEvent(currentUser._id,eventID)
-                    .then(function(response){
-                        vm.message="Event Liked!!";
+                UserEventService.userLikesEvent(currentUser._id,eventID,currentUser,vm.detailName,fetchFrom)
+                    .then(function(response,err) {
+                        if (err) {
+                            console.log("error when tried to like the event", err);
+                        }
+                        else {
+                            vm.message = "Event Liked!!";
+                        }
+
                         // need to call the getLikes after this event function,
                         // to get updated like list for the user
+
                     });
             }
         }
@@ -57,9 +75,14 @@
                 vm.message="You need to be logged in to bookmark an event";
             }
             else{
-                UserEventService.userBookMarksEvent(currentUser._id,eventID)
-                    .then(function(response){
-                        vm.message="Event bookmarked!!";
+                UserEventService.userBookMarksEvent(currentUser._id,eventID,currentUser,vm.detailName,fetchFrom)
+                    .then(function(response,err) {
+                        if (err) {
+                            console.log("error when tried to bookmark the event", err);
+                        }
+                        else {
+                            vm.message = "Event bookmarked!!";
+                        }
                         // need to call the getBookmark for this event function,
                         // to get updated bookmark list
                     });
@@ -71,7 +94,7 @@
                 vm.message="You need to be logged in to comment on an event";
             }
             else{
-                UserEventService.userCommentsEvent(currentUser._id,eventID,comment)
+                UserEventService.userCommentsEvent(currentUser._id,eventID,currentUser,comment,vm.detailName,fetchFrom)
                     .then(function(response){
                         vm.message="Comment Saved!";
                         // need to call the getComments for this event function,
