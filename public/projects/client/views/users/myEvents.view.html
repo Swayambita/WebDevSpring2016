@@ -121,7 +121,7 @@
                             </td>
 
                             <td style="border-top: none">
-                                <button type="button btn-primary" class="btn btn-primary add-right-pad" ng-click=ng-click="model.goLive($index)">
+                                <button type="button btn-primary" class="btn btn-primary add-right-pad" ng-click="model.goLive($index)">
                                     <span class="glyphicon glyphicon-flag"></span>
                                 </button>
                             </td>
@@ -192,12 +192,32 @@
                                 </td>
                             </tr>
                             <tr>
+
+                            <tr>
+                                <td style="padding-top: 18px; font-size:15px">
+                                    <b>Location</b>
+                                </td>
+                                <td>
+                                    <input type="text"  class="form-control" ng-model="model.newLocation">
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <tr>
+                                <td style="padding-top: 18px; font-size:15px">
+                                    <b>Genre</b>
+                                </td>
+                                <td>
+                                    <input type="text"  class="form-control" ng-model="model.newGenre">
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>
 
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc,model.newSDate,
-                            model.newSTime,model.newEDate,model.newETime)">
+                            model.newSTime,model.newEDate,model.newETime,model.newLocation,model.newGenre)">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </button>
 

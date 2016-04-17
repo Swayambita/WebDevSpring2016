@@ -1409,9 +1409,10 @@ textarea.form-control {
 }
 
 .section {
-    padding: 30px 0;
+    padding: 50px 0;
     position: relative;
-    background-color: #f4f3ef;
+   /* background-color: #f4f3ef;*/
+    background-color: #00b3ee;
     background-image: linear-gradient(to bottom, transparent 0%, rgba(112, 112, 112, 0) 60%, rgba(186, 186, 186, 0.15) 100%);
 }
 
@@ -1456,6 +1457,11 @@ textarea.form-control {
     color: #FFFFFF;
 }
 
+.section-homepage {
+    background-color: rgba(13, 4, 15, 0.76);
+    color: #FFFFFF;
+    background-image: url("../../paper_img/bg-4.jpg");
+}
 /*      Checkbox and radio         */
 .checkbox,
 .radio {
@@ -2375,14 +2381,14 @@ textarea.form-control {
 }
 
 .carousel-control {
-    background-color: #EB5E28;
+    background-color: transparent;
     border-radius: 50%;
     opacity: 1;
     text-shadow: none;
 }
 .carousel-control:hover, .carousel-control:focus {
     opacity: 1;
-    background-color: #B33C12;
+    background-color:transparent;
 }
 
 .carousel-control.left {
@@ -2443,7 +2449,7 @@ textarea.form-control {
 }
 
 .carousel-indicators .active {
-    background-color: #EB5E28;
+    background-color: #4b5456;
 }
 
 .modal-header {

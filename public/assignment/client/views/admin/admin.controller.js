@@ -3,7 +3,7 @@
     angular.module("FormBuilderApp")
         .controller("AdminController",AdminController);
 
-    function AdminController($location,UserService){
+    function AdminController($rootScope,UserService){
         var vm=this;
         vm.addUser= addUser;
         vm.updateUser=updateUser;
@@ -11,9 +11,16 @@
         vm.selectUser=selectUser;
         vm.message=null;
 
+        var indexSelected;
+        var currentUsers=[];
+        var currentUser;
+        currentUser=$rootScope.currentUser;
+
         function init(){
             UserService.getAllUsers()
                 .then(function(response){
+                    currentUsers=response.data;
+                    console.log("initailly all users are", currentUsers);
                     vm.allUsers=response.data;
                     vm.username=null;
                     vm.password=null;
@@ -21,12 +28,15 @@
                     vm.lastName=null;
                     vm.roles=null;
                     vm.message=null;
+                },function(err){
+                    console.log(err);
                 })
         }
 
         init();
 
         function addUser(username,password,firstName,lastName,roles){
+            if(username!=null && firstName!=null && lastName!=null && roles!=null)
             var user={"username":username,
                 "password":password,
                 "firstName":firstName,
@@ -44,23 +54,23 @@
         }
 
         function updateUser(username,password,firstName,lastName,roles){
-            var index= vm.indexSelected;
-            var userId= vm.allUsers[index]._id;
+            var userSelected=currentUsers[indexSelected];
+          //  var userId= vm.allUsers[index]._id;
             var user={"username":username,
                 "password":password,
                 "firstName":firstName,
                 "lastName":lastName,
                 "roles":roles,
-                "emails":vm.allUsers[index].emails,
-                "phones":vm.allUsers[index].phones
+                "emails":vm.userSelected.emails,
+                "phones":vm.userSelected.phones
             };
-            UserService.updateUser(user,userId)
+            UserService.updateUser(user,userSelected._id)
                 .then(init());
         }
 
         function deleteUser(index){
-            vm.indexSelected=index;
-            var userId= vm.allUsers[index]._id;
+            indexSelected=index;
+            var userId= currentUsers[indexSelected]._id;
             UserService.deleteUser(userId)
                 .then(init());
                     //vm.allUsers=response.data;
@@ -68,12 +78,15 @@
         }
 
         function selectUser(index){
-            vm.indexSelected= index;
-            vm.username= vm.allUsers[index].username;
-            vm.password=vm.allUsers[index].password;
-            vm.firstName=vm.allUsers[index].firstName;
-            vm.lastName=vm.allUsers[index].lastName;
-            vm.roles=vm.allUsers[index].roles;
+
+            console.log("user selected",index);
+            indexSelected = index;
+            console.log("name selected",currentUsers[index].username);
+            vm.username= currentUsers[index].username;
+            vm.password=currentUsers[index].password;
+            vm.firstName=currentUsers[index].firstName;
+            vm.lastName=currentUsers[index].lastName;
+            vm.roles=currentUsers[index].roles;n
         }
     }
 })();

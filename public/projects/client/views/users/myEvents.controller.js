@@ -56,13 +56,17 @@
             vm.newSTime=new Date(vm.events[index].sTime);
             vm.newEDate=new Date(vm.events[index].eDate);
             vm.newETime=new Date(vm.events[index].eTime);
+            vm.newLocation=vm.events[index].location;
+            vm.newGenre=vm.events[index].genre;
         }
-        function updateEvent(eName,eDesc,newSDate,newSTime,newEDate,newETime) {
+        function updateEvent(eName,eDesc,newSDate,newSTime,newEDate,newETime,newLocation,newGenre) {
+
+            newGenre=newGenre.toLowerCase();
+            newLocation=newLocation.toLowerCase();
 
             if (eName == null || eDesc == null) {
                 vm.alertMessage = "Enter the required fields";
             }
-
             else {
                 var eventId = vm.events[vm.eventIndexSelected]._id;
                 var prevEvent = vm.events[vm.eventIndexSelected];
@@ -70,7 +74,7 @@
                 var changedEvent = {"eName": eName,
                     "sDate": newSDate, "eDate": newEDate, "createdBy": prevEvent.createdBy,
                     "desc": eDesc, "image": prevEvent.image,
-                    "sTime":newSTime,"eTime":newETime};
+                    "sTime":newSTime,"eTime":newETime,"location":newLocation,"genre":newGenre};
 
                 UserEventService.updateEventById(eventId,changedEvent)
                     .then(finalList);

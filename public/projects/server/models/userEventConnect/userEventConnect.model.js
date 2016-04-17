@@ -15,7 +15,9 @@ module.exports= function(db) {
         allUserLikeThisEvent:allUserLikeThisEvent,
         getFavEvents:getFavEvents,
         unlikeEvent:unlikeEvent,
-        unbookmarkEvent:unbookmarkEvent
+        unbookmarkEvent:unbookmarkEvent,
+        checkWhetherToDelete:checkWhetherToDelete,
+        deleteEntry:deleteEntry
 
         //newComment:newComment,
         //addComment:addComment
@@ -179,6 +181,41 @@ module.exports= function(db) {
                 "source":details.source,
                 "eName":details.eName}},
 
+            function(err,res){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    deferred.resolve(res);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function checkWhetherToDelete(eventId,userId){
+        var deferred= q.defer();
+        UserEventConnect.findOne(
+               {"userId":userId,
+                "eventId":eventId,
+                "like":false,
+                "bookMark":false},
+            function(err,res){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    deferred.resolve(res);
+                }
+            });
+        return deferred.promise;
+
+    }
+
+    function deleteEntry(eventId,userId){
+        var deferred= q.defer();
+        UserEventConnect.remove(
+            {"userId":userId,
+                "eventId":eventId},
             function(err,res){
                 if(err){
                     deferred.reject(err);

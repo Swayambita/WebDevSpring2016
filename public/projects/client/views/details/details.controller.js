@@ -8,15 +8,25 @@
         var vm=this;
         var eventID= $routeParams.eventID;
         var fetchFrom=$routeParams.fetch;
-        var currentUser=$rootScope.currentUser;
-      //  vm.userId=$rootScope.currentUser._id;
+        vm.fetch=fetchFrom;
+
+        if($rootScope.currentUser){
+            var currentUser=$rootScope.currentUser;
+
+            console.log("the current user", $rootScope.currentUser);
+            vm.userId=$rootScope.currentUser._id;
+            console.log("the userId variable", vm.userId);
+        }
+        else{
+            vm.userId=null;
+        }
+
 
         vm.likeEvent=likeEvent;
         vm.bookmarkEvent=bookmarkEvent;
-        vm.commentEvent=commentEvent;
         vm.message=null;
         vm.detailName=null;
-        //vm.allUsersWhoLikedThis =["henry","bob"];
+
 
         function init(){
 
@@ -51,7 +61,8 @@
 
         function likeEvent(){
             if(currentUser==null){
-                vm.message="You need to be logged in to like an event";
+               // vm.message="You need to be logged in to like an event";
+                alert("You need to be logged in to like an event");
             }
             else{
                 UserEventService.userLikesEvent(currentUser._id,eventID,currentUser,vm.detailName,fetchFrom)
@@ -60,7 +71,8 @@
                             console.log("error when tried to like the event", err);
                         }
                         else {
-                            vm.message = "Event Liked!!";
+                          //  vm.message = "Event Liked!!";
+                            alert("Event liked!!");
                         }
 
                         // need to call the getLikes after this event function,
@@ -72,7 +84,8 @@
 
         function bookmarkEvent(){
             if(currentUser==null){
-                vm.message="You need to be logged in to bookmark an event";
+              //  vm.message="You need to be logged in to bookmark an event";
+                alert("You need to be logged in to bookmark an event");
             }
             else{
                 UserEventService.userBookMarksEvent(currentUser._id,eventID,currentUser,vm.detailName,fetchFrom)
@@ -81,7 +94,8 @@
                             console.log("error when tried to bookmark the event", err);
                         }
                         else {
-                            vm.message = "Event bookmarked!!";
+                           // vm.message = "Event bookmarked!!";
+                            alert("Event bookmarked!!");
                         }
                         // need to call the getBookmark for this event function,
                         // to get updated bookmark list
@@ -89,7 +103,7 @@
             }
         }
 
-        function commentEvent(comment){
+     /*   function commentEvent(comment){
             if(currentUser==null){
                 vm.message="You need to be logged in to comment on an event";
             }
@@ -101,6 +115,6 @@
                         // to get updated comments list
                     });
             }
-        }
+        }*/
     }
 })();

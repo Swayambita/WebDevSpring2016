@@ -43,8 +43,10 @@
 
             EventBriteService.getSearchResult(category,city)
                 .then(function(response){
+                    console.log("!!!!")
                     UserEventService.getLiveEventsForGenre(category,city)
                         .then(function(res){
+                            console.log("data from cmongo",res);
                             vm.dbSearch= res.data;
                         },
                         function(error){
@@ -54,9 +56,5 @@
                     console.log("vm.result",vm.searchResult);
                 })
         }
-
-
     }
-
-
 })();

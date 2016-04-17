@@ -14,7 +14,7 @@ module.exports = function(app,userEventModel) {
     function createEvent(req,res){
         var userId=req.params.currentUserId;
         var newEvent=req.body;
-
+        console.log("the new event is",newEvent);
         userEventModel.createNewEvent(userId,newEvent)
             .then(function(resp){
                     res.json(resp);

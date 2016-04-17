@@ -69,7 +69,6 @@ module.exports= function(db) {
 
     function getWhomAmFollowing(userId){
         var deferred = q.defer();
-        console.log("teh userId",userId);
         UserToUserConnect.find({"follower": userId},
             function (err, res) {
                 if (err) {

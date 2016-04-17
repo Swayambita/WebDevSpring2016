@@ -3,7 +3,7 @@ module.exports = function(app,userEventConnectModel) {
     app.post("/api/project/userLikeEvent/:userId/event/:eventId/:eName/:source", userLikesEvent);
     app.post("/api/project/userBookmarkEvent/:userId/event/:eventId/:eName/:source",userBookMarksEvent);
     app.get("/api/project/allUserLikeThisEvent/:eventId",allUserLikeThisEvent);
-   // app.get("/api/project/eventsLikedByuser/:userId",eventsLikedByuser);
+    // app.get("/api/project/eventsLikedByuser/:userId",eventsLikedByuser);
     app.get("/api/project/getFavEvents/:userId",getFavEvents);
     app.put("/api/project/unlikeEvent/:eventId/:userId",unlikeEvent);
     app.put("/api/project/unbookmarkEvent/:eventId/:userId",unbookmarkEvent);
@@ -30,27 +30,27 @@ module.exports = function(app,userEventConnectModel) {
 
         userEventConnectModel.findConnection(userId, eventId)
             .then(function(resp){
-               if(resp!= null){
-                   id=resp._id;
-                   userEventConnectModel.addLike(id,resp)
-                       .then(function(doc){
-                           res.json(doc);
-                       },function(err){
-                           res.status(400).send(err);
-                       });
-               }
-                else{
-                   userEventConnectModel.newLike(userId,eventId,user,eName,source)
-                       .then(function(doc){
-                           res.json(doc);
-                       },function(err){
-                           res.status(400).send(err);
-                       });
-               }
-            },
-            function(err){
-                res.status(400).send(err);
-            });
+                    if(resp!= null){
+                        id=resp._id;
+                        userEventConnectModel.addLike(id,resp)
+                            .then(function(doc){
+                                res.json(doc);
+                            },function(err){
+                                res.status(400).send(err);
+                            });
+                    }
+                    else{
+                        userEventConnectModel.newLike(userId,eventId,user,eName,source)
+                            .then(function(doc){
+                                res.json(doc);
+                            },function(err){
+                                res.status(400).send(err);
+                            });
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
     }
 
     function userBookMarksEvent(req,res){
@@ -97,16 +97,16 @@ module.exports = function(app,userEventConnectModel) {
                 });
     }
 
-  /*  function eventsLikedByuser(req,res){
-        var userId = req.params.userId;
-        userEventConnectModel.eventsLikedByuser(userId)
-            .then(function (resp) {
+    /*  function eventsLikedByuser(req,res){
+     var userId = req.params.userId;
+     userEventConnectModel.eventsLikedByuser(userId)
+     .then(function (resp) {
 
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
-    }*/
+     },
+     function (err) {
+     res.status(400).send(err);
+     });
+     }*/
 
     function getFavEvents(req,res){
         var userId=req.params.userId;
@@ -126,17 +126,35 @@ module.exports = function(app,userEventConnectModel) {
 
         userEventConnectModel.findConnection(userId,eventId)
             .then(function(resp) {
-                id = resp._id;
-                userEventConnectModel.unlikeEvent(id, resp)
-                    .then(function (doc) {
-                        res.json(doc);
-                    }, function (err) {
-                        res.status(400).send(err);
-                    });
-            },
-            function(err){
-               res.status(400).send(err);
-            });
+                    id = resp._id;
+                    userEventConnectModel.unlikeEvent(id, resp)
+                        .then(function (doc) {
+                            //  res.json(doc);
+                            userEventConnectModel.checkWhetherToDelete(eventId,userId)
+                                .then(function(resp){
+                                        if(resp){
+                                            userEventConnectModel.deleteEntry(eventId,userId)
+                                                .then(function(response){
+                                                        res.json(resp);
+                                                    },
+                                                    function(error){
+                                                        res.status(400).send(err);
+                                                    })
+                                        }
+                                        else{
+                                            res.json(resp);
+                                        }
+                                    },
+                                    function(err){
+                                        res.status(400).send(err);
+                                    });
+                        }, function (err) {
+                            res.status(400).send(err);
+                        });
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
 
     }
 
@@ -148,7 +166,25 @@ module.exports = function(app,userEventConnectModel) {
                     id = resp._id;
                     userEventConnectModel.unbookmarkEvent(id, resp)
                         .then(function (doc) {
-                            res.json(doc);
+                            userEventConnectModel.checkWhetherToDelete(eventId,userId)
+                                .then(function(resp){
+                                        if(resp){
+                                            userEventConnectModel.deleteEntry(eventId,userId)
+                                                .then(function(response){
+                                                        res.json(resp);
+                                                    },
+                                                    function(error){
+                                                        res.status(400).send(err);
+                                                    })
+                                        }
+                                        else{
+                                            res.json(resp);
+                                        }
+                                    },
+                                    function(err){
+                                        res.status(400).send(err);
+                                    });
+
                         }, function (err) {
                             res.status(400).send(err);
                         });

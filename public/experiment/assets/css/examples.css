@@ -3,6 +3,7 @@
 }
 .landing-header{
     background-size: cover;
+    font-weight: bold;
     min-height: 570px;
 }
 .landing-header .motto{
@@ -80,7 +81,7 @@
     color: #EB5E28;
 }
 .register-card{
-    background-color: #FFC0A4;
+    background-color: #252e30;
     border-radius: 8px;
     color: #fff;
     max-width: 350px;
@@ -92,13 +93,39 @@
     margin-top: 15px;
 }
 .register-card .title{
+    color: #7A9E9F;
+    font-weight: bold;
+    text-align: center;
+}
+.register-card .btn {
+    margin-top: 30px;
+}
+
+.register-card .forgot{
+    text-align: center;
+}
+
+
+.search-card{
+    background-color: #FFC0A4;
+    border-radius: 8px;
+    color: #fff;
+    max-width: 300px;
+    margin: 55px 0 70px;
+    min-height: 200px;
+    padding: 30px;
+}
+.search-card label{
+    margin-top: 15px;
+}
+.search-card .title{
     color: #B33C12;
     text-align: center;
 }
-.register-card .btn{
+.search-card .btn{
     margin-top: 30px;
 }
-.register-card .forgot{
+.search-card .forgot{
     text-align: center;
 }
 
@@ -134,14 +161,14 @@
     background-image: url('../../../../../experiment/paper_img/Conception.jpg');
     background-position: center center;
     background-size: cover;
-    min-height: 100vh;
+    height: 500px;
     overflow: hidden;
     position: absolute;
     width: 100%;
 }
 
 .search-background .filter-black::after{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: black;
     content: "";
     display: block;
     height: 100%;

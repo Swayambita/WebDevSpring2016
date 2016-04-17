@@ -4,7 +4,7 @@
     angular.module("EventBuilderApp")
         .controller("CreateEvent",CreateEvent);
 
-    function CreateEvent(UserEventService){
+    function CreateEvent(UserEventService,$location){
 
         var vm=this;
         vm.message=null;
@@ -62,6 +62,7 @@
                 .then(function(response){
                     vm.message="your event is created";
                     vm.event=null;
+                        $location.url("/myEvents");
                 },
                 function(err){
                     vm.message="your event couldnot be created";

@@ -43,21 +43,18 @@
     </section>
 </div>
 </body> -->
-
-
 <html>
 
 <body>
 <div ng-controller="SearchController">
-
     <div class="wrapper">
-    <!--   <div class="search-background">  -->
+       <div class="profile-background">
             <div class="search-content">
                 <div>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
-                                <div class="register-card">
+                                <div class="search-card">
                                     <h3 class="title">Search</h3>
                                     <form class="register-form">
 
@@ -94,7 +91,7 @@
 
                             <div ng-show="model.dbSearch">
                                 <tr ng-repeat="event in model.dbSearch">
-                                    <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.image}}"></image></td>
+                                    <td class="col-lg-2"><image height="100px" width="100px" src="../client/views/assets/paper_img/search-default.jpg"></image></td>
                                     <td class="col-lg-3">
                                         <a href="#/details/db/{{event._id}}">{{event.eName}}</a></td>
                                     <td class="col-lg-3">{{event.sDate | date : hh:mm}}</td>
@@ -103,7 +100,6 @@
 
 
                             </div>
-
 
 
                             <tr ng-repeat="event in model.searchResult">

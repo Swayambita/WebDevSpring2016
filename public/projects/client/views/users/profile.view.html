@@ -1,7 +1,7 @@
 <html>
 <body ng-controller="ProfileController">
 <div class="wrapper font-cust">
-  <!--    <div class="profile-background"></div>  -->
+    <div class="profile-background"></div>
       <div class="profile-content section-nude">
         <div class="container font-cust">
             <div class="row owner" style="padding-top: 10px">
@@ -21,8 +21,6 @@
             <div class="row">
                 <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
                 <div class="container centered">
-                    <!--<p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>-->
-                    <!--<p>{{user.aboutme}}</p>-->
                     <br />
                     <table class="table col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-3 font-cust">
                         <thead>
@@ -191,7 +189,22 @@
                                 </tbody>
                             </table>
 
-
+                           <div ng-show="model.loggedInUser != model.viewProfileOfUser">
+                            <tr>
+                                <th>
+                                    <h4>{{model.displayName}}'s own events</h4>
+                                </th>
+                            </tr>
+                            <table class="table table-bordered">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="event in model.userEvents">
+                                    <td style="padding-top: 13px"><a href="#/details/db/{{event._id}}"><b><i>{{event.eName}}</i></b></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                               </div>
                         </div>
                     </div>
                 </div>

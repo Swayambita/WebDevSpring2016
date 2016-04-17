@@ -2,7 +2,9 @@
 <body ng-controller="DetailsController">
 <div class="section section-gray text-center landing-section" style="padding-top: 50px">
 <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
-    <image height="300px" width=100% ng-src="{{model.image}}"></image>
+    <image ng-show="model.fetch == 'api'" height="300px" width=100% ng-src="{{model.image}}"></image>
+    <image ng-show="model.fetch == 'db'" height="300px" width=100% ng-src="../client/views/assets/paper_img/search-default.jpg"></image>
+
 <h4>{{model.detailName}}</h4>
 <p>{{model.desc}}</p>
     <div>  </div>
@@ -17,7 +19,7 @@
         <div class="section section-dark text-center landing-section" style="padding-top: 50px">
             <div class="container-fluid">
                 <h2>Other users who also liked this event </h2>
-                <div ng-repeat="user in model.allUsersWhoLikedThis">
+                <div ng-repeat="user in model.allUsersWhoLikedThis" ng-if="user.userId != model.userId ">
                     <div class="col-md-3">
                         <div class="team-player">
                             <a href="#/profile/{{user.userId}}"><img src="../client/views/assets/paper_img/icon-user-default.png" alt="Thumbnail Image" class="img-circle img-responsive"></a>

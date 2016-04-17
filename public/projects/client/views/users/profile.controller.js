@@ -52,14 +52,21 @@
                              // console.log("i am following error",error);
                             });
 
+                        UserEventService.findEventsFoCurrentUser(vm.viewProfileOfUser)
+                            .then(function(response){
+                                console.log("****",response);
+                                vm.userEvents=response.data;
+                            },
+                            function(err){
+                                console.log("error while fetching events created by user");
+                            })
+
                     },
                     function(error){
                        // vm.message="Couldn't find the profile";
                     })
         }
         init();
-
-
 
 
         function beginEdit(){

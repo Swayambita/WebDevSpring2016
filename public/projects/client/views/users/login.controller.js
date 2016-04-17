@@ -27,7 +27,9 @@
                         $location.url("/profile/"+response.data._id);
                     },
                     function(err){
-                        vm.message = "username or password not found";
+                        console.log("error",err);
+                        //vm.message = "username or password not found";
+                        alert("Sorry, couldn't find the user.")
                     }
                 );
         }

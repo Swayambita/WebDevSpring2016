@@ -4,7 +4,7 @@ var q= require("q");
 module.exports= function(uuid,db) {
 
      var EventSchema=require("./eventDetails.schema.server.js")();
-     Event=mongoose.model("Event",EventSchema);
+     var Event=mongoose.model("Event",EventSchema);
 
     var api = {
        findEventsFoCurrentUser: findEventsFoCurrentUser,
@@ -33,6 +33,7 @@ module.exports= function(uuid,db) {
 
     function createNewEvent(userId,newEvent){
         var deferred= q.defer();
+        console.log("$$$$$$",newEvent);
         var nEvent= {
             "eName": newEvent.Name,
             "sDate":newEvent.entireSDate,

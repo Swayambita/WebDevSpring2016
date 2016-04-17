@@ -25,7 +25,7 @@
 }
 
 .top-padding{
-    padding-top: 725px;
+    padding-top: 40px;
 }
 
 
@@ -44,4 +44,9 @@
     position: absolute;
     width: 100%;
 }
+
+.padding-admin{
+    padding-top: 10px;
+}
+
 

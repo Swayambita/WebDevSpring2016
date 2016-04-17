@@ -110,6 +110,7 @@
         function deleteUser(index){
             vm.indexSelected=index;
             var userId= vm.allUsers[index]._id;
+            console.log("for deleting the userID is",userId);
             UserService.deleteUser(userId)
                 .then(init());
             //vm.allUsers=response.data;

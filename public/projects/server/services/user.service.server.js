@@ -1,5 +1,6 @@
 var passport=require('passport');
 var LocalStrategy =require('passport-local').Strategy;
+// var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app,userModel) {
 
@@ -205,6 +206,8 @@ module.exports = function(app,userModel) {
 
         userModel.findUserByCredentials(username,password)
             .then(function(user){
+                /// added this line
+                    req.session.currentUser = doc;
                     res.json(user);
                 },
                 function(err){
