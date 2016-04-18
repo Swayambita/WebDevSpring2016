@@ -40,13 +40,20 @@
             .when("/search", {
                 templateUrl: "views/search/search.view.html",
                 controller:"SearchController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve :{
+                    loggedin:checkCurrentUser
+                }
             })
 
             .when("/search/:someEvent/:someLocation", {
                 templateUrl: "views/search/search.view.html",
                 controller:"SearchController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve :{
+                    loggedin:checkCurrentUser
+                }
+
             })
 
             .when("/createEvent", {
@@ -61,7 +68,10 @@
             .when("/details/:fetch/:eventID",{
                 templateUrl:"views/details/details.view.html",
                 controller:"DetailsController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve :{
+                    loggedin:checkCurrentUser
+                }
             })
 
             .when("/myEvents",{
