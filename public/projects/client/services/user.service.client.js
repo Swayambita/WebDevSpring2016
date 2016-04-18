@@ -75,12 +75,6 @@
             return $http.get("/api/project/getUserById/"+id);
         }
 
-      //  function addNewUser(newUser){
-       //     return $http.post("/api/project/addNewUser",newUser);
-       // }
-
-
-
         function getFavEvents(userId){
             return $http.get("/api/project/getFavEvents/"+userId);
         }

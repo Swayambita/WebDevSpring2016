@@ -5,8 +5,6 @@
     <div class="row">
 <div class="padding-admin"></div>
         <h2>Admin</h2>
-      <!--  <div ng.show="model.message" class="alert alert-success" role="alert">
-            {{model.message}}</div>  -->
         <table class="table table-responsive table-striped table-bordered">
             <tr>
                 <th style="font-size:15px" align="middle" bgcolor="gray" class="text-nowrap">
@@ -28,8 +26,8 @@
                     </a>
                 </th>
 
-                <th style="font-size:15px" align="middle" bgcolor="gray">
-                    Roles
+                <th style="font-size:15px" align="middle" bgcolor="gray" class="text-nowrap">
+                    Roles of User
                 </th>
 
                 <th style="font-size:15px" bgcolor="gray">
@@ -38,18 +36,18 @@
             </tr>
 
             <tr>
-                <td style="font-size:12px"> <input type="text" placeholder="username" class="form-control"
+                <td style="font-size:15px"> <input type="text" placeholder="username" class="form-control box-style"
                             ng-model="model.username"></td>
-                <td style="font-size:12px"> <input type="text" placeholder="password" class="form-control"
+                <td style="font-size:12px"> <input type="password" placeholder="password" class="form-control box-style"
                             ng-model="model.password"></td>
 
-                <td style="font-size:12px"> <input type="text" placeholder="First Name" class="form-control"
+                <td style="font-size:15px"> <input type="text" placeholder="First Name" class="form-control box-style"
                             ng-model="model.firstName"></td>
 
-                <td style="font-size:12px"> <input type="text" placeholder="Last Name" class="form-control"
+                <td style="font-size:15px"> <input type="text" placeholder="Last Name" class="form-control box-style"
                             ng-model="model.lastName"></td>
 
-                <td style="font-size:12px"> <input type="text" placeholder="Roles" class="form-control"
+                <td style="font-size:15px"> <input type="text" placeholder="Roles" class="form-control box-style"
                             ng-model="model.roles"></td>
                 <td class="text-nowrap">
                     <button type="button" class="btn btn-primary add-right-pad">
@@ -77,6 +75,10 @@
             </tr>
 
         </table>
+    </div>
+
+    <div class="footer">
+        <h10>&copy; 2016, made by Swayambita Das</h10>
     </div>
 </div>
 

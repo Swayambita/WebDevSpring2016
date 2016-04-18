@@ -14,14 +14,9 @@ module.exports= function(uuid,db){
         deleteUser:deleteUser,
         getUserByUserName:getUserByUserName,
         getAllUsers:getAllUsers,
-      //  addNewUser:addNewUser,
         profileUpdate:profileUpdate,
-        //   ifExitsEmail:ifExitsEmail,
-        //  getFavEvents:getFavEvents,
         getUserById:getUserById,
-
         createNewUser:createNewUser,
-
         findAllUsers:findAllUsers
     }
     return api;
@@ -60,7 +55,6 @@ module.exports= function(uuid,db){
         return deferred.promise;
     }
 
-    //check if repeated username and repeated emailid
     function register(userDetails){
         var deferred= q.defer();
         var userName=userDetails.username;
@@ -185,18 +179,6 @@ module.exports= function(uuid,db){
         });
         return deferred.promise;
     }
-
-  /*  function addNewUser(user){
-        var oldUser= findUserByUsername(user.username);
-        if(oldUser==null){
-            user._id =  uuid.v1();
-            mock.push(user);
-            return mock;
-        }
-        else{
-            return null;
-        }
-    }*/
 
     function profileUpdate (id, userDetails) {
         var deferred= q.defer();
