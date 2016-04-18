@@ -91,4 +91,10 @@ text-align: center;
     background-color: transparent;
 }
 
+.date-time-cust-left{
+    float:left;
+}
 
+.date-time-cust-right{
+    float:right;
+}
