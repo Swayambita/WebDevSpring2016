@@ -2,7 +2,7 @@
 <body ng-controller="ProfileController">
 <div class="wrapper font-cust">
     <div class="profile-background"></div>
-      <div class="profile-content section-nude">
+      <div class="profile-content section-new-background">
         <div class="container font-cust">
             <div class="row owner" style="padding-top: 10px">
 
@@ -75,7 +75,7 @@
                                 <td style="padding-top: 18px; font-size:15px"><b>User Name</b></td>
 
                                 <td class="text-center">
-                                    <input style="border:1px; font-size:15px " type="text"  class="form-control" ng-model="model.usernameNew">
+                                    <input type="text"  class="form-control box-style" ng-model="model.usernameNew">
                                 </td>
 
                             </tr>
@@ -84,7 +84,7 @@
                                 <td style="padding-top: 18px; font-size:15px"><b>Password</b></td>
 
                                 <td class="text-center">
-                                    <input style="border:1px ; font-size:15px" type="text"  class="form-control" ng-model="model.passwordNew">
+                                    <input type="password"  class="form-control box-style" ng-model="model.passwordNew">
                                 </td>
 
                             </tr>
@@ -93,20 +93,20 @@
                                 <td style="padding-top: 18px; font-size:15px"><b>First Name</b></td>
 
                                 <td class="text-center">
-                                    <input placeholder= "Your Firstname" style="border:1px; font-size:15px " type="text"  class="form-control" ng-model="model.firstNameNew">
+                                    <input placeholder= "Your Firstname" type="text"  class="form-control box-style" ng-model="model.firstNameNew">
                                 </td>
 
                             </tr>
                             <tr>
                                 <td style="padding-top: 18px; font-size:15px"><b>Last Name</b></td>
                                 <td>
-                                    <input placeholder= "Your Lastname" type="text" class="form-control" ng-model="model.lastNameNew">
+                                    <input placeholder= "Your Lastname" type="text" class="form-control box-style" ng-model="model.lastNameNew">
                                 </td>
                             </tr>
                             <tr>
                                 <td style="padding-top: 18px; font-size:15px"><b>Email</b></td>
                                 <td>
-                                    <input placeholder = "Your emails" type="text" class="form-control" ng-model="model.emailsNew">
+                                    <input placeholder = "Your emails" type="text" class="form-control box-style" ng-model="model.emailsNew">
                                 </td>
                             </tr>
 
@@ -215,7 +215,10 @@
         </div>
     </div>
 </div>
-<!--<div  ng-include src="'./views/footer/footer.view.html'">  -->
+
+<div class="footer">
+    <h10>&copy; 2016, made by Swayambita Das</h10>
+</div>
 
 </div>
 </body>

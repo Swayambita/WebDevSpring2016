@@ -2,11 +2,10 @@
 <body ng-controller="CreateEvent">
 <div class="wrapper">
 
-    <div class="profile-background"></div>
-    <div class="profile-content section-nude">
+  <!--  <div class="profile-background"></div>  -->
+    <div class="profile-content section-new-background  little-padding">
         <div class="container">
             <div class="row owner" style="padding-top: 10px">
-
             </div>
 
             <div class="row">
@@ -15,17 +14,16 @@
 
                 <table class="table table-bordered table-responsive">
                     <thead>
-
                     </thead>
                     <tbody>
 
                     <tr>
                         <td style="padding-top: 18px; font-size:15px">
-                        <b>Event Name</b>
+                            <b>Event Name</b>
                         </td>
 
                         <td class="text-center">
-                            <input style="border:1px ;font-size:15px; font-size:15px" type="text"  class="form-control" ng-model="model.event.Name">
+                            <input  type="text"  class="form-control box-style" ng-model="model.event.Name">
                         </td>
 
                     </tr>
@@ -35,7 +33,7 @@
                             <b>Venue</b></td>
 
                         <td class="text-center">
-                            <input style="border:1px;font-size:15px " type="text"  class="form-control" ng-model="model.event.location">
+                            <input type="text"  class="form-control box-style" ng-model="model.event.location">
                         </td>
 
                     </tr>
@@ -47,8 +45,9 @@
 
 
                         <td class="text-center">
-                            <div>  <input style="border:1px ;font-size:15px" type="date"  class="form-control" ng-model="model.event.startDate">  </div>
-                            <div>   <input style="border:1px ;font-size:15px" type="time"  class="form-control" ng-model="model.event.startTime"> </div>
+                            <div>  <input type="date"  class="form-control box-style" ng-model="model.event.startDate">  </div>
+                            <br>
+                            <div>   <input type="time"  class="form-control box-style" ng-model="model.event.startTime"> </div>
 
                         </td>
 
@@ -60,8 +59,9 @@
                         </td>
 
                         <td class="text-center">
-                            <input style="border:1px ;font-size:15px" type="date"  class="form-control" ng-model="model.event.endDate">
-                            <input style="border:1px;font-size:15px " type="time"  class="form-control" ng-model="model.event.endTime">
+                            <input type="date"  class="form-control box-style" ng-model="model.event.endDate">
+                            <br>
+                            <input type="time"  class="form-control box-style" ng-model="model.event.endTime">
                         </td>
                     </tr>
 
@@ -70,7 +70,7 @@
                             <b>Description</b>
                         </td>
                         <td>
-                            <textarea class="form-control" ng-model="model.event.desc"></textarea>
+                            <textarea class="form-control box-style" ng-model="model.event.desc"></textarea>
                         </td>
                     </tr>
 
@@ -80,7 +80,7 @@
                             <b>Genre</b>
                         </td>
                         <td>
-                            <input style="border:1px ;font-size:15px" type="text"  class="form-control" ng-model="model.event.genre">
+                            <input type="text"  class="form-control box-style" ng-model="model.event.genre">
                         </td>
                     </tr>
 
@@ -112,6 +112,10 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="footer">
+        <h10>&copy; 2016, made by Swayambita Das</h10>
     </div>
 </div>
 </body>

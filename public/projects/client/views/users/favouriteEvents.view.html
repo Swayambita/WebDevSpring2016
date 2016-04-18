@@ -1,74 +1,44 @@
-<!-- <html>
-<body ng-controller="FavouriteEventsController">
-
-<div class="container-fluid">
-    <div class="row">
-        <h1 class="page-header">Your Favourite Events</h1>
-
-        <div ng-show="model.message" class="alert alert-success" role="alert">
-            {{model.message}}
-        </div>
-
-        <table class="table table-responsive table-stripped">
-            <tr>
-                <th class="text no-wrap">EventName</th>
-                <th>Unlike</th>
-                <th>Unbookmark</th>
-            </tr>
-
-            <tr ng-repeat="eve in model.favEvents">
-                <td>{{eve.eName}}</td>
-                <td>
-                    <a ng-click="model.unlike($index)" class="btn btn-primary glyphicon glyphicon-star-empty" ></a>
-                </td>
-                <td>
-                    <a ng-click="model.uncomment($index)" class="btn btn-primary glyphicon glyphicon-bookmark"></span></a></td>
-                </td>
-            </tr>
-        </table>
-
-
-    </div>
-</div>
-</body>
-</html>   -->
-
 <html>
 <body ng-controller="FavouriteEventsController">
 
 <div class="wrapper">
     <div class="myEvents-background"></div>
-    <div class="myEvents-content section-nude">
-    <div class="container">
+   <!-- <div class="myEvents-content section-new-background little-padding">  -->
+        <div class="container">
 
-        <div class="row owner" style="padding-top: 10px">
+            <div class="row owner" style="padding-top: 10px">
 
+            </div>
+
+            <div class="row">
+                <h4 class="page-header">Your Favourite Events</h4>
+
+                <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
+
+                <div ng-show="model.favEvents" >
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="text no-wrap">EventName</th>
+                        <th>Unlike</th>
+                        <th>Unbookmark</th>
+                    </tr>
+
+                    <tr ng-repeat="eve in model.favEvents">
+                        <td ng-show="eve.bookMark || eve.like" >{{eve.eName}}</td>
+                        <td>
+                            <a ng-show="eve.like" ng-click="model.unlikeEvent(eve.eventId)" class="btn btn-primary glyphicon glyphicon-star-empty" ></a>
+                        </td>
+                        <td>
+                            <a ng-show="eve.bookMark" ng-click="model.unbookmarkEvent(eve.eventId)" class="btn btn-primary glyphicon glyphicon-bookmark"></span></a></td>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </div>
         </div>
-
-        <div class="row">
-            <h4 class="page-header">Your Favourite Events</h4>
-
-            <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
-
-        <table class="table table-bordered">
-            <tr>
-                <th class="text no-wrap">EventName</th>
-                <th>Unlike</th>
-                <th>Unbookmark</th>
-            </tr>
-
-            <tr ng-repeat="eve in model.favEvents">
-                <td ng-show="eve.bookMark || eve.like" >{{eve.eName}}</td>
-                <td>
-                    <a ng-show="eve.like" ng-click="model.unlikeEvent(eve.eventId)" class="btn btn-primary glyphicon glyphicon-star-empty" ></a>
-                </td>
-                <td>
-                    <a ng-show="eve.bookMark" ng-click="model.unbookmarkEvent(eve.eventId)" class="btn btn-primary glyphicon glyphicon-bookmark"></span></a></td>
-                </td>
-            </tr>
-        </table>
-</div>
-</div>
+    </div>
+    <div class="footer">
+        <h10>&copy; 2016, made by Swayambita Das</h10>
     </div>
 </div>
 </body>

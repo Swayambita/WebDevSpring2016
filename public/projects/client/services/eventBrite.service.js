@@ -26,6 +26,7 @@
         }
 
         function getDetails(eventId){
+            console.log("the details of eventid",eventId);
             return $http.get("https://www.eventbriteapi.com/v3/events/"+eventId+"/?token=YOGCILSQP3UVN2EFLRPC")
 
         }

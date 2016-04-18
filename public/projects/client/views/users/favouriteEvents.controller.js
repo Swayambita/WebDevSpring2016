@@ -8,6 +8,7 @@
         var vm=this;
         vm.unlikeEvent=unlikeEvent;
         vm.unbookmarkEvent=unbookmarkEvent;
+        vm.favEvents=null;
 
         vm.message=null;
 
@@ -16,8 +17,13 @@
             UserEventService.getFavEvents(userId)
                 .then(function(response){
 
-                    vm.favEvents=response.data;
-                    console.log("hgdfsafdsga",response.data);
+                    if(response.data.length>0){
+                        vm.favEvents=response.data;
+                    }
+                    else{
+                        vm.favEvents=null;
+                        vm.message="No events liked or bookmarked yet";
+                    }
                 },
                 function(err){
                     console.log("error while getting the favourite events of user",err);
@@ -36,10 +42,8 @@
         }
 
         function unbookmarkEvent(eventId){
-            console.log("****",eventId);
             UserEventService.unbookmarkEvent(eventId,userId)
                 .then(function(response){
-                        console.log("((((",response);
                         init();
                     },
                     function(err){

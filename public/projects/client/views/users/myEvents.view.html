@@ -1,246 +1,175 @@
-<!--<html>
-<body ng-controller="MyEvents">
-<div class="wrapper">
-
-    <div class="myEvents-background"></div>
-    <div class="myEvents-content section-nude">
-        <div class="container">
-            <div class="row owner" style="padding-top: 10px">
-
-            </div>
-
-            <div class="row">
-                <h4 class="page-header">Here are your events</h4>
-                <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
-
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Go Live</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Starts</th>
-                        <th></th>
-                        <th>Ends</th>
-                        <th></th>
-                        <th>Action</th>
-                    </tr>
-
-                    <tr>
-                        <td></td>
-                        <td><textarea type="text" placeholder="Event Name" class="form-control text-nowrap" ng-model="model.eName"></textarea></td>
-                        <td><textarea type="text" placeholder="Event Desc" class="form-control" ng-model="model.eDesc"></textarea></td>
-                        <td><input type="date" class="form-control" ng-model="model.newSDate"></td>
-                        <td><input type="time" class="form-control" ng-model="model.newSTime"></td>
-                        <td><input type="date" class="form-control" ng-model="model.newEDate"></td>
-                        <td><input type="time" class="form-control" ng-model="model.newETime"></td>
-
-                        <td class="text-nowrap">
-                            <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc,model.newSDate,
-                            model.newSTime,model.newEDate,model.newETime)">
-                                <span class="glyphicon glyphicon-ok"></span>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr ng-repeat="eve in model.events">
-                        <td> <a ng-click="model.goLive($index)"><span class="glyphicon glyphicon-flag"></span></a></td>
-                        <td>{{eve.eName}}</td>
-                        <td>{{eve.desc}}</td>
-                        <td>{{eve.sDate | date : hh:mm}}</td>
-                        <td>{{eve.sTime | date : 'hh:mm a'}}</td>
-                        <td>{{eve.eDate | date : hh: mm}}</td>
-                        <td>{{eve.eTime | date : 'hh:mm a' }}</td>
-                        <td>
-                            <a ng-click="model.deleteEvent($index)"><span class="glyphicon glyphicon-remove"></span></a>
-                            <a ng-click="model.selectEvent($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-</html>  -->
-
-
-
-
 <html>
 <body ng-controller="MyEvents">
 <div class="wrapper">
     <div class="myEvents-background"></div>
-    <div class="myEvents-content section-nude">
+    <div class="myEvents-content section-new-background little-padding">
         <div class="container">
             <div class="row owner" style="padding-top: 10px">
 
             </div>
-                    <div class="row">
-                        <h4 class="page-header">Here are your events</h4>
-                        <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
+            <div class="row">
+                <h4 class="page-header">Here are your events</h4>
+                <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
 
 
-                        <div class="row">
+                <div ng-show="model.events" class="row">
 
-                <div class="container centered">
-                    <br />
-                    <table class="table col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-3 table-responsive">
-                        <thead>
-
-                        </thead>
-                        <tbody>
-
-                        <tr>
-                            <td style="border-top: none ; font-size:15px">
-                                <b>Event</b>
-                            </td>
-                            <td style="border-top: none; font-size:15px">
-                               <b>Action</b>
-                            </td>
-
-                           <td  class="text-nowrap" style="border-top: none; font-size:15px">
-                                <b>Go Live</b>
-                            </td>
-                        </tr>
-
-                        <tr ng-repeat="eve in model.events">
-                            <td style="border-top: none ; font-size:15px">
-                                {{eve.eName}}
-                            </td>
-
-                            <td style="border-top: none">
-                                <div class="text-nowrap">
-                                <button type="button" class="btn btn-primary add-right-pad" ng-click="model.deleteEvent($index)">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <button type="button" class="btn btn-primary add-right-pad" ng-click="model.selectEvent($index)">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                                </div>
-                            </td>
-
-                            <td style="border-top: none">
-                                <button type="button btn-primary" class="btn btn-primary add-right-pad" ng-click="model.goLive($index)">
-                                    <span class="glyphicon glyphicon-flag"></span>
-                                </button>
-                            </td>
-
-                        </tr>
-                    </table>
-
-
-                    <div ng-show="model.selectEventForEdit">
-                        <table class="table table-bordered">
+                    <div class="container centered">
+                        <br />
+                        <table class="table col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-3 table-responsive">
                             <thead>
 
                             </thead>
                             <tbody>
 
                             <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>Event Name</b>
+                                <td style="border-top: none ; font-size:15px">
+                                    <b>Event</b>
                                 </td>
-                                <td class="text-center">
-                                    <input style="border:1px ; font-size:15px" type="text"  class="form-control" ng-model="model.eName">
+                                <td style="border-top: none; font-size:15px">
+                                    <b>Action</b>
+                                </td>
+
+                                <td  class="text-nowrap" style="border-top: none; font-size:15px">
+                                    <b>Go Live</b>
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>Event Description</b>
+                            <tr ng-repeat="eve in model.events">
+                                <td style="border-top: none ; font-size:15px">
+                                    {{eve.eName}}
                                 </td>
-                                <td class="text-center">
-                                    <textarea style="border:1px ; font-size:15px" type="text"  class="form-control" ng-model="model.eDesc">
-                                    </textarea>
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>Start Date</b>
+                                <td style="border-top: none">
+                                    <div class="text-nowrap">
+                                        <button type="button" class="btn btn-primary add-right-pad" ng-click="model.deleteEvent($index)">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-primary add-right-pad" ng-click="model.selectEvent($index)">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                    </div>
                                 </td>
-                                <td class="text-center">
-                                    <input type="date"  class="form-control" ng-model="model.newSDate">
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>Start Time</b>
-                                </td>
-                                <td>
-                                    <input type="time" class="form-control" ng-model="model.newSTime">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>End Date</b>
-                                </td>
-                                <td>
-                                    <input type="date" class="form-control" ng-model="model.newEDate">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>End Time</b>
-                                </td>
-                                <td>
-                                    <input type="time"  class="form-control" ng-model="model.newETime">
-                                </td>
-                            </tr>
-                            <tr>
-
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>Location</b>
-                                </td>
-                                <td>
-                                    <input type="text"  class="form-control" ng-model="model.newLocation">
-                                </td>
-                            </tr>
-                            <tr>
-
-                            <tr>
-                                <td style="padding-top: 18px; font-size:15px">
-                                    <b>Genre</b>
-                                </td>
-                                <td>
-                                    <input type="text"  class="form-control" ng-model="model.newGenre">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc,model.newSDate,
-                            model.newSTime,model.newEDate,model.newETime,model.newLocation,model.newGenre)">
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                    </button>
-
-                                    &nbsp;&nbsp;
-                                    <button ng-click="model.cancelEdit()" type="button" class="btn btn-default"
-                                            aria-label="Left Align">
-                                        Cancel
+                                <td style="border-top: none">
+                                    <button type="button btn-primary" class="btn btn-primary add-right-pad" ng-click="model.goLive($index)">
+                                        <span class="glyphicon glyphicon-flag"></span>
                                     </button>
                                 </td>
+
                             </tr>
-                            </tbody>
                         </table>
+
+
+                        <div ng-show="model.selectEventForEdit">
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>Event Name</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text"  class="form-control box-style" ng-model="model.eName">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>Event Description</b>
+                                    </td>
+                                    <td class="text-center">
+                                    <textarea type="text"  class="form-control box-style" ng-model="model.eDesc">
+                                    </textarea>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>Start Date</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="date"  class="form-control box-style" ng-model="model.newSDate">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>Start Time</b>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control box-style" ng-model="model.newSTime">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>End Date</b>
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control box-style" ng-model="model.newEDate">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>End Time</b>
+                                    </td>
+                                    <td>
+                                        <input type="time"  class="form-control box-style" ng-model="model.newETime">
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>Location</b>
+                                    </td>
+                                    <td>
+                                        <input type="text"  class="form-control box-style" ng-model="model.newLocation">
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                <tr>
+                                    <td style="padding-top: 18px; font-size:15px">
+                                        <b>Genre</b>
+                                    </td>
+                                    <td>
+                                        <input type="text"  class="form-control box-style" ng-model="model.newGenre">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success" ng-click="model.updateEvent(model.eName,model.eDesc,model.newSDate,
+                            model.newSTime,model.newEDate,model.newETime,model.newLocation,model.newGenre)">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+
+                                        &nbsp;&nbsp;
+                                        <button ng-click="model.cancelEdit()" type="button" class="btn btn-default"
+                                                aria-label="Left Align">
+                                            Cancel
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--<br>-->
-            <!--<br>-->
-
         </div>
     </div>
-</div>
-<!--<div  ng-include src="'./views/footer/footer.view.html'">  -->
-
+    <div class="footer">
+        <h10>&copy; 2016, made by Swayambita Das</h10>
+    </div>
 </div>
 </body>
 </html>

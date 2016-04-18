@@ -15,6 +15,7 @@
         vm.goLive=goLive;
         vm.cancelEdit=cancelEdit;
         vm.selectEventForEdit =false;
+        vm.events=null;
 
         var currentUser=$rootScope.currentUser;
 
@@ -27,7 +28,14 @@
                 var currentUser = $rootScope.currentUser;
                 UserEventService.findEventsFoCurrentUser(currentUser._id)
                     .then(function (response) {
-                       vm.events = response.data;
+                        if(response.data.length>0){
+                            vm.events = response.data;
+                        }
+                        else{
+                            vm.events=null;
+                            vm.message="No events created by you yet";
+                        }
+
                     });
             }
         }

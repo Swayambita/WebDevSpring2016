@@ -19,6 +19,7 @@
                 vm.message = "Please enter login details";
                 return;
             }
+            console.log("in login",user);
             UserService.login(user)
                 .then(function(response){
                         $rootScope.currentUser = response.data;

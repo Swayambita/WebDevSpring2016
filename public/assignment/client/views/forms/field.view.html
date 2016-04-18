@@ -11,14 +11,14 @@
         </ul>
         <div ng-show="model.message" class="alert alert-success">{{model.message}}
         </div>
-        <div class="container-fluid">
+        <div class="form-horizoontal">
             <div ng-show="model.existingFields" jga-sortable  jga-sortable-callback = "model.sortField(start,end)">
 
                 <div ng-repeat="field in model.existingFields" class="row topForm">
 
                     <div class="col-xs-6">
                         <form>
-                            <div class="form-group">
+                            <div class="input-group">
                                 <label class="text-nowrap" >{{field.label}}</label>
 
                                 <div ng-switch on="field.type">

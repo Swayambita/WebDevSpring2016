@@ -10,9 +10,9 @@
                 templateUrl: "views/home/home.view.html",
                 controller:"HomeController",
                 controllerAs:"model",
-            //    resolve :{
-            //        loggedin:checkCurrentUser
-             //  }
+                resolve :{
+                    loggedin:checkCurrentUser
+               }
 
             })
 

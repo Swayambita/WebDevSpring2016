@@ -49,4 +49,46 @@
     padding-top: 10px;
 }
 
+.alert-cust{
+    background-color:#7A9E9F !important;
+    color: #252e30 !important;
+}
+.details-cust-bg{
+    background-image: url('../../../experiment/paper_img/bg-4.jpg');
+}
+
+.details-cust-trans{
+    background-color: transparent;
+}
+
+.details-padding{
+    padding-right: 3%;
+    padding-left: 3%;
+text-align: center;
+}
+
+.little-padding{
+    padding-right: 1%;
+    padding-left: 1.5%;
+    padding-color:#FFFCF5;
+}
+
+.footer{
+    background-color: black;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+}
+
+.h10{
+    font-size:10px;
+    color:white;
+    font-style: italic;
+    font-weight: 100;
+}
+
+.trans{
+    background-color: transparent;
+}
+
 

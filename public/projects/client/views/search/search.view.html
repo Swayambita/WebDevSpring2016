@@ -1,54 +1,9 @@
-<!--<body>
-<div class="container" ng-controller="SearchController">
-
-    <h1>Search Events</h1>
-
-    <div class="row">
-        <div class="col-xs-6">
-            <h2>Search</h2>
-            <div ng-show="model.message" class="alert alert-success" role="alert">
-                {{model.message}}
-            </div>
-            <div class="form form-inline">
-            <input ng-model="model.category" id="eventID" class="form-control" placeholder="Music/Business/Sport"/>
-            <input ng-model="model.location" id="location" class="form-control" placeholder="Boston"/>
-            <a class="btn btn-primary" role="button" ng-click="model.searchEvent(model.category,model.location)">Search</a>
-            </div>
-        </div>
-    </div>
-
-    <section ng-show="model.searchResult">
-        <h3 class="text-uppercase">{{model.eventToSearch}} Events in {{model.eventLocation}}</h3>
-        <table class="table table-striped table-responsive">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Event</th>
-                <th id="startDate" class="text-nowrap">Begins at</th>
-                <th id="endDate" class="text-nowrap">Ends at</th>
-            </tr>
-            </thead>
-            <tbody>
-           <tr ng-repeat="event in model.searchResult">
-                <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
-                <td class="col-lg-3">
-                    <a href="#/details/{{event.id}}">{{event.name.text}}</a></td>
-                <td class="col-lg-3">{{event.startDate}}</td>
-               <td class="col-lg-3">{{event.endDate}}</td>
-                <td></td>
-            </tr>
-
-            </tbody>
-        </table>
-    </section>
-</div>
-</body> -->
 <html>
 
 <body>
 <div ng-controller="SearchController">
     <div class="wrapper">
-       <div class="profile-background">
+       <div class="search-background">
             <div class="search-content">
                 <div>
                     <div class="container">
@@ -62,9 +17,12 @@
                                         <br>
                                         <input ng-model="model.location" type="text" class="form-control" placeholder="Enter your city: Boston">
 
-                                        <a ng-click="model.searchEvent(model.category,model.location)" class="btn btn-danger btn-block">Search</a>
+                                        <a ng-click="model.searchEvent(model.category,model.location)" class="btn btn-primary btn-block">Search</a>
+
                                     </form>
                                 </div>
+
+                                <div ng-show="model.searchResult" class ="alert alert-danger alert-cust"><strong>Scroll down for your results</strong></div>
                             </div>
                         </div>
                     </div>
@@ -72,19 +30,19 @@
             </div>
         </div>
 
-        <div ng-show="model.searchResult" class="top-padding">
-            <div class="container">
+        <div ng-show="model.searchResult" class="top-padding details-cust-bg" >
+            <div class="container details-cust-trans">
 
                 <div class="row" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                     <section>
-                        <h3 class="text-uppercase">{{model.eventToSearch}} Events in {{model.eventLocation}}</h3>
-                        <table class="table table-striped table-responsive table-bordered">
+                        <h3 styleclass="text-uppercase">{{model.eventToSearch}} Events in {{model.eventLocation}}</h3>
+                        <table class="table table-responsive table-bordered">
                             <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Event</th>
-                                <th id="startDate" class="text-nowrap">Begins at</th>
-                                <th id="endDate" class="text-nowrap">Ends at</th>
+                                <th bgcolor="#7A9E9F">Image</th>
+                                <th bgcolor="#7A9E9F">Event</th>
+                                <th bgcolor="#7A9E9F" id="startDate" class="text-nowrap">Begins at</th>
+                                <th bgcolor="#7A9E9F" id="endDate" class="text-nowrap">Ends at</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,6 +73,9 @@
                     </section>
                 </div>
             </div>
+        </div>
+        <div class="footer">
+            <h10>&copy; 2016, made by Swayambita Das</h10>
         </div>
     </div>
 </div>

@@ -25,8 +25,26 @@
         init();
 
         function renderSearchResult(response) {
-            vm.searchResult = response;
-            console.log("vm.result", vm.searchResult);
+          /*  var i;
+            for( i=0;i<9;i++) {
+                try {
+                    var url=response.events[i].logo.url;
+                    $http.get(response.events[i].logo.url).success(function(response){
+                        console.log("*****",response.events[i]);
+                        response.events[i].image=url;
+                    });
+                }
+                catch (exception) {
+                    console.log("in exception");
+                    response.events[i].image = "../client/views/assets/paper_img/eduConf.jpg";
+                }
+            }*/
+
+
+
+                vm.searchResult = response;
+                console.log("vm.result", vm.searchResult);
+
         }
 
     }

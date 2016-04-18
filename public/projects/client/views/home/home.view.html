@@ -30,9 +30,9 @@
         <div class="section section-homepage text-center landing-section" style="padding-top: 50px">
             <div class="container-fluid">
                 <h2 style=" color: #4b5456 "><b>Welcome to EventCracker</b></h2>
-                <p style=" color: #4b5456 ;font-style:oblique;font-size:30px">We believe in bringing people closer to their passion.
-                Find your favourite events and never live another dull moment</p>
-                  <p style=" color: #4b5456 ;font-style:oblique;font-size:30px" >  Seacrh, create, explore!</p>
+                <p style=" color: #4b5456 ;font-style:oblique;font-size:30px">We believe in bringing people closer to their passion thorugh live experiences.
+                Find your favourite events and never live another dull moment.</p>
+                  <p style=" color: #4b5456 ;font-style:oblique;font-size:30px" > Search, create and explore!</p>
                 <h2 style=" color: #4b5456 "><b>Some events near you</b></h2>
                 <div ng-repeat="event in model.searchResult.events | limitTo: 9">
                     <div class="col-md-4 col-sm-4" >
@@ -55,7 +55,7 @@
                 <div ng-repeat="category in model.categories">
                     <div class="col-md-4 col-sm-4" >
                         <div class="team-player">
-                            <!--  <a href="#"><img src={{model.images}} alt="Thumbnail Image" class="img-circle img-responsive"></a>  -->
+
                             <div ng-switch on="category">
 
                                 <a ng-switch-when="Music" href="#/search/{{category}}/boston">
@@ -90,7 +90,12 @@
             </div>
         </div>
     </div>
+
+    <div class="footer">
+        <h10>&copy; 2016, made by Swayambita Das</h10>
+    </div>
 </div>
+
 
 
 

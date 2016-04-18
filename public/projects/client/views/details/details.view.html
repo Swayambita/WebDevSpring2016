@@ -5,20 +5,21 @@
     <image ng-show="model.fetch == 'api'" height="300px" width=100% ng-src="{{model.image}}"></image>
     <image ng-show="model.fetch == 'db'" height="300px" width=100% ng-src="../client/views/assets/paper_img/search-default.jpg"></image>
 
-<h4>{{model.detailName}}</h4>
-<p>{{model.desc}}</p>
+    <div class="section-homepage details-padding">
+<h4 style="color:black">{{model.detailName}}</h4>
+<p style="color:black">{{model.desc}}</p>
     <div>  </div>
 
 <div class="form form-group form-inline">
     <button ng-click="model.likeEvent()" class="btn btn-primary glyphicon glyphicon-star">Like</button>
     <button ng-click="model.bookmarkEvent()" class="btn btn-primary glyphicon glyphicon-bookmark">Bookmark</button>
-
+</div>
 </div>
 
     <div class="main">
         <div class="section section-dark text-center landing-section" style="padding-top: 50px">
             <div class="container-fluid">
-                <h2>Other users who also liked this event </h2>
+                <h4>Other users who also like this event </h4>
                 <div ng-repeat="user in model.allUsersWhoLikedThis" ng-if="user.userId != model.userId ">
                     <div class="col-md-3">
                         <div class="team-player">

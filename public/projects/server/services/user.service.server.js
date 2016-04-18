@@ -1,6 +1,6 @@
 var passport=require('passport');
 var LocalStrategy =require('passport-local').Strategy;
-// var bcrypt = require("bcrypt-nodejs");
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app,userModel) {
 
@@ -28,14 +28,21 @@ module.exports = function(app,userModel) {
     function localStrategy(username, password, done) {
 
         userModel
-            .findUserByCredentials( username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if (!user) { return done(null, false); }
-                    return done(null, user);
+                    if (user && bcrypt.compareSync(password,user.password))
+                    {
+                        return done(null, user);
+                    }
+                    else{
+                        return done(null, false);
+                    }
                 },
                 function(err) {
-                    if (err) { return done(err); }
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
@@ -98,6 +105,7 @@ module.exports = function(app,userModel) {
                     if(user) {
                         res.json(null);
                     } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createNewUser(newUser);
                     }
                 },
@@ -155,10 +163,6 @@ module.exports = function(app,userModel) {
         }
     }
 
-
-
-
-
     function getUserByUserName(req,res){
         var username=req.params.username;
         var user = userModel.getUserByUserName(username);
@@ -175,14 +179,16 @@ module.exports = function(app,userModel) {
 
         userModel
             .findUserByUsername(newUser.username)
-            .then(function (user) {
-                    if (user) {
+            .then(
+                function(user){
+                    if(user) {
                         res.json(null);
                     } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createNewUser(newUser);
                     }
                 },
-                function (err) {
+                function(err){
                     res.status(400).send(err);
                 }
             )
@@ -206,7 +212,7 @@ module.exports = function(app,userModel) {
 
         userModel.findUserByCredentials(username,password)
             .then(function(user){
-                /// added this line
+                    /// added this line
                     req.session.currentUser = doc;
                     res.json(user);
                 },
