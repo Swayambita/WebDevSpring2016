@@ -94,3 +94,10 @@ text-align: center;
 .const-app{
     -webkit-appearance: none;
 }
+
+.footer-padding{
+    margin-top: 10px;
+}
+.footer-padding-bottom{
+    margin-bottom: 15px;
+}

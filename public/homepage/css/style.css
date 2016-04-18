@@ -566,6 +566,7 @@ h2.title{
 	position: relative;
 	margin-bottom: 30px;
 	-webkit-transition: all .4s linear 0s;
+	-webkit-appearance: none;
 	-o-transition: all .4s linear 0s;
 	transition: all .4s linear 0s;
 }
