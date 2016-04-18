@@ -37,10 +37,10 @@
                 <div ng-repeat="event in model.searchResult.events | limitTo: 9">
                     <div class="col-md-4 col-sm-4" >
                         <div class="team-player">
-                            <a href="#/details/api/{{event.id}}"><img class="img-rounded" src="{{event.logo.url}}" alt="Event Logo {{event.name.text}}"
+                            <a href="#/details/api/{{event.id}}"><img class="img-rounded" src="{{event.listed}}" alt="Event Logo {{event.name.text}}"
                                                                       class="img-square img-responsive"
                                                                       style="width:100%;height:228px;border:5px solid white"></a>
-                            <a href="#/details/api/{{event.id}}"><h5 style="margin-bottom: 5px"><a href="#">{{event.name.text}}</a></h5></a>
+                            <a href="#/details/api/{{event.id}}"><h5 style="margin-bottom: 5px">{{event.name.text}}</h5></a>
                         </div>
                     </div>
                 </div>

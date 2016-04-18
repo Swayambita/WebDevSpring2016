@@ -25,23 +25,17 @@
         init();
 
         function renderSearchResult(response) {
-          /*  var i;
+
+            var i;
             for( i=0;i<9;i++) {
-                try {
-                    var url=response.events[i].logo.url;
-                    $http.get(response.events[i].logo.url).success(function(response){
-                        console.log("*****",response.events[i]);
-                        response.events[i].image=url;
-                    });
+                if(response.events[i].logo != null) {
+                        response.events[i].listed=response.events[i].logo.url;
                 }
-                catch (exception) {
-                    console.log("in exception");
-                    response.events[i].image = "../client/views/assets/paper_img/eduConf.jpg";
+                else{
+                    response.events[i].listed="../client/views/assets/paper_img/friends5.jpg";
                 }
-            }*/
 
-
-
+            }
                 vm.searchResult = response;
                 console.log("vm.result", vm.searchResult);
 
