@@ -681,3 +681,9 @@ h2.title{
 .socail-link a:hover i{
 	color: #fff;
 }
+
+.btn-cust{
+	background-color: #5cb85c;
+	margin-bottom: 15px;
+
+}
