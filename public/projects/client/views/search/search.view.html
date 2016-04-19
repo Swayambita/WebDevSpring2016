@@ -82,7 +82,9 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  cust-col bord" ng-repeat="event in model.dbSearch">
 
                                     <div class="pad-top">
+                                      <a href="#/details/db/{{event._id}}">
                                         <image class="img-rounded" height="250px" width="260px" src="../client/views/assets/paper_img/search-default.jpg"></image>
+                                      </a>
                                     </div>
 
                                     <div>
@@ -100,7 +102,9 @@
                             </div>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  cust-col bord" ng-repeat="event in model.searchResult">
                                 <div class="pad-top">
+                                    <a href="#/details/api/{{event.id}}">
                                     <image class="img-rounded" height="250px" width="250px" src="{{event.logo.url}}"></image>
+                                    </a>
                                 </div>
 
                                 <div>
