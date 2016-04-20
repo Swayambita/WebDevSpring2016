@@ -37,6 +37,8 @@
                         vm.detailName=response.data.name.text;
                         vm.desc=response.data.description.text;
                         vm.image=response.data.logo.url;
+                        vm.start=response.data.start.local;
+                        vm.end=response.data.end.local;
 
                     });
             }
@@ -45,6 +47,8 @@
                     .then(function(response){
                         vm.detailName=response.data.eName;
                         vm.desc=response.data.desc;
+                        vm.start=response.data.sDate;
+                        vm.end=response.data.eDate;
                     })
             }
             UserEventService.allUsersWhoLikeThisEvent(eventID)

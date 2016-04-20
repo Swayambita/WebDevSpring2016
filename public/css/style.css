@@ -23,3 +23,15 @@
 .text-nowrap{
 	white-space: nowrap;
 }
+
+.pad-bottom{
+	margin-top:10px;
+}
+
+.pad-bottom2{
+	margin-top:15px;
+}
+
+.cust-mar{
+	padding-right: 15px;
+}

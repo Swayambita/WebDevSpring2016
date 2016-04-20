@@ -11,12 +11,12 @@
         </ul>
         <div ng-show="model.message" class="alert alert-success">{{model.message}}
         </div>
-        <div class="form-horizoontal">
+        <div class="form-horizontal cust-mar">
             <div ng-show="model.existingFields" jga-sortable  jga-sortable-callback = "model.sortField(start,end)">
 
-                <div ng-repeat="field in model.existingFields" class="row topForm">
+                <div ng-repeat="field in model.existingFields" class="row pad-bottom">
 
-                    <div class="col-xs-6">
+                    <div class="col-xs-7">
                         <form>
                             <div class="input-group">
                                 <label class="text-nowrap" >{{field.label}}</label>
@@ -46,7 +46,7 @@
                         </form>
                     </div>
 
-                    <div class="text-nowrap" class="col-xs-6">
+                    <div class="text-nowrap pull pad-bottom2" class="col-xs-7">
                         <button ng-click="model.editField(field)" data-toggle="modal" href="#"
                                 class="btn btn-primary glyphicon glyphicon-pencil" data-target="#myEdit">
                         </button>

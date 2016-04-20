@@ -6,8 +6,10 @@
     <image ng-show="model.fetch == 'db'" height="300px" width=100% ng-src="../client/views/assets/paper_img/search-default.jpg"></image>
 
     <div class="section-homepage details-padding">
-<h4 style="color:black">{{model.detailName}}</h4>
-<p style="color:black">{{model.desc}}</p>
+      <h4 style="color:black">{{model.detailName }}</h4>
+        <h5 style="color:black"><b>Starts on : </b>{{model.start | date : hh:mm}}</h5>
+        <h5 style="color:black"><b>Ends on : </b>{{model.end | date : hh:mm}}</h5>
+        <p class="desc-cust">{{model.desc}}</p>
     <div>  </div>
 
 <div class="form form-group form-inline">
@@ -23,7 +25,7 @@
                 <div ng-repeat="user in model.allUsersWhoLikedThis" ng-if="user.userId != model.userId ">
                     <div class="col-md-3">
                         <div class="team-player">
-                            <a href="#/profile/{{user.userId}}"><img src="../client/views/assets/paper_img/icon-user-default.png" alt="Thumbnail Image" class="img-circle img-responsive"></a>
+                            <a href="#/profile/{{user.userId}}"><img src="http://lorempixel.com/400/400/people/" alt="Thumbnail Image" class="img-circle img-responsive"></a>
                             <h5 style="margin-bottom: 5px"><a href="#/profile/{{user.userId}}">{{user.username}}</a></h5>
                         </div>
                     </div>

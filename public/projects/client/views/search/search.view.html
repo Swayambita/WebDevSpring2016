@@ -73,11 +73,9 @@
                     </section>
                 </div>
             </div>  -->
-
             <div class="container details-cust-trans">
                 <div class="row" >
-                        <h3 class="header-left-margin" styleclass="text-uppercase"><b>{{model.eventToSearch}} Events in {{model.eventLocation}}<b></b></h3>
-
+                        <h3 class="header-left-margin upper" styleclass="text-uppercase"><b>{{model.eventToSearch}} Events in {{model.eventLocation}}<b></b></h3>
                         <div>
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  cust-col bord" ng-repeat="event in model.dbSearch">
 
@@ -94,16 +92,11 @@
                                     <div>
                                         <label>{{event.sDate | date : hh:mm}}</label>
                                     </div>
-
-                                    <!-- <div>
-                                         <label>{{event.end.local | date : hh:mm}}</label>
-                                     </div>  -->
-
                             </div>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  cust-col bord" ng-repeat="event in model.searchResult">
                                 <div class="pad-top">
                                     <a href="#/details/api/{{event.id}}">
-                                    <image class="img-rounded" height="250px" width="250px" src="{{event.logo.url}}"></image>
+                                    <image class="img-rounded" height="250px" width="250px" src="{{event.listed}}"></image>
                                     </a>
                                 </div>
 
@@ -114,11 +107,6 @@
                                 <div>
                                     <label>{{event.start.local | date : hh:mm}}</label>
                                 </div>
-
-                               <!-- <div>
-                                    <label>{{event.end.local | date : hh:mm}}</label>
-                                </div>  -->
-
                         </div>
 
 

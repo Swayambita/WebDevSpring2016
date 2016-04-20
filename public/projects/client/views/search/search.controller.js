@@ -43,7 +43,24 @@
 
             EventBriteService.getSearchResult(category,city)
                 .then(function(response){
-                    console.log("!!!!")
+
+
+                    console.log("number of objects",response.data.events.length);
+
+                    var i;
+                    var len=response.data.events.length;
+
+                    for( i=0;i<len;i++) {
+                        if(response.data.events[i].logo != null) {
+                            response.data.events[i].listed=response.data.events[i].logo.url;
+                        }
+                        else{
+                            response.data.events[i].listed="../client/views/assets/paper_img/friends5.jpg";
+                        }
+
+                    }
+
+
                     UserEventService.getLiveEventsForGenre(category,city)
                         .then(function(res){
                             console.log("data from cmongo",res);
