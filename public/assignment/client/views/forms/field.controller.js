@@ -26,7 +26,7 @@
                         vm.existingFields = response.data.fields;
                     }
                     else{
-                        vm.message="this form has no fields yet"
+                        vm.message="This form has no fields yet"
                     }
                 },
                 function(error){
@@ -79,17 +79,15 @@
 
             FieldService.createFieldForForm(formId, field)
                 .then(function (response) {
-                    console.log("the response for adding",response);
                     vm.existingFields = response.data.fields;
                     vm.message=null;
                 },
                 function(error){
-                  vm.message="couldnot add the field";
+                  vm.message="Couldnot add the field";
                 });
         }
 
         function removeField(field) {
-            console.log("field to be deleted",field);
             FieldService.deleteFieldFromForm(formId, field._id)
                 .then(function (response) {
                         vm.existingFields = response.data.fields;
@@ -104,7 +102,6 @@
             vm.selectedField = field;
             vm.label = field.label;
             var optionsInString = "";
-            console.log("options", field.options);
             var op = field.options;
 
             if (op && (field.type == 'OPTIONS' ||field.type == 'CHECKBOXES'|| field.type == 'RADIOS' )) {
@@ -196,11 +193,9 @@
         }
 
         function sortField(start,end){
-            console.log("am in sortField field controller client");
             FieldService
                 .sortField(formId,start,end)
                 .then(function(response){
-                        console.log("resposne for sorting",response.data);
                         vm.existingFields= response.data;
                     },
                     function(err){

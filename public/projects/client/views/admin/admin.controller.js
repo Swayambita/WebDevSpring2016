@@ -90,8 +90,6 @@
             vm.lastName=vm.allUsers[index].lastName;
             vm.roles=vm.allUsers[index].roles;
         }
-
-
     }
 })();
 

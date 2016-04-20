@@ -47,7 +47,6 @@
         }
 
         function getAllUsers(){
-            console.log("getAllUsers");
             return $http.get("/api/assignment/getAllUsers");
         }
 
@@ -63,7 +62,6 @@
             return $http.post("/api/assignment/login",user);}
 
         function logout() {
-            console.log("entered logout controller");
             return $http.post("/api/assignment/logout");
         }
 

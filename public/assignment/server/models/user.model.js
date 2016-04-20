@@ -47,7 +47,7 @@ module.exports= function(db){
                 "lastName":userDetails.lastName,
                 "emails":userDetails.emails,
                 "phones":userDetails.phones,
-            "roles":userDetails.roles}},
+                "roles":userDetails.roles}},
             function (err, stats) {
                 if(!err){
                     deferred.resolve(stats);
@@ -142,7 +142,6 @@ module.exports= function(db){
         });
         return deferred.promise;
     }
-
 }
 
 

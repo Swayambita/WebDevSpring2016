@@ -18,9 +18,6 @@ module.exports= function(db) {
         unbookmarkEvent:unbookmarkEvent,
         checkWhetherToDelete:checkWhetherToDelete,
         deleteEntry:deleteEntry
-
-        //newComment:newComment,
-        //addComment:addComment
     }
 
     return api;
@@ -195,7 +192,7 @@ module.exports= function(db) {
     function checkWhetherToDelete(eventId,userId){
         var deferred= q.defer();
         UserEventConnect.findOne(
-               {"userId":userId,
+            {"userId":userId,
                 "eventId":eventId,
                 "like":false,
                 "bookMark":false},
@@ -226,7 +223,6 @@ module.exports= function(db) {
             });
         return deferred.promise;
     }
-
 }
 
 

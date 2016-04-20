@@ -42,16 +42,16 @@
         init();
 
 
-         function deleteEvent(index){
-             vm.eventIndexSelected = index;
-             var eventToDelete=vm.events[index]._id;
-             UserEventService.deleteEventById(eventToDelete,currentUser._id)
-                 .then(function(response){
-                     vm.events=response.data;
-                     vm.eventIndexSelected=null;
-                     vm.eName=null;
-                 })
-         }
+        function deleteEvent(index){
+            vm.eventIndexSelected = index;
+            var eventToDelete=vm.events[index]._id;
+            UserEventService.deleteEventById(eventToDelete,currentUser._id)
+                .then(function(response){
+                    vm.events=response.data;
+                    vm.eventIndexSelected=null;
+                    vm.eName=null;
+                })
+        }
 
 
         function selectEvent(index) {
@@ -92,30 +92,30 @@
         function finalList(response){
             UserEventService.findEventsFoCurrentUser(currentUser._id)
                 .then(function(response){
-                    if(response.data) {
-                        vm.events=response.data;
-                        for(var e in vm.events){
-                            var date1=vm.events[e].sDate.substring(0,10);
-                            console.log("date1",date1);
-                            vm.events[e].sDate=date1;
+                        if(response.data) {
+                            vm.events=response.data;
+                            for(var e in vm.events){
+                                var date1=vm.events[e].sDate.substring(0,10);
+                                console.log("date1",date1);
+                                vm.events[e].sDate=date1;
 
-                            var date2=vm.events[e].eDate.substring(0,10);
-                            console.log("date2",date2);
-                            vm.events[e].eDate=date2;
+                                var date2=vm.events[e].eDate.substring(0,10);
+                                console.log("date2",date2);
+                                vm.events[e].eDate=date2;
+                            }
+                            vm.eventIndexSelected=null;
+                            vm.eName=null;
+                            vm.eDesc=null;
+                            vm.newSDate=null;
+                            vm.newSTime=null;
+                            vm.newEDate=null;
+                            vm.newETime=null;
+                            vm.selectEventForEdit=false;
                         }
-                        vm.eventIndexSelected=null;
-                        vm.eName=null;
-                        vm.eDesc=null;
-                        vm.newSDate=null;
-                        vm.newSTime=null;
-                        vm.newEDate=null;
-                        vm.newETime=null;
-                        vm.selectEventForEdit=false;
-                    }
-                },
-                function(error){
-                    vm.message="error";
-                });
+                    },
+                    function(error){
+                        vm.message="error";
+                    });
 
         }
 
@@ -124,43 +124,16 @@
             var eventSelected = vm.events[index];
             UserEventService.goLive(eventSelected._id,eventSelected)
                 .then(function(response){
-                        vm.message="event is live now";
-                },
-                function(error){
-                    vm.message="error";
-                });
-            }
+                        vm.message="Your event is live now";
+                    },
+                    function(error){
+                        vm.message="error";
+                    });
+        }
 
         function cancelEdit(){
             vm.selectEventForEdit=false;
 
         }
-       /* function renderEventsAfterAction(userEvents){
-            UserEvent.findEventsFoCurrentUser(currentUser._id,renderEvents);
-        }
-
-        function selectEvent(index){
-            eventIndexSelected = index;
-            $scope.eventSelected=
-            {"_id": currentUserEvents[index]._id,
-                "eName": currentUserEvents[index].eName,
-                "sDate": currentUserEvents[index].sDate,
-                "eDate" :currentUserEvents[index].eDate,
-                "userId": currentUserEvents[index].userId
-            };
-        }
-
-        function updateEvent(eSelected){
-         //   if(eSelected.ename == null || eSelected.sDate == null || eSelected.eDate== null){
-            if(eSelected.eName == null){
-                $scope.alertMessage="Enter details of all the required fields";
-            }
-            else{
-                currentUserEvents[eventIndexSelected].eName=eSelected.eName;
-                currentUserEvents[eventIndexSelected].sDate=eSelected.sDate;
-                currentUserEvents[eventIndexSelected].eDate=eSelected.eDate;
-                $scope.eventSelected = null;
-            }
-        }*/
     }
 })();

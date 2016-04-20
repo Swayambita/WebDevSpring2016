@@ -40,7 +40,6 @@
                 return;
             }
 
-            console.log("teh new user", userNew);
             UserService.register(userNew)
                 .then(function (user){
                         if(user.data!=null){

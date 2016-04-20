@@ -16,7 +16,6 @@
             register: register,
             getAllUsers:getAllUsers,
             getUserById:getUserById,
-          //  addNewUser:addNewUser,
             addNewUserByAdmin:addNewUserByAdmin,
             profileUpdate:profileUpdate,
             getFavEvents:getFavEvents,
@@ -105,7 +104,6 @@
         function addNewUserByAdmin(user){
             return $http.post("/api/project/addNewUser",user);
         }
-
     }
 })();
 

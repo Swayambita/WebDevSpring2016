@@ -3,18 +3,13 @@ module.exports = function(app,userEventModel) {
     app.get("/api/project/getAllEvent/user/:userId",findEventsFoCurrentUser);
     app.delete("/api/project/deleteEventById/:eventId/:userId",deleteEventById);
     app.put("/api/project/updateEvent/:eventId",updateEventById);
-   // app.post("/api/project/userEventConnect/:userId/event/:eventId",userLikesEvent);
-   // app.post("/api/project/userBookMarksEvent/:userId/event/:eventId",userBookMarksEvent);
-   // app.post("/api/project/userCommentsEvent/:userId/event/:eventId",userCommentsEvent);
     app.put("/api/project/goLive/:eventId",goLiveEvent);
     app.get("/api/project/getLive/:category/:city",getLive);
     app.get("/api/project/getEventInfo/:eventId",getEventInfo);
 
-
     function createEvent(req,res){
         var userId=req.params.currentUserId;
         var newEvent=req.body;
-        console.log("the new event is",newEvent);
         userEventModel.createNewEvent(userId,newEvent)
             .then(function(resp){
                     res.json(resp);
@@ -61,7 +56,6 @@ module.exports = function(app,userEventModel) {
         var userId=event.createdBy;
         userEventModel.updateEventById(eventId,event)
             .then(function(resp){
-                    //need to find the updated list of events for this user
                     userEventModel.findEventsFoCurrentUser(userId)
                         .then(function(resp){
                                 res.json(resp);
@@ -69,7 +63,6 @@ module.exports = function(app,userEventModel) {
                             function(err){
                                 res.status(400).send(err);
                             });
-
                 },
                 function(err){
                     res.status(400).send(err);

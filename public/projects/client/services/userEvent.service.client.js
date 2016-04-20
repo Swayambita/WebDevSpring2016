@@ -82,6 +82,5 @@
         function unbookmarkEvent(eventId,userId){
             return $http.put("/api/project/unbookmarkEvent/"+eventId+"/"+userId);
         }
-
     }
 })();

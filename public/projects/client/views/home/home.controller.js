@@ -3,8 +3,6 @@
         .controller("HomeController",HomeController);
 
     function HomeController($rootScope,$http,$location,UserLocationService) {
-        console.log("from homecontroller 1st");
-
         var vm = this;
         vm.categories = ["Music", "Sports", "Business", "Cooking", "Yoga", "Educational"];
         function init() {
@@ -37,8 +35,6 @@
 
             }
                 vm.searchResult = response;
-                console.log("vm.result", vm.searchResult);
-
         }
 
     }

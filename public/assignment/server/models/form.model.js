@@ -115,7 +115,6 @@ module.exports= function() {
                     deferred.reject(err);
                 }
                 else {
-                    console.log(" get fields of form *******",doc);
                     deferred.resolve(doc);
                 }
             });
@@ -124,8 +123,6 @@ module.exports= function() {
 
     function deleteFieldFromArray(formId, fieldId){
         var deferred = q.defer();
-
-        console.log("the new field",fieldId);
         Form.update({"_id": formId},{$pull:{fields:{"_id":fieldId}}},
             function (err, doc) {
                 if (err) {
@@ -164,23 +161,20 @@ module.exports= function() {
     }
 
     function sortField(doc,formId,startIndex,endIndex) {
-        console.log("in sort field field model");
         var deferred = q.defer();
-
-                    console.log("user Form", doc);
-                    var userForm = doc;
-                    userForm.fields.splice(endIndex, 0, userForm.fields.splice(startIndex, 1)[0]);
-                    Form.update(
-                        {"_id": formId},
-                        {$set: {"fields": userForm.fields}},
-                        function (err, doc) {
-                            if (err) {
-                                deferred.reject(err);
-                            } else {
-                                deferred.resolve(doc);
-                            }
-                        });
+        var userForm = doc;
+        userForm.fields.splice(endIndex, 0, userForm.fields.splice(startIndex, 1)[0]);
+        Form.update(
+            {"_id": formId},
+            {$set: {"fields": userForm.fields}},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+            });
         return deferred.promise;
     }
 
-    }
+}

@@ -9,7 +9,6 @@ module.exports= function(formModel) {
 
     var api = {
         deleteFieldFromForm: deleteFieldFromForm,
-        //updateField: updateField,
         cloneField: cloneField,
         createNewField: createNewField,
         sortField: sortField
@@ -59,17 +58,13 @@ module.exports= function(formModel) {
     }
 
     function sortField(formId, startIndex, endIndex) {
-        console.log("in sort field field model");
         var deferred = q.defer();
-
         formModel.findFormById(formId,
             function (err, doc) {
                 if (err) {
-                    console.log("got an error");
                     deferred.reject(err);
                 }
                 else {
-                    console.log("user Form", doc);
                     var userForm = doc;
                     userForm.fields.splice(endIndex, 0, userForm.fields.splice(startIndex, 1)[0]);
                     formModel.update(
@@ -84,33 +79,7 @@ module.exports= function(formModel) {
                         });
                 }
             });
-        console.log("this is what am returning", deferred.promise);
         return deferred.promise;
-
-
-        /*  formModel.findFormById(formId,
-         function(err,doc){
-         if(err){
-         deferred.reject(err);
-         }else{
-         var userForm = doc;
-
-         console.log("user Form",userForm);
-
-         userForm.fields.splice(endIndex,0,userForm.fields.splice(startIndex,1)[0]);
-         formModel.update(
-         {"_id":formId},
-         {$set:{"fields":userForm.fields}},
-         function(err,doc){
-         if(err){
-         deferred.reject(err);
-         } else{
-         deferred.resolve(doc);
-         }
-         });
-         }
-         });
-         return deferred.promise;*/
     }
 }
 

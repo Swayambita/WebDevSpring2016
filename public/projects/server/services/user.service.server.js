@@ -276,7 +276,6 @@ module.exports = function(app,userModel) {
                                         });
                             },
                             function(err){
-                                console.log("error");
                                 res.status(400).send(err);
                             });
                 }
@@ -284,8 +283,5 @@ module.exports = function(app,userModel) {
             function(err){
                 res.status(400).send(err);
             });
-
-
     }
-
 }

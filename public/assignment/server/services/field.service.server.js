@@ -77,7 +77,6 @@ module.exports = function(app,fieldModel,formModel) {
 
         formModel.findFormById(formId)
             .then(function(response){
-
                     formModel.updateField(formId,fieldId,updatedField,response)
                         .then(function(res){
                                 res.json(resp);
@@ -97,7 +96,6 @@ module.exports = function(app,fieldModel,formModel) {
         var field= req.body;
         fieldModel.cloneField(field)
             .then(function(response) {
-
                     formModel.updateFieldsArrayOfForm(formId, response)
                         .then(function (doc) {
                                 formModel.getFieldsOfForm(formId)
@@ -124,7 +122,6 @@ module.exports = function(app,fieldModel,formModel) {
         var endIndex = req.query.endIndex;
 
         if(startIndex && endIndex){
-
             formModel.findFormById(formId)
                 .then(function(resp){
                         formModel.sortField(resp,formId,startIndex,endIndex)

@@ -21,13 +21,11 @@ module.exports= function(uuid,db){
     }
     return api;
 
-
     function findUserByCredentials(username,password) {
         return UserDetails.findOne({"username":username,"password":password})
     }
 
     function findAllUsers(){
-
         var deferred = q.defer();
         UserDetails.find(function(err,users){
             if(err){
@@ -85,25 +83,6 @@ module.exports= function(uuid,db){
         });
         return deferred.promise;
     }
-
-  /*  function updateUser (id, userDetails) {
-        var deferred= q.defer();
-        UserDetails.update (
-            {"_id": id},
-            {$set: {"username":userDetails.username,"password":userDetails.password,
-                "firstName":userDetails.firstName,
-                "lastName":userDetails.lastName,
-                "emails":userDetails.email}},
-            function (err, stats) {
-                if(!err){
-                    deferred.resolve(stats);
-                }
-                else{
-                    deferred.reject(err);
-                }
-            } );
-        return deferred.promise;
-    }*/
 
     function updateUser (id, userDetails) {
         var deferred= q.defer();

@@ -55,7 +55,6 @@
 
         function updateUser(username,password,firstName,lastName,roles){
             var userSelected=currentUsers[indexSelected];
-          //  var userId= vm.allUsers[index]._id;
             var user={"username":username,
                 "password":password,
                 "firstName":firstName,
@@ -78,10 +77,7 @@
         }
 
         function selectUser(index){
-
-            console.log("user selected",index);
             indexSelected = index;
-            console.log("name selected",currentUsers[index].username);
             vm.username= currentUsers[index].username;
             vm.password=currentUsers[index].password;
             vm.firstName=currentUsers[index].firstName;

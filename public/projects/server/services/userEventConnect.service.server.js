@@ -3,7 +3,6 @@ module.exports = function(app,userEventConnectModel) {
     app.post("/api/project/userLikeEvent/:userId/event/:eventId/:eName/:source", userLikesEvent);
     app.post("/api/project/userBookmarkEvent/:userId/event/:eventId/:eName/:source",userBookMarksEvent);
     app.get("/api/project/allUserLikeThisEvent/:eventId",allUserLikeThisEvent);
-    // app.get("/api/project/eventsLikedByuser/:userId",eventsLikedByuser);
     app.get("/api/project/getFavEvents/:userId",getFavEvents);
     app.put("/api/project/unlikeEvent/:eventId/:userId",unlikeEvent);
     app.put("/api/project/unbookmarkEvent/:eventId/:userId",unbookmarkEvent);
@@ -11,7 +10,6 @@ module.exports = function(app,userEventConnectModel) {
     function createEvent(req, res) {
         var userId = req.params.currentUserId;
         var newEvent = req.body;
-
         userEventModel.createNewEvent(userId, newEvent)
             .then(function (resp) {
                     res.json(resp);
@@ -97,17 +95,6 @@ module.exports = function(app,userEventConnectModel) {
                 });
     }
 
-    /*  function eventsLikedByuser(req,res){
-     var userId = req.params.userId;
-     userEventConnectModel.eventsLikedByuser(userId)
-     .then(function (resp) {
-
-     },
-     function (err) {
-     res.status(400).send(err);
-     });
-     }*/
-
     function getFavEvents(req,res){
         var userId=req.params.userId;
         userEventConnectModel.getFavEvents(userId)
@@ -122,8 +109,6 @@ module.exports = function(app,userEventConnectModel) {
     function unlikeEvent(req,res){
         var eventId = req.params.eventId;
         var userId=req.params.userId;
-
-
         userEventConnectModel.findConnection(userId,eventId)
             .then(function(resp) {
                     id = resp._id;
@@ -192,6 +177,5 @@ module.exports = function(app,userEventConnectModel) {
                 function(err){
                     res.status(400).send(err);
                 });
-
     }
 }

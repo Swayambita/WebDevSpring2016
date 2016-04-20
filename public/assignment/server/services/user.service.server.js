@@ -10,7 +10,6 @@ module.exports = function(app,userModel) {
     app.get('/api/assignment/loggedin',loggedin);
     app.post("/api/assignment/addNewUser",auth,addNewUser);
     app.post('/api/assignment/register',register);
-
     app.put("/api/assignment/updateUser/:id",auth,updateUser);
     app.delete("/api/assignment/deleteUser/:id",auth,deleteUser);
     app.get("/api/assignment/getAllUsers",auth,getAllUsers);
@@ -127,55 +126,15 @@ module.exports = function(app,userModel) {
             );
     }
 
-    /*  function updateUser(req,res){
-     var id=req.params.id;
-     var updatedUserDetails = req.body;
-
-     if(!isAdmin(req.user)) {
-     delete updatedUserDetails.roles;
-     updatedUserDetails.roles=["student"];
-     }
-     if(typeof updatedUserDetails.roles == "string") {
-     updatedUserDetails.roles = updatedUserDetails.roles.split(",");
-     console.log("splitted the roles",updatedUserDetails.roles);
-     }
-
-     userModel
-     .findUserByUsername(newUser.username)
-     .then(function(user){
-     if(user) {
-     if (user.password != updatedUserDetails.password && !bcrypt.compareSync(user.password, updatedUserDetails.password)) {
-     updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
-     }
-
-     userModel.updateUser(id, updatedUserDetails)
-     .then(function (user) {
-     userModel.getUserById(id)
-     .then(function (response) {
-     res.json(response);
-     },
-     function (err) {
-     res.status(400).send(err);
-     });
-     },
-     function (err) {
-     console.log("error");
-     res.status(400).send(err);
-     });
-     */
-
     function updateUser(req,res) {
         var id = req.params.id;
         var updatedUserDetails = req.body;
-        console.log("here in update user",id,updatedUserDetails);
-
         if (!isAdmin(req.user)) {
             delete updatedUserDetails.roles;
             updatedUserDetails.roles = ["student"];
         }
         if (typeof updatedUserDetails.roles == "string") {
             updatedUserDetails.roles = updatedUserDetails.roles.split(",");
-            console.log("splitted the roles", updatedUserDetails.roles);
         }
 
         userModel
@@ -196,22 +155,18 @@ module.exports = function(app,userModel) {
                                         });
                             },
                             function (err) {
-                                console.log("error");
                                 res.status(400).send(err);
                             });
                 }
-
                 else{
 
                     res.status(400).send(err);
-
                 }
             }),
             function(err){
                 res.status(400).send(err);
             };
     }
-
 
     function deleteUser(req,res){
         if(isAdmin(req.user)){
@@ -257,40 +212,6 @@ module.exports = function(app,userModel) {
         return user;
     }
 
-    /* function addNewUser(req,res){
-     var newUser=req.body;
-     if(newUser.roles && newUser.roles.length > 1) {
-     newUser.roles = newUser.roles;
-     } else {
-     newUser.roles = ['student'];
-     }
-
-     userModel
-     .findUserByUsername(newUser.username)
-     .then(function (user) {
-     if (user) {
-     res.json(null);
-     } else {
-     return userModel.createNewUser(newUser);
-     }
-     },
-     function (err) {
-     res.status(400).send(err);
-     }
-     )
-     .then(
-     function (user) {
-     if (user) {
-     res.json(user);
-     }else{
-     res.json(null);
-     }},
-     function (err) {
-     res.status(400).send(err);
-     }
-     );
-     }*/
-
     function addNewUser(req,res) {
         var newUser = req.body;
         if (newUser.roles && newUser.roles.length > 1) {
@@ -326,5 +247,4 @@ module.exports = function(app,userModel) {
                 }
             );
     }
-
 }

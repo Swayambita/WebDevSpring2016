@@ -9,7 +9,6 @@
         vm.unlikeEvent=unlikeEvent;
         vm.unbookmarkEvent=unbookmarkEvent;
         vm.favEvents=null;
-
         vm.message=null;
 
        var userId=$rootScope.currentUser._id;
@@ -51,6 +50,5 @@
                     })
         }
     }
-
 })();
 

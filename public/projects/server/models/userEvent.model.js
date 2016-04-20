@@ -3,11 +3,11 @@ var q= require("q");
 
 module.exports= function(uuid,db) {
 
-     var EventSchema=require("./eventDetails.schema.server.js")();
-     var Event=mongoose.model("Event",EventSchema);
+    var EventSchema=require("./eventDetails.schema.server.js")();
+    var Event=mongoose.model("Event",EventSchema);
 
     var api = {
-       findEventsFoCurrentUser: findEventsFoCurrentUser,
+        findEventsFoCurrentUser: findEventsFoCurrentUser,
         deleteEventById: deleteEventById,
         updateEventById: updateEventById,
         createNewEvent: createNewEvent,
@@ -33,7 +33,6 @@ module.exports= function(uuid,db) {
 
     function createNewEvent(userId,newEvent){
         var deferred= q.defer();
-        console.log("$$$$$$",newEvent);
         var nEvent= {
             "eName": newEvent.Name,
             "sDate":newEvent.entireSDate,
@@ -78,22 +77,22 @@ module.exports= function(uuid,db) {
             {"_id":eventId},
             {$set: {"eName":event.eName,
                 "desc":event.desc,
-            "sDate":event.sDate,
-            "sTime":event.sTime,
-            "eDate":event.eDate,
+                "sDate":event.sDate,
+                "sTime":event.sTime,
+                "eDate":event.eDate,
                 "eTime":event.eTime,
                 "image":event.image,
                 "genre":event.genre,
                 "createdBy":event.createdBy,
-            "location":event.location}}
+                "location":event.location}}
             ,function(err,res){
-            if(err){
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res);
-            }
-        });
+                if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(res);
+                }
+            });
         return deferred.promise;
     }
 
@@ -112,15 +111,12 @@ module.exports= function(uuid,db) {
                 "genre":event.genre,
                 "createdBy":event.createdBy,
                 "live":true,
-                 "location":event.location}}
+                "location":event.location}}
             ,function(err,res){
                 if(err){
-                    console.log("response error for go live",err);
                     deferred.reject(err);
                 }
                 else {
-
-                    console.log("response for go live",res);
                     deferred.resolve(res);
                 }
             });
@@ -155,7 +151,6 @@ module.exports= function(uuid,db) {
                 }
             });
         return deferred.promise;
-
     }
 }
 

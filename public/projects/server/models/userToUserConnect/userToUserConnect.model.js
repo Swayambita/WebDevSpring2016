@@ -16,7 +16,6 @@ module.exports= function(db) {
 
     return api;
 
-
     function checkConnect(user,follower){
         var deferred = q.defer();
         UserToUserConnect.findOne({
@@ -96,23 +95,4 @@ module.exports= function(db) {
         return deferred.promise;
 
     }
-
-
-   /* function checkConnect(loggedInUser,followerName){
-        var deferred = q.defer();
-        UserToUserConnect.find({"follower": loggedInUser,
-        "user":},
-            function (err, res) {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    deferred.resolve(res);
-                }
-            });
-        return deferred.promise;
-
-
-
-    }*/
 }

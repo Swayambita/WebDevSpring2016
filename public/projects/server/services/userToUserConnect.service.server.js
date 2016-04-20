@@ -5,7 +5,6 @@ module.exports = function(app,userToUserConnectModel) {
     app.get("/api/project/getWhomAmFollowing/:userId",getWhomAmFollowing);
     app.put("/api/project/unFollowUser/:followerId/:userId",unFollowUser);
 
-
     function followUser(req, res) {
         var loggedInUser = req.params.loggedInUser ;
         var userToFollow= req.params.userToFollow  ;
