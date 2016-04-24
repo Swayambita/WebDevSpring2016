@@ -194,7 +194,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     content: "";
     display: block;
-    height: 400px;
+    height: 200px;
     left: 0;
     position: absolute;
     top: 0;
@@ -212,7 +212,7 @@
     background-image: url('../../../../../experiment/paper_img/Conception.jpg');
     background-position: center center;
     background-size: cover;
-    height: 400px;
+    height: 200px;
     position: relative;
     /*margin-top: -110px;*/
 }
@@ -230,6 +230,15 @@
 }
 .myEvents-content{
     position: relative;
+}
+
+.createEvent-background{
+    background-image: url('../../../../../experiment/paper_img/Conception.jpg');
+    background-position: center center;
+    background-size: cover;
+    height: 200px;
+    position: relative;
+    /*margin-top: -110px;*/
 }
 
 
