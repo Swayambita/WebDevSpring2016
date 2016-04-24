@@ -178,7 +178,7 @@ module.exports= function(uuid,db){
         return deferred.promise;
     }
 
-    function createNewUser(userDetails){
+  /*  function createNewUser(userDetails){
         var deferred= q.defer();
         var userName=userDetails.username;
         var email=userDetails.email;
@@ -206,6 +206,21 @@ module.exports= function(uuid,db){
             }
         });
 
+        return deferred.promise;
+    }*/
+
+
+    function createNewUser(userDetails){
+        var deferred= q.defer();
+        var userName=userDetails.username;
+        UserDetails.create(userDetails,function(err,doc){
+            if(!err){
+                deferred.resolve(doc);
+            }
+            else{
+                deferred.reject(err);
+            }
+        } );
         return deferred.promise;
     }
 }

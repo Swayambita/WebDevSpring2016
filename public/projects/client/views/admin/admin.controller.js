@@ -27,6 +27,7 @@
         init();
 
         function addUser(username,password,firstName,lastName,roles){
+            console.log("in admin");
             if(username ==null || password ==null){
                alert("Enter all the required fields");
             }
@@ -36,16 +37,18 @@
                     "firstName":firstName,
                     "lastName":lastName,
                     "roles":roles};
+                console.log("user to be added", user);
                 UserService.addNewUserByAdmin(user)
-                    .then(function(response){
-                        if(response.data){
-                            init();
-                        }
-                        else{
+                    .then(function(res){
+
+
+                        if(res.data == null){
                             alert("Username already exists");
-                            init();
                         }
+
+                        init();
                     });
+
             }
         }
 

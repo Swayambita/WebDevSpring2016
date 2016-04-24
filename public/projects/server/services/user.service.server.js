@@ -177,22 +177,21 @@ module.exports = function(app,userModel) {
             newUser.roles = ['student'];
         }
         userModel
-            .findUserByUsername(newUser.username)
+            .findUserByUsername( newUser.username)
             .then(
                 function(user){
                     if(user) {
                         res.json(null);
                     } else {
                         newUser.password = bcrypt.hashSync(newUser.password);
-                        return userModel.createNewUser(newUser);
+                        userModel.createNewUser(newUser)
+                            .then(function(res){
+                            res.json(res);
+                        });
                     }
                 },
                 function(err){
-                    res.status(400).send(err);
-                }
-            )
-            .then(
-                function (err) {
+                    console.log("error 2");
                     res.status(400).send(err);
                 }
             );
@@ -214,6 +213,7 @@ module.exports = function(app,userModel) {
                 });
     }
 
+    // add check for username update
     function profileUpdate(req,res){
         var id=req.params.userId;
         var updatedUserDetails = req.body;
@@ -261,9 +261,6 @@ module.exports = function(app,userModel) {
             .findUserByUsername(updatedUserDetails.username)
             .then(function(user){
                 if(user){
-                    res.json(null);
-                }
-                else{
                     updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
                     userModel.updateUser(id,updatedUserDetails)
                         .then(function(user){
@@ -278,6 +275,9 @@ module.exports = function(app,userModel) {
                             function(err){
                                 res.status(400).send(err);
                             });
+                }
+                else{
+                    res.status(400).send(err);
                 }
             },
             function(err){

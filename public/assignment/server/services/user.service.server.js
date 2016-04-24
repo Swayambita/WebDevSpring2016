@@ -160,7 +160,6 @@ module.exports = function(app,userModel) {
                             });
                 }
                 else{
-
                     res.status(400).send(err);
                 }
             }),
@@ -214,6 +213,8 @@ module.exports = function(app,userModel) {
     }
 
     function addNewUser(req,res) {
+
+         console.log("in add");
         var newUser = req.body;
         if (newUser.roles && newUser.roles.length > 1) {
             newUser.roles = newUser.roles;
