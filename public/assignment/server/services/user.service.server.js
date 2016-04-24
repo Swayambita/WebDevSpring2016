@@ -128,6 +128,7 @@ module.exports = function(app,userModel) {
 
     function updateUser(req,res) {
         var id = req.params.id;
+        console.log("the id",id);
         var updatedUserDetails = req.body;
         if (!isAdmin(req.user)) {
             delete updatedUserDetails.roles;

@@ -141,8 +141,8 @@
 
             vm.selectedField.label = vm.label;
 
-            var newUpdatedField ={ "_id":  vm.selectedField._id,"placeholder": vm.selectedField.placeholder,"type":vm.selectedField.type ,
-                "label":vm.selectedField.label ,"options":vm.selectedField.options};
+            var newUpdatedField ={ "_id":  vm.selectedField._id,"placeholder": vm.selectedField.placeholder,
+                "type":vm.selectedField.type , "label":vm.selectedField.label ,"options":vm.selectedField.options};
 
             FieldService.updateField(formId, vm.selectedField._id, newUpdatedField)
                 .then(function(response) {

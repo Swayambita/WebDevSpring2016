@@ -26,7 +26,6 @@
 
         init();
 
-
         function addUser(username,password,firstName,lastName,roles){
             if(username ==null || password ==null){
                alert("Enter all the required fields");

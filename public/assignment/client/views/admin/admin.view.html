@@ -6,16 +6,14 @@
 
         <h1>Admin</h1>
         <h3>Users</h3>
-        <div ng.show="model.message" class="alert alert-success" role="alert">
-            {{model.message}}</div>
         <table class="table table-responsive table-striped table-bordered">
             <tr>
                 <th bgcolor="gray" class="text-nowrap">
-                    <a href="" ng-click="sortType='username'; sortReverse = !sortReverse">
-                        <span ng-show = "sortType == 'username' &&  !sortReverse" class="glyphicon glyphicon-triangle-top"></span>
-                        <span ng-show = "sortType == 'username' &&   sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                    Username
-                        </a>
+                    <a href ="" ng-click="sortType ='username';model.userSort(model.sortOnUsername)">
+                        <span ng-show="sortType == 'username' && model.ascending" class="glyphicon glyphicon-triangle-top"></span>
+                        <span ng-show="sortType == 'username' && !model.ascending" class="glyphicon glyphicon-triangle-bottom"></span>
+                        Username
+                    </a>
                 </th>
 
                 <th bgcolor="gray">
@@ -23,18 +21,19 @@
                 </th>
 
                 <th bgcolor="gray" class="text-nowrap">
-                    <a href=""  ng-click="sortType='firstName'; sortReverse = !sortReverse">
-                        <span ng-show = "sortType == 'firstName' &&  !sortReverse" class="glyphicon glyphicon-triangle-top"></span>
-                        <span ng-show = "sortType == 'firstName' &&   sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                    First Name
+                    <a href="" ng-click="sortType ='firstName'; model.userSort(model.sortOnFirstName)">
+                        <span ng-show="sortType == 'firstName' &&  model.ascending" class="glyphicon glyphicon-triangle-top"></span>
+                        <span ng-show="sortType == 'firstName' && !model.ascending" class="glyphicon glyphicon-triangle-bottom"></span>
+                        First Name
                     </a>
+
                 </th>
 
                 <th bgcolor="gray" class="text-nowrap">
-                    <a href="" ng-click="sortType='lastName'; sortReverse = !sortReverse">
-                        <span ng-show = "sortType == 'lastName' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                        <span ng-show = "sortType == 'lastName' &&  sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                    Last Name
+                    <a href="" ng-click="sortType = 'lastName'; model.userSort(model.sortOnFirstName)">
+                        <span ng-show="sortType == 'lastName' &&  model.ascending" class="glyphicon glyphicon-triangle-top"></span>
+                        <span ng-show="sortType == 'lastName' && !model.ascending" class="glyphicon glyphicon-triangle-bottom"></span>
+                        Last Name
                     </a>
                 </th>
 
@@ -50,7 +49,7 @@
             <tr>
                 <td> <input type="text" placeholder="username" class="form-control"
                             ng-model="model.username"></td>
-                <td> <input type="text" placeholder="password" class="form-control"
+                <td> <input type="password" placeholder="password" class="form-control"
                             ng-model="model.password"></td>
 
                 <td> <input type="text" placeholder="First Name" class="form-control"
@@ -70,7 +69,7 @@
                     </button></td>
             </tr>
 
-            <tr ng-repeat="user in model.allUsers | orderBy:sortType:sortReverse">
+            <tr ng-repeat="user in model.allUsers">
                 <td>{{user.username}}</td>
                 <td>&nbsp;</td>
                 <td>{{user.firstName}}</td>

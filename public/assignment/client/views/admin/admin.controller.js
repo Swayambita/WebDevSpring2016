@@ -9,6 +9,10 @@
         vm.updateUser=updateUser;
         vm.deleteUser=deleteUser;
         vm.selectUser=selectUser;
+        vm.userSort = userSort;
+        vm.sortOnUsername=sortOnUsername;
+        vm.sortOnFirstName=sortOnFirstName;
+        vm.sortOnLastName=sortOnLastName;
         vm.message=null;
 
         var indexSelected;
@@ -20,7 +24,6 @@
             UserService.getAllUsers()
                 .then(function(response){
                     currentUsers=response.data;
-                    console.log("initailly all users are", currentUsers);
                     vm.allUsers=response.data;
                     vm.username=null;
                     vm.password=null;
@@ -53,19 +56,33 @@
                 });
         }
 
-        function updateUser(username,password,firstName,lastName,roles){
-            var userSelected=currentUsers[indexSelected];
-            var user={"username":username,
-                "password":password,
-                "firstName":firstName,
-                "lastName":lastName,
-                "roles":roles,
-                "emails":vm.userSelected.emails,
-                "phones":vm.userSelected.phones
+        function updateUser(username,password,firstName,lastName,roles) {
+            console.log("the update details", username, password, firstName, lastName, roles);
+            console.log("index selected", indexSelected);
+            var userSelected = currentUsers[indexSelected];
+            console.log("user selected", userSelected);
+            var user = {
+                "username": username,
+                "password": password,
+                "firstName": firstName,
+                "lastName": lastName,
+                "roles": roles,
+                "emails": userSelected.emails,
+                "phones": userSelected.phones
             };
-            UserService.updateUser(user,userSelected._id)
-                .then(init());
+            console.log("user we are sending", user);
+            console.log("the id of user we will update", userSelected._id);
+            UserService.updateUser(user, userSelected._id)
+                .then(function (res) {
+                    if (res.data != null) {
+                        init();
+                    }
+                    else {
+                        vm.message = "Username already exists";
+                    }
+                });
         }
+
 
         function deleteUser(index){
             indexSelected=index;
@@ -82,7 +99,70 @@
             vm.password=currentUsers[index].password;
             vm.firstName=currentUsers[index].firstName;
             vm.lastName=currentUsers[index].lastName;
-            vm.roles=currentUsers[index].roles;n
+            vm.roles=currentUsers[index].roles;
+        }
+
+
+        function userSort(func) {
+            vm.allUsers.sort(func);
+            vm.ascending = !vm.ascending;
+        }
+
+        function sortOnUsername(user1, user2) {
+            var val = 0;
+            if (user1.username < user2.username) {
+                val = -1;
+            }
+            else if (user1.username === user2.username) {
+                val = 0;
+            }
+            else {
+                val = 1;
+            }
+
+            if(vm.ascending) {
+                val = val * -1;
+            }
+
+            return val;
+        }
+
+        function sortOnFirstName(user1, user2) {
+            var val = 0;
+            if (user1.firstName < user2.firstName) {
+                val = -1;
+            }
+            else if (user1.firstName === user2.firstName) {
+                val = 0;
+            }
+            else {
+                val = 1;
+            }
+
+            if(vm.ascending) {
+                val = val * -1;
+            }
+
+            return val;
+        }
+
+        function sortOnLastName(user1, user2) {
+            var val = 0;
+            if (user1.lastName < user2.lastName) {
+                val = -1;
+            }
+            else if (user1.lastName === user2.lastName) {
+                val = 0;
+            }
+            else {
+                val = 1;
+            }
+
+            if(vm.ascending) {
+                val = val * -1;
+            }
+
+            return val;
         }
     }
 })();
