@@ -219,23 +219,39 @@ module.exports = function(app,userModel) {
                 });
     }
 
-    function profileUpdate(req,res){
-        var id=req.params.userId;
+    function profileUpdate(req,res) {
+        var id = req.params.userId;
         var updatedUserDetails = req.body;
+        updatedUserDetails.roles = ["student"];
 
-        userModel.profileUpdate(id,updatedUserDetails)
-            .then(function(user){
-                    userModel.getUserById(id)
-                        .then(function (response){
-                                res.json(response);
+        userModel
+            .findUserByUsername(updatedUserDetails.username)
+            .then(function (user) {
+                if (user) {
+                    if(updatedUserDetails.password.length != user.password.length) {
+                        updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
+                    }
+                    userModel.profileUpdate(id, updatedUserDetails)
+                        .then(function (user) {
+                                userModel.getUserById(id)
+                                    .then(function (response) {
+                                            res.json(response);
+                                        },
+                                        function (err) {
+                                            res.status(400).send(err);
+                                        });
                             },
-                            function(err){
+                            function (err) {
                                 res.status(400).send(err);
                             });
-                },
-                function(err){
+                }
+                else{
                     res.status(400).send(err);
-                });
+                }
+            }),
+            function(err){
+                res.status(400).send(err);
+            };
     }
 
     function getUserById(req,res){

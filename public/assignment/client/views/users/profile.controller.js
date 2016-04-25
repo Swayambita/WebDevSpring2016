@@ -23,6 +23,7 @@
         init;
 
         function update(username,password,firstName,lastName,email,phones){
+            console.log("the password from view", password);
             var newDetails= {"username" : username, "firstName": firstName,
                 "lastName":lastName , "emails" :email.split(",") ,"phones" :phones.split(",") ,"password" :password,
                 "roles":currentUser.roles};

@@ -135,12 +135,11 @@ module.exports = function(app,userModel) {
         if (typeof updatedUserDetails.roles == "string") {
             updatedUserDetails.roles = updatedUserDetails.roles.split(",");
         }
-
         userModel
             .findUserByUsername(updatedUserDetails.username)
             .then(function (user) {
                 if (user) {
-                    if (bcrypt.compareSync(updatedUserDetails.password,user.password) == false) {
+                    if(updatedUserDetails.password.length != user.password.length) {
                         updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
                     }
                     userModel.updateUser(id, updatedUserDetails)

@@ -161,10 +161,12 @@ module.exports= function(uuid,db){
         var deferred= q.defer();
         UserDetails.update (
             {"_id": id},
-            {$set: {"username":userDetails.username,"password":userDetails.password,
+            {$set: {"username":userDetails.username,
+                "password":userDetails.password,
                 "firstName":userDetails.firstName,
                 "lastName":userDetails.lastName,
-                "emails":userDetails.emails}},
+                "emails":userDetails.emails,
+                "roles":userDetails.roles}},
             function (err, stats) {
                 if(!err){
                     deferred.resolve(stats);
