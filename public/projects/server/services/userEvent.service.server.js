@@ -74,7 +74,7 @@ module.exports = function(app,userEventModel) {
         var event=req.body;
         userEventModel.goLive(eventId,event)
             .then(function(resp){
-                res.json(resp);
+                    res.json(resp);
                 },
                 function(err){
                     res.status(400).send(err);

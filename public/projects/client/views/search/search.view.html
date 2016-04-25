@@ -18,11 +18,16 @@
                                         <input ng-model="model.location" type="text" class="form-control" placeholder="Enter your city: Boston">
 
                                         <a ng-click="model.searchEvent(model.category,model.location)" class="btn btn-primary btn-block">Search</a>
+                                        <br>
+
+                                        <div class="load-image-align" ng-show="model.searchLoading"><image class="img-rounded" height="115px" width="130px" src="../client/views/assets/paper_img/search.gif"></image></div>
 
                                     </form>
                                 </div>
 
-                                <div ng-show="model.searchResult" class ="alert alert-danger alert-cust"><strong>Scroll down for your results</strong></div>
+                             <!--   <div ng-show="model.searchResult" class ="alert alert-danger alert-cust"><strong>Scroll down for your results</strong></div> -->
+
+
                             </div>
                         </div>
                     </div>
@@ -31,48 +36,6 @@
         </div>
 
         <div ng-show="model.searchResult" class="top-padding details-cust-bg" >
-          <!--  <div class="container details-cust-trans">
-
-                <div class="row" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-                    <section>
-                        <h3 styleclass="text-uppercase">{{model.eventToSearch}} Events in {{model.eventLocation}}</h3>
-                        <table class="table table-responsive table-bordered">
-                            <thead>
-                            <tr>
-                                <th bgcolor="#7A9E9F">Image</th>
-                                <th bgcolor="#7A9E9F">Event</th>
-                                <th bgcolor="#7A9E9F" id="startDate" class="text-nowrap">Begins at</th>
-                                <th bgcolor="#7A9E9F" id="endDate" class="text-nowrap">Ends at</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <div ng-show="model.dbSearch">
-                                <tr ng-repeat="event in model.dbSearch">
-                                    <td class="col-lg-2"><image height="100px" width="100px" src="../client/views/assets/paper_img/search-default.jpg"></image></td>
-                                    <td class="col-lg-3">
-                                        <a href="#/details/db/{{event._id}}">{{event.eName}}</a></td>
-                                    <td class="col-lg-3">{{event.sDate | date : hh:mm}}</td>
-                                    <td class="col-lg-3">{{event.eDate | date : hh:mm}}</td>
-                                </tr>
-
-
-                            </div>
-
-
-                            <tr ng-repeat="event in model.searchResult">
-                                <td class="col-lg-2"><image height="100px" width="100px" ng-src="{{event.logo.url}}"></image></td>
-                                <td class="col-lg-3">
-                                    <a href="#/details/api/{{event.id}}">{{event.name.text}}</a></td>
-                                <td class="col-lg-3">{{event.start.local | date : hh:mm}}</td>
-                                <td class="col-lg-3">{{event.end.local | date : hh:mm}}</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </section>
-                </div>
-            </div>  -->
             <div class="container details-cust-trans">
                 <div class="row" >
                         <h3 class="header-left-margin upper" styleclass="text-uppercase"><b>{{model.eventToSearch}} Events in {{model.eventLocation}}<b></b></h3>
@@ -109,12 +72,7 @@
                                 </div>
                         </div>
 
-
-
-
-
-
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>

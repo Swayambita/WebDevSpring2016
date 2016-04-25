@@ -31,7 +31,6 @@ module.exports = function(app,userModel) {
                         return done(null, user);
                     }
                     else{
-                        console.log("!!!!!");
                         return done(null, false);
                     }
                 },
@@ -128,7 +127,6 @@ module.exports = function(app,userModel) {
 
     function updateUser(req,res) {
         var id = req.params.id;
-        console.log("the id",id);
         var updatedUserDetails = req.body;
         if (!isAdmin(req.user)) {
             delete updatedUserDetails.roles;
@@ -213,8 +211,6 @@ module.exports = function(app,userModel) {
     }
 
     function addNewUser(req,res) {
-
-         console.log("in add");
         var newUser = req.body;
         if (newUser.roles && newUser.roles.length > 1) {
             newUser.roles = newUser.roles;

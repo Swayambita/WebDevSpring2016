@@ -7,6 +7,8 @@
     function CreateEvent(UserEventService,$location){
 
         var vm=this;
+        var entireSDate;
+        vm.maxDate=new Date().date;
         vm.message=null;
         vm.createEvent=createEvent;
         vm.cancel=cancel;
@@ -28,21 +30,23 @@
                 return;
             }
 
-
             if(event.startDate == null){
                 vm.message = "Enter a event start date and time";
                 return;
             }
 
-            var date=event.startDate.getDate()
-            var month=event.startDate.getMonth();
-            var year=event.startDate.getFullYear();
-
-            var entireSDate=new Date(year,month,date);
-            event.entireSDate=entireSDate;
+            if(event.startDate<new Date().date){
+                vm.message = "Start date is not valid";
+                return;
+            }
 
             if(event.endDate== null){
                 vm.message = "Enter a event end date and time";
+                return;
+            }
+
+            if(event.startDate>event.endDate){
+                vm.message ="Start and end dates are not valid.";
                 return;
             }
 
@@ -55,9 +59,9 @@
                 vm.message = "Enter a event genre";
                 return;
             }
+
             event.genre=event.genre.toLowerCase();
             event.location=event.location.toLowerCase();
-
             UserEventService.createNewEvent(event)
                 .then(function(response){
                     vm.message="your event is created";

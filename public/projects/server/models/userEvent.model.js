@@ -19,7 +19,6 @@ module.exports= function(uuid,db) {
 
     function findEventsFoCurrentUser(userId) {
         var deferred= q.defer();
-
         Event.find({"createdBy":userId},function(err,res){
             if(err){
                 deferred.reject(err);
@@ -98,7 +97,6 @@ module.exports= function(uuid,db) {
 
     function goLive(eventId,event){
         var deferred= q.defer();
-
         Event.update(
             {"_id":eventId},
             {$set: {"eName":event.eName,

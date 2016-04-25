@@ -39,7 +39,6 @@ module.exports= function(db){
 
     function updateUser (id, userDetails) {
         var deferred= q.defer();
-        console.log("the user details",userDetails);
         User.update (
             {"_id": id},
             {$set: {"username":userDetails.username,

@@ -7,8 +7,11 @@
         var vm=this;
         var someEvent = $routeParams.someEvent;
         var someLocation=$routeParams.someLocation;
-        var genredata;
+        var genredata=null;
+        var len=null;
+        var i=null;
         vm.searchEvent=searchEvent;
+        vm.searchLoading=false;
 
         function init(){
 
@@ -20,6 +23,7 @@
         }
 
         function searchEvent(category,city){
+            vm.searchLoading=true;
 
             if(category==null){
                 category="music";
@@ -37,8 +41,7 @@
 
             EventBriteService.getSearchResult(category,city)
                 .then(function(response){
-                    var i;
-                    var len=response.data.events.length;
+                    len=response.data.events.length;
 
                     for( i=0;i<len;i++) {
                         if(response.data.events[i].logo != null) {
@@ -56,6 +59,7 @@
 
                             })
                     vm.searchResult=response.data.events;
+                    vm.searchLoading=false;
                 })
         }
     }

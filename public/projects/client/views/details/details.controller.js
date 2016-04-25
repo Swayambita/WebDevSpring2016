@@ -8,21 +8,19 @@
         var vm=this;
         var eventID= $routeParams.eventID;
         var fetchFrom=$routeParams.fetch;
+        var currentUser=$rootScope.currentUser;
         vm.fetch=fetchFrom;
-
-        if($rootScope.currentUser){
-            var currentUser=$rootScope.currentUser;
-            vm.userId=$rootScope.currentUser._id;
-        }
-        else{
-            vm.userId=null;
-        }
-
         vm.likeEvent=likeEvent;
         vm.bookmarkEvent=bookmarkEvent;
         vm.message=null;
         vm.detailName=null;
 
+        if($rootScope.currentUser){
+            vm.userId=$rootScope.currentUser._id;
+        }
+        else{
+            vm.userId=null;
+        }
 
         function init(){
 
@@ -31,10 +29,15 @@
                     .then(function(response){
                         vm.detailName=response.data.name.text;
                         vm.desc=response.data.description.text;
-                        vm.image=response.data.logo.url;
                         vm.start=response.data.start.local;
                         vm.end=response.data.end.local;
 
+                        if(response.data.logo!=null){
+                            vm.image=response.data.logo.url;
+                        }
+                        else{
+                            vm.image="../client/views/assets/paper_img/friends5.jpg";
+                        }
                     });
             }
             else{
@@ -53,9 +56,6 @@
 
         }
         init();
-
-
-
 
         function likeEvent(){
             if(currentUser==null){

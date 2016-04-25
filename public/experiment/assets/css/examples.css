@@ -161,7 +161,7 @@
     background-image: url('../../../../../experiment/paper_img/friends-6.jpg');
     background-position: center center;
     background-size: cover;
-    height: 700px;
+    height: 520px;
     position: relative;
     /*margin-top: -110px;*/
 }
@@ -181,6 +181,12 @@
     position: relative;
 }
 
+.search-background .container {
+    margin-top: 2%;
+    position: relative;
+    z-index: 3;
+}
+
 
 .profile-background{
     background-image: url('../../../../../experiment/paper_img/Conception.jpg');
@@ -194,7 +200,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     content: "";
     display: block;
-    height: 200px;
+    height: 400px;
     left: 0;
     position: absolute;
     top: 0;
@@ -236,7 +242,7 @@
     background-image: url('../../../../../experiment/paper_img/Conception.jpg');
     background-position: center center;
     background-size: cover;
-    height: 200px;
+    height: 0px;
     position: relative;
     /*margin-top: -110px;*/
 }

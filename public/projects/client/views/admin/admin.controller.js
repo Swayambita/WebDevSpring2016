@@ -5,6 +5,9 @@
 
     function AdminController($location,UserService){
         var vm=this;
+        var user= null;
+        var index=null;
+        var userId=null;
         vm.addUser= addUser;
         vm.updateUser=updateUser;
         vm.deleteUser=deleteUser;
@@ -32,7 +35,7 @@
                alert("Enter all the required fields");
             }
             else{
-                var user={"username":username,
+                user={"username":username,
                     "password":password,
                     "firstName":firstName,
                     "lastName":lastName,
@@ -40,22 +43,20 @@
                 console.log("user to be added", user);
                 UserService.addNewUserByAdmin(user)
                     .then(function(res){
-
-
                         if(res.data == null){
                             alert("Username already exists");
                         }
-
-                        init();
+                        else{
+                            init();
+                        }
                     });
-
             }
         }
 
         function updateUser(username,password,firstName,lastName,roles){
-            var index= vm.indexSelected;
-            var userId= vm.allUsers[index]._id;
-            var user={"username":username,
+            index= vm.indexSelected;
+            userId= vm.allUsers[index]._id;
+            user={"username":username,
                 "password":password,
                 "firstName":firstName,
                 "lastName":lastName,
@@ -79,7 +80,7 @@
 
         function deleteUser(index){
             vm.indexSelected=index;
-            var userId= vm.allUsers[index]._id;
+            userId= vm.allUsers[index]._id;
             UserService.deleteUser(userId)
                 .then(init());
         }

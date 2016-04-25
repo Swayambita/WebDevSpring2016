@@ -14,7 +14,7 @@ app.use(multer());
 
 app.use(cookieParser());
 app.use(session({secret: 'swayam',
-resave:true,
+    resave:true,
     saveUninitialized:true
 }));
 app.use(passport.initialize());

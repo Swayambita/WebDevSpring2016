@@ -8,6 +8,14 @@
     function MyEvents($location,UserEventService,$rootScope){
 
         var vm=this;
+        var currentUser=$rootScope.currentUser;
+        var eventToDelete=null;
+        var eventId=null;
+        var prevEvent=null;
+        var changedEvent=null;
+        var date1=null;
+        var date2=null;
+        var eventSelected=null;
         vm.message=null;
         vm.updateEvent=updateEvent;
         vm.selectEvent=selectEvent;
@@ -16,8 +24,6 @@
         vm.cancelEdit=cancelEdit;
         vm.selectEventForEdit =false;
         vm.events=null;
-
-        var currentUser=$rootScope.currentUser;
 
         function init()
         {
@@ -44,7 +50,7 @@
 
         function deleteEvent(index){
             vm.eventIndexSelected = index;
-            var eventToDelete=vm.events[index]._id;
+            eventToDelete=vm.events[index]._id;
             UserEventService.deleteEventById(eventToDelete,currentUser._id)
                 .then(function(response){
                     vm.events=response.data;
@@ -53,9 +59,7 @@
                 })
         }
 
-
         function selectEvent(index) {
-
             vm.selectEventForEdit=true;
             vm.eventIndexSelected = index;
             vm.eName = vm.events[index].eName;
@@ -68,7 +72,6 @@
             vm.newGenre=vm.events[index].genre;
         }
         function updateEvent(eName,eDesc,newSDate,newSTime,newEDate,newETime,newLocation,newGenre) {
-
             newGenre=newGenre.toLowerCase();
             newLocation=newLocation.toLowerCase();
 
@@ -76,10 +79,10 @@
                 vm.alertMessage = "Enter the required fields";
             }
             else {
-                var eventId = vm.events[vm.eventIndexSelected]._id;
-                var prevEvent = vm.events[vm.eventIndexSelected];
+                 eventId = vm.events[vm.eventIndexSelected]._id;
+                 prevEvent = vm.events[vm.eventIndexSelected];
 
-                var changedEvent = {"eName": eName,
+                 changedEvent = {"eName": eName,
                     "sDate": newSDate, "eDate": newEDate, "createdBy": prevEvent.createdBy,
                     "desc": eDesc, "image": prevEvent.image,
                     "sTime":newSTime,"eTime":newETime,"location":newLocation,"genre":newGenre};
@@ -95,12 +98,10 @@
                         if(response.data) {
                             vm.events=response.data;
                             for(var e in vm.events){
-                                var date1=vm.events[e].sDate.substring(0,10);
-                                console.log("date1",date1);
+                                date1=vm.events[e].sDate.substring(0,10);
                                 vm.events[e].sDate=date1;
 
-                                var date2=vm.events[e].eDate.substring(0,10);
-                                console.log("date2",date2);
+                                date2=vm.events[e].eDate.substring(0,10);
                                 vm.events[e].eDate=date2;
                             }
                             vm.eventIndexSelected=null;
@@ -121,7 +122,7 @@
 
         function goLive(index){
             vm.eventIndexSelected = index;
-            var eventSelected = vm.events[index];
+            eventSelected = vm.events[index];
             UserEventService.goLive(eventSelected._id,eventSelected)
                 .then(function(response){
                         vm.message="Your event is live now";

@@ -8,11 +8,9 @@ module.exports = function(app,userModel) {
     app.post('/api/project/login', passport.authenticate('local'), login);
     app.post('/api/project/logout',logout);
     app.get('/api/project/loggedin',loggedin);
-
     app.get("/api/project/user/:username/:password", findUserByCredentials);
     app.post("/api/project/register", register);
     app.put("/api/project/updateUser/:id",auth,updateUser);
-
     app.put("/api/project/profileUpdate/:userId",profileUpdate);
     app.delete("/api/project/deleteUser/:userId",auth,deleteUser);
     app.get("/api/project/getAllUsers/",auth,getAllUsers);
@@ -78,7 +76,6 @@ module.exports = function(app,userModel) {
         res.send(200);
     }
 
-
     function isAdmin(user) {
         if(user.roles.indexOf("admin") >= 0) {
             return true
@@ -106,7 +103,7 @@ module.exports = function(app,userModel) {
                         res.json(null);
                     } else {
                         newUser.password = bcrypt.hashSync(newUser.password);
-                        return userModel.createNewUser(newUser);
+                        return userModel.register(newUser);
                     }
                 },
                 function(err){
@@ -184,14 +181,23 @@ module.exports = function(app,userModel) {
                         res.json(null);
                     } else {
                         newUser.password = bcrypt.hashSync(newUser.password);
-                        userModel.createNewUser(newUser)
-                            .then(function(res){
-                            res.json(res);
-                        });
+                        return userModel.createNewUser(newUser)
+
                     }
                 },
                 function(err){
                     console.log("error 2");
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        res.json(user);
+                    }else{
+                        res.json(null);
+                    }},
+                function (err) {
                     res.status(400).send(err);
                 }
             );
@@ -213,7 +219,6 @@ module.exports = function(app,userModel) {
                 });
     }
 
-    // add check for username update
     function profileUpdate(req,res){
         var id=req.params.userId;
         var updatedUserDetails = req.body;
@@ -260,28 +265,28 @@ module.exports = function(app,userModel) {
         userModel
             .findUserByUsername(updatedUserDetails.username)
             .then(function(user){
-                if(user){
-                    updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
-                    userModel.updateUser(id,updatedUserDetails)
-                        .then(function(user){
-                                userModel.getUserById(id)
-                                    .then(function (response){
-                                            res.json(response);
-                                        },
-                                        function(err){
-                                            res.status(400).send(err);
-                                        });
-                            },
-                            function(err){
-                                res.status(400).send(err);
-                            });
-                }
-                else{
+                    if(user){
+                        updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
+                        userModel.updateUser(id,updatedUserDetails)
+                            .then(function(user){
+                                    userModel.getUserById(id)
+                                        .then(function (response){
+                                                res.json(response);
+                                            },
+                                            function(err){
+                                                res.status(400).send(err);
+                                            });
+                                },
+                                function(err){
+                                    res.status(400).send(err);
+                                });
+                    }
+                    else{
+                        res.status(400).send(err);
+                    }
+                },
+                function(err){
                     res.status(400).send(err);
-                }
-            },
-            function(err){
-                res.status(400).send(err);
-            });
+                });
     }
 }

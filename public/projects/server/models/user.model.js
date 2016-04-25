@@ -57,7 +57,6 @@ module.exports= function(uuid,db){
         var deferred= q.defer();
         var userName=userDetails.username;
         var email=userDetails.email;
-
         UserDetails.create(userDetails,function(err,doc){
             if(err){
                 deferred.reject(err);
@@ -145,7 +144,6 @@ module.exports= function(uuid,db){
         return deferred.promise;
     }
 
-
     function getUserById(id){
         var deferred= q.defer();
         UserDetails.findOne({"_id":id},function(err,doc){
@@ -177,38 +175,6 @@ module.exports= function(uuid,db){
             } );
         return deferred.promise;
     }
-
-  /*  function createNewUser(userDetails){
-        var deferred= q.defer();
-        var userName=userDetails.username;
-        var email=userDetails.email;
-        UserDetails.create(userDetails,function(err,doc){
-            if(err){
-                deferred.reject(err);
-            }
-            else{
-                UserDetails.update({"username":userName},{$push:{"emails":email}},
-                    function(err,res){
-                        if(err){
-                            deferred.reject(err);
-                        }
-                        else{
-                            UserDetails.findOne({"username":userName},function(err,resp){
-                                if(err){
-                                    deferred.reject(err);
-                                }
-                                else{
-                                    deferred.resolve(resp);
-                                }
-                            })
-                        }
-                    });
-            }
-        });
-
-        return deferred.promise;
-    }*/
-
 
     function createNewUser(userDetails){
         var deferred= q.defer();

@@ -25,7 +25,7 @@
 }
 
 .top-padding{
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 
@@ -144,4 +144,42 @@ text-align: center;
 
 .pull{
     float: right;
+}
+
+.load-image-align{
+ text-align: center;
+}
+
+.cust-home{
+    float:left;
+    overflow-y: hidden;
+}
+
+.left-space{
+    padding-left: 200px;
+}
+
+.check-dimension1 {
+    display: none;
+}
+
+@media (min-width: 768px)
+{
+    .check-dimension1 {
+        display: block;
+    }
+}
+
+.check-dimension2 {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .check-dimension2 {
+        display: block;
+    }
+}
+
+.bottom-pad{
+    padding-bottom: 20px !important;
 }

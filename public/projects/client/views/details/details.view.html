@@ -2,8 +2,10 @@
 <body ng-controller="DetailsController">
 <div class="section section-gray text-center landing-section" style="padding-top: 50px">
 <div ng-show="model.message" class="alert alert-success">{{model.message}}</div>
-    <image ng-show="model.fetch == 'api'" height="300px" width=100% ng-src="{{model.image}}"></image>
-    <image ng-show="model.fetch == 'db'" height="300px" width=100% ng-src="../client/views/assets/paper_img/search-default.jpg"></image>
+    <image ng-show="model.fetch == 'api'" height="300px" width=80% ng-src="{{model.image}}" class="img-rounded"
+           style="border:5px solid white"></image>
+    <image ng-show="model.fetch == 'db'" height="300px" width=80% ng-src="../client/views/assets/paper_img/search-default.jpg"
+           class="img-rounded" style="border:5px solid white"></image>
 
     <div class="section-homepage details-padding">
       <h4 style="color:black">{{model.detailName }}</h4>

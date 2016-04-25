@@ -7,17 +7,19 @@
 
         var currentUser= $rootScope.currentUser;
         var vm=this;
+        var profileUser=$routeParams.userId;
+        var loggedInUserName=currentUser.username;
+        var userName=null;
+        var newDetails=null;
+
         vm.beginEdit=beginEdit;
         vm.save=save;
         vm.cancelEdit=cancelEdit;
         vm.message= null;
         vm.loggedInUser=currentUser._id;
-        var profileUser=$routeParams.userId;
         vm.viewProfileOfUser=$routeParams.userId;
         vm.userdetailsedit =false;
         vm.followUser=followUser;
-        var loggedInUserName=currentUser.username;
-        var userName=null;
         vm.unFollowUser=unFollowUser;
 
 
@@ -65,7 +67,7 @@
 
         function beginEdit(){
             vm.userdetailsedit=true;
-            var currentUser=$rootScope.currentUser;
+            currentUser=$rootScope.currentUser;
             vm.displayName = currentUser.firstName;
             vm.firstNameNew = currentUser.firstName;
             vm.lastNameNew = currentUser.lastName;
@@ -81,8 +83,9 @@
                 alert("Enter all required details");
             }
 
-            else {
-                var newDetails = {
+            if(username == currentUser.username)
+            {
+                newDetails = {
                     "username": username, "firstName": firstName,
                     "lastName": lastName, "emails": email.split(","), "password": password
                 };
@@ -91,13 +94,16 @@
                     .then(
                         function(response){
                             $rootScope.currentUser=response.data;
-                            vm.message="Profile Update";
                             init();
                             vm.userdetailsedit = false;
                         },
                         function(err){
                             vm.message="Couldn't update the profile";
                         });
+            }
+
+            else{
+                alert("Not allowed to update username");
             }
         }
 

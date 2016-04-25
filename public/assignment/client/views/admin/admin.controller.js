@@ -39,28 +39,28 @@
         init();
 
         function addUser(username,password,firstName,lastName,roles){
-            if(username!=null && firstName!=null && lastName!=null && roles!=null)
-            var user={"username":username,
-                "password":password,
-                "firstName":firstName,
-                "lastName":lastName,
-                 "roles":roles};
-            UserService.addNewUserByAdmin(user)
-                .then(function(response){
-                    if(response.data!=null){
-                        init();
-                    }
-                    else{
-                        vm.message="Username already exists";
-                    }
-                });
+            if(username!=null && firstName!=null && lastName!=null && roles!=null){
+                var user={"username":username,
+                    "password":password,
+                    "firstName":firstName,
+                    "lastName":lastName,
+                    "roles":roles};
+                UserService.addNewUserByAdmin(user)
+                    .then(function(response){
+                        if(response.data!=null){
+                            init();
+                        }
+                        else{
+                            vm.message="Username already exists";
+                        }});
+            }
+            else{
+                alert("Enter all the required details");
+            }
         }
 
         function updateUser(username,password,firstName,lastName,roles) {
-            console.log("the update details", username, password, firstName, lastName, roles);
-            console.log("index selected", indexSelected);
             var userSelected = currentUsers[indexSelected];
-            console.log("user selected", userSelected);
             var user = {
                 "username": username,
                 "password": password,
@@ -70,8 +70,6 @@
                 "emails": userSelected.emails,
                 "phones": userSelected.phones
             };
-            console.log("user we are sending", user);
-            console.log("the id of user we will update", userSelected._id);
             UserService.updateUser(user, userSelected._id)
                 .then(function (res) {
                     if (res.data != null) {
@@ -83,14 +81,12 @@
                 });
         }
 
-
         function deleteUser(index){
             indexSelected=index;
             var userId= currentUsers[indexSelected]._id;
             UserService.deleteUser(userId)
                 .then(init());
                     //vm.allUsers=response.data;
-
         }
 
         function selectUser(index){
@@ -101,7 +97,6 @@
             vm.lastName=currentUsers[index].lastName;
             vm.roles=currentUsers[index].roles;
         }
-
 
         function userSort(func) {
             vm.allUsers.sort(func);
